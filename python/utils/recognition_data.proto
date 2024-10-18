@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+message RecognitionData {
+    repeated MaskContour mask_contours = 1;
+    repeated Box boxes = 2; // optional
+    repeated float scores = 3;
+    repeated string class_names = 4;
+    repeated GeometryCenter geometry_centers = 5;
+    repeated Mask masks = 6; // optional
+    repeated MaskColor colors = 7; // optional
+    repeated string augmentations = 8;
+    // Vec3 camera_position = 9;
+    // Vec3 camera_rotation = 10;
+    // bool pose_valid = 11;
+    uint64 timestamp = 12;
+    LabelProperty label_property = 13;
+    repeated int32 contour_thicknesses = 14;
+    repeated MaskColor label_colors = 15;
+}
+
+message MaskContour {
+    repeated ContourPoint inner_contours = 1;
+}
+
+message ContourPoint {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message Box {
+    int32 x1 = 1;
+    int32 y1 = 2;
+    int32 x2 = 3;
+    int32 y2 = 4;
+}
+
+message GeometryCenter {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message Mask {
+    repeated InnerMask inner_masks = 1;
+}
+
+// masks are 0/1
+message InnerMask {
+    repeated bool mask = 1;
+}
+
+// each color is a 4-tuple (r, g, b, a)
+message MaskColor {
+    int32 r = 1;
+    int32 g = 2;
+    int32 b = 3;
+    int32 a = 4;
+}
+
+message LabelProperty {
+    // MaskColor text_color = 1;
+    int32 text_size = 2;
+    float label_size = 3;
+}
+
+message Vec3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message Quat {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float w = 4;
+}

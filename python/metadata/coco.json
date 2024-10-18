@@ -1,0 +1,232 @@
+{
+    "person": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "person"
+    },
+    "bicycle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bicycle"
+    },
+    "car": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "car"
+    },
+    "motorcycle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "motorcycle"
+    },
+    "bus": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "bus"
+    },
+    "train": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "train"
+    },
+    "truck": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "truck"
+    },
+    "boat": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "boat"
+    },
+    "traffic light": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "traffic light"
+    },
+    "fire hydrant": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "fire hydrant"
+    },
+    "stop sign": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "stop sign"
+    },
+    "bench": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "bench"
+    },
+    "backpack": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "backpack"
+    },
+    "umbrella": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "umbrella"
+    },
+    "handbag": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "handbag"
+    },
+    "suitcase": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "suitcase"
+    },
+    "skateboard": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "skateboard"
+    },
+    "bottle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bottle"
+    },
+    "wine glass": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "glass"
+    },
+    "cup": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "cup"
+    },
+    "fork": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "fork"
+    },
+    "knife": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "knife"
+    },
+    "spoon": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spoon"
+    },
+    "bowl": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "bowl"
+    },
+    "chair": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "chair"
+    },
+    "couch": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "couch"
+    },
+    "potted plant": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "potted plant"
+    },
+    "bed": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "bed"
+    },
+    "dining table": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "dining table"
+    },
+    "tv": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "tv"
+    },
+    "laptop": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "laptop"
+    },
+    "mouse": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "mouse"
+    },
+    "remote": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "remote"
+    },
+    "keyboard": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "keyboard"
+    },
+    "cell phone": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "cell phone"
+    },
+    "microwave": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "microwave"
+    },
+    "oven": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "oven"
+    },
+    "toaster": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "toaster"
+    },
+    "sink": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "sink"
+    },
+    "refrigerator": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "refrigerator"
+    },
+    "clock": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "clock"
+    },
+    "vase": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "vase"
+    },
+    "scissors": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "scissors"
+    },
+    "spatula": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spatula"
+    },
+    "carafe": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "carafe"
+    },
+    "ladle": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "ladle"
+    }
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// Frame data contains three fields:
+// - frame_time: the time the frame was captured
+// - IMU_data: the IMU data at the time of the frame
+// - image_data: the image data of the frame
+message FrameData {
+    ImageData image_data = 1;
+    int64 frame_time = 2;
+}
+
+// Image data contains three fields:
+// - image: the image data
+// - width: the width of the image
+// - height: the height of the image
+message ImageData {
+    bytes image = 1;
+    uint32 width = 2;
+    uint32 height = 3;
+}

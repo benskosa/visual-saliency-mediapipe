@@ -1,0 +1,57 @@
+{
+    "bottle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bottle"
+    },
+    "wine glass": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "glass"
+    },
+    "cup": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "cup"
+    },
+    "fork": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "fork"
+    },
+    "knife": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "knife"
+    },
+    "spoon": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spoon"
+    },
+    "bowl": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "bowl"
+    },
+    "spatula": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spatula"
+    },
+    "carafe": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "carafe"
+    },
+    "ladle": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "ladle"
+    },
+    "scissors": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "scissors"
+    }
+}

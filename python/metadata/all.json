@@ -1,0 +1,192 @@
+{
+    "bottle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bottle"
+    },
+    "wine glass": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "glass"
+    },
+    "cup": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "cup"
+    },
+    "fork": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "fork"
+    },
+    "knife": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "knife"
+    },
+    "spoon": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spoon"
+    },
+    "bowl": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "bowl"
+    },
+    "spatula": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "spatula"
+    },
+    "carafe": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "carafe"
+    },
+    "ladle": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "ladle"
+    },
+    "scissors": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "scissors"
+    },
+    "construction--barrier--curb": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "curb"
+    },
+    "construction--barrier--fence": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "fence"
+    },
+    "construction--flat--crosswalk-plain": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "crosswalk"
+    },
+    "construction--flat--curb-cut": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "curb cut"
+    },
+    "human--person--individual": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "person"
+    },
+    "human--rider--bicyclist": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bicyclist"
+    },
+    "human--rider--motorcyclist": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "motorcyclist"
+    },
+    "nature--vegetation": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "tree"
+    },
+    "object--bench": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "bench"
+    },
+    "object--catch-basin": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "catch basin"
+    },
+    "object--fire-hydrant": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "fire hydrant"
+    },
+    "object--junction-box": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "box"
+    },
+    "object--mailbox": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "mailbox"
+    },
+    "object--support--pole": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "pole"
+    },
+    "object--support--utility-pole": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "pole"
+    },
+    "object--traffic-cone": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "cone"
+    },
+    "object--traffic-light--pedestrians": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "traffic light"
+    },
+    "object--traffic-light--general-upright": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "traffic light"
+    },
+    "object--traffic-sign--front": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "sign"
+    },
+    "object--trash-can": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "trash can"
+    },
+    "object--vehicle--bicycle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bicycle"
+    },
+    "object--vehicle--bus": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "bus"
+    },
+    "object--vehicle--car": {
+        "stationary": false,
+        "priority": "low",
+        "display_name": "car"
+    },
+    "object--vehicle--motorcycle": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "motorcycle"
+    },
+    "object--vehicle--truck": {
+        "stationary": false,
+        "priority": "high",
+        "display_name": "truck"
+    },
+    "construction--flat--rail-track": {
+        "stationary": true,
+        "priority": "high",
+        "display_name": "railway"
+    },
+    "construction--flat--sidewalk": {
+        "stationary": true,
+        "priority": "low",
+        "display_name": "sidewalk"
+    }
+}
