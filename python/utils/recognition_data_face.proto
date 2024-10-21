@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+// TODO: Maybe add blendshapes later
+message RecognitionData {
+    repeated NormalizedLandmarkListCollection faces = 1;
+    repeated string augmentations = 2; // Here for if we have multiple face grid augmentations
+    // Vec3 camera_position = 3;
+    // Vec3 camera_rotation = 4;
+    uint64 timestamp = 5;
+    repeated int32 contour_thicknesses = 6;
+    repeated FaceMeshColors faceMesh_colors = 7;
+}
+
+message Face {
+    repeated NormalizedFaceLandmark face_landmarks = 1;
+}
+
+// A normalized version of above Landmark proto. All coordinates should be
+// within [0, 1].
+message NormalizedLandmark {
+  optional float x = 1;
+  optional float y = 2;
+  optional float z = 3;
+  optional float visibility = 4;
+  optional float presence = 5;
+}
+
+// Group of NormalizedLandmark protos.
+message NormalizedLandmarkList {
+  repeated NormalizedLandmark landmark = 1;
+}
+
+// Group of NormalizedLandmarkList protos.
+message NormalizedLandmarkListCollection {
+  repeated NormalizedLandmarkList landmark_list = 1;
+}
+
+// Could also add seperate color for lips?
+message FaceMeshColors {
+    repeated EdgeColor faceMesh_tesselation_colors  = 1;
+    repeated EdgeColor faceMesh_contour_colors = 2;
+    repeated EdgeColor faceMesh_rightBrow_colors = 3;
+    repeated EdgeColor faceMesh_leftBrow_colors = 4;
+    repeated EdgeColor faceMesh_rightEye_colors = 3;
+    repeated EdgeColor faceMesh_leftEye_colors = 4;
+    repeated EdgeColor faceMesh_rightIris_colors = 5;
+    repeated EdgeColor faceMesh_leftIris_colors = 6;
+}
+
+// each color is a 4-tuple (r, g, b, a)
+message EdgeColor {
+    int32 r = 1;
+    int32 g = 2;
+    int32 b = 3;
+    int32 a = 4;
+}

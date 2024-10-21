@@ -166,11 +166,12 @@ def process_image(image:np.ndarray,
     return masks, mask_contours, boxes, labels, scores, geometry_center
 
 
-def get_recognition(image: np.ndarray,
-                    filter_objects: List[str] = [],
-                    exclude_objects: List[str] = [],
-                    score_threshold: float = 0.3,
-                    top_k: int = 15,) -> Dict[str, Any]:
+def get_recognition(image: np.ndarray) -> List[Any]:
+    """
+        Runs our frame/image through Mediapipe's Face Landmark Model and returns
+        a list that contains nested lists of NormalizedLandmarks for each face
+        recognized.
+    """
     global CLASSES, COLORS
 
     global model
@@ -183,23 +184,9 @@ def get_recognition(image: np.ndarray,
     total_used_time += used_time
     count += 1
 
-    # masks, mask_contours, boxes, labels, scores, geometry_center = process_image(
-    #     image,
-    #     score_threshold,
-    #     top_k,
-    # )
-
-    # mask_contours = [contour.tolist() for contour in mask_contours]
-    # boxes = boxes.tolist()
-    # scores = scores.tolist()
-    # labels = labels.tolist()
-
-    # convert labels to class names
-    # class_names = [CLASSES[label] for label in labels]
-
     result = {
-        "landmarks": result.faceLandmarks,
-        "faceBlendshapes": result.faceBlendshapes,
+        "face_landmarks": result.face_landmarks,
+        # "face_blendshapes": result.face_blendshapes,
         # "masks": masks,
         # "mask_contours": mask_contours,
         # "boxes": boxes,
@@ -245,7 +232,7 @@ def draw_recognition(image: np.ndarray, result_from_models: List[Tuple[str, Any]
     return annotated_image
 
 
-""""""""""""""""HELPER FUNCTIONS FOR DRAWING DIFFERENT AUGMENTATIONS""""""""""""""""
+""""""""""""""""HELPER FUNCTIONS FOR DRAWING DIFFERENT AUGMENTATIONS"""""""""""""""
 
 def draw_face_landmarks(rgb_image, detection_result):
   face_landmarks_list = detection_result.face_landmarks

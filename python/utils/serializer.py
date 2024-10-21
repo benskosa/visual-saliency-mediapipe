@@ -120,9 +120,127 @@ def serialize(
             label_property.text_size = result['text_size']
 
         rdata.label_property.CopyFrom(label_property)
-        
 
     return rdata.SerializeToString()
+
+
+def serialize_face(
+        result: Dict[str, Any],
+        colors: Union[Tuple, Dict[str, Tuple], None] = None,
+        augmentations: Union[Dict[str, str], str, None] = None,
+        thicknesses: Union[Dict[str, int], float, None] = None,
+        timestamp: int = 0, # timestamp is uint64, use 0 for invalid,
+        name_mapping: Dict[str, str] = None,
+        ) -> str:
+    """
+    Serialize the recognition result FOR face_landmarks to a protobuf message
+    Args:
+        result: The recognition result to be serialized
+    Returns:
+        The serialized recognition result
+    """
+    rdata = RecognitionData()
+
+    # the fields are all optional, so we need to check if the field exists before serializing it
+    _serilizer = {
+        'masks': _serialize_mask,
+        'mask_contours': _serialize_mask_contour,
+        'boxes': _serialize_box,
+        'geometry_center': _serialize_geometry_center,
+        'scores': _serialize_scores,
+        'class_names': _serialize_class_names,
+        # 'position': _serialize_position,
+        # 'rotation': _serialize_rotation,
+        # colors and augmentations are special cases
+    }
+
+    for key, value in result.items():
+        if key in _serilizer:
+            _serilizer[key](value, rdata, name_mapping=name_mapping)
+
+    # if both position and rotation are provided, set the pose_valid flag to True
+    # if 'position' in result and 'rotation' in result:
+    #     rdata.pose_valid = True
+    # else:
+    #     rdata.pose_valid = False
+
+    # set the timestamp
+    rdata.timestamp = timestamp
+
+    # if colors is provided, serialize it
+    # if it's a tuple, then it's a single color for all masks
+    # if it's a dict, then it's a color for each class
+    if colors is not None:
+        if isinstance(colors, tuple):
+            # pad it to a list
+            colors = [colors for _ in range(len(result['class_names']))]
+        else:
+            # based on the class name, get the color
+            class_names = result['class_names']
+            colors = [colors[class_name] for class_name in class_names]
+        _serialize_colors(colors, rdata, field='color')
+
+    # if label colors is provided, serialize it
+    # if it's a tuple, then it's a single color for all labels
+    # if it's a dict, then it's a color for each class
+    if label_colors is not None:
+        if isinstance(label_colors, tuple):
+            # pad it to a list
+            label_colors = [label_colors for _ in range(len(result['class_names']))]
+        else:
+            # based on the class name, get the color
+            class_names = result['class_names']
+            label_colors = [label_colors[class_name] for class_name in class_names]
+        _serialize_colors(label_colors, rdata, field='label_color')
+
+    # if augmentations is provided, serialize it
+    # if it's a string, then it's a single augmentation for all objects
+    # if it's a dict, then it's an augmentation for each class
+    if augmentations is not None:
+        if isinstance(augmentations, str):
+            # pad it to a list
+            augmentations = [augmentations for _ in range(len(result['class_names']))]
+        else:
+            # based on the class name, get the augmentation
+            class_names = result['class_names']
+            augmentations = [augmentations[class_name] for class_name in class_names]
+        _serialize_augmentations(augmentations, rdata)
+
+    # if thicknesses is provided, serialize it
+    # if it's a float, then it's a single thickness for all objects
+    # if it's a dict, then it's a thickness for each class
+    if thicknesses is not None:
+        if not isinstance(thicknesses, dict):
+            # pad it to a list
+            thicknesses = [thicknesses for _ in range(len(result['class_names']))]
+        else:
+            # based on the class name, get the thickness
+            class_names = result['class_names']
+            thicknesses = [thicknesses[class_name] for class_name in class_names]
+        _serialize_thicknesses(thicknesses, rdata)
+
+    # if text color, label size, or text size are provided
+    if 'text_color' in result or 'label_size' in result or 'text_size' in result:
+        label_property = LabelProperty()
+
+        if 'text_color' in result:
+            label_property.text_color.r = result['text_color'][0]
+            label_property.text_color.g = result['text_color'][1]
+            label_property.text_color.b = result['text_color'][2]
+            # if alpha is provided, set it
+            if len(result['text_color']) == 4:
+                label_property.text_color.a = result['text_color'][3]
+
+        if 'label_size' in result:
+            label_property.label_size = result['label_size']
+
+        if 'text_size' in result:
+            label_property.text_size = result['text_size']
+
+        rdata.label_property.CopyFrom(label_property)
+
+    return rdata.SerializeToString()
+
 
 def _serialize_mask(masks: List[List[List[int]]], rdata: RecognitionData, **kwargs) -> None:
     """

@@ -13,6 +13,10 @@ public enum RenderMode
     FlashOutline,
 };
 
+/// <summary>
+///  Class representing a recognized YOLO (or REMDet) object and its augmentation
+/// </summary>
+
 public class YoloObjectCanvas : RecognitionVisualization
 {
     RectTransform rectTransform;

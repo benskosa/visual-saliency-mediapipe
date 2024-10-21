@@ -33,7 +33,7 @@ public class RealtimeMarker : DataProcessor
     [SerializeField] List<AugmentationTag> augmentationTags = new List<AugmentationTag>();
     Dictionary<string, RecognitionVisualization> augmentationTagDict = new Dictionary<string, RecognitionVisualization>();
     ulong lastTimestamp = 0;
-    
+
     void Start()
     {
         // get the mesh observer profile
@@ -48,7 +48,7 @@ public class RealtimeMarker : DataProcessor
                 DebugServer.SendDebugMessage("observer: " + observer.Name);
             }
         }
-        
+
         mainCamera = Camera.main;
 
         // convert the list to a dictionary
@@ -83,11 +83,30 @@ public class RealtimeMarker : DataProcessor
         });
     }
 
+    // TODO FOR BEN on SUNDAY: Start here and figure out if I need to make a new class
+    //  that is of type RecognitionVisualization for the face landmarks
+
+    /// <summary>
+    /// Iterates through each object detected in the data we recieved and processes
+    /// each:
+    ///     1. if we want to get z value for the object (i.e. !render2d), then shoot a ray
+    ///     from the HoloLens to the mesh that's already been laid by the depth sensor
+    ///     and have the z value be where the ray and meshes collide
+    ///     2. Either update the z-value of the GameObject for the recognized object
+    ///     (of type RecognitionVisualization) or create a new GameObject for the recognized
+    ///     object. After it is created, it should draw itself.
+    /// </summary>
+    /// <param name="data">The data we recieved from the recognition model.</param>
+    /// <param name="width">width of the current frame.</param>
+    /// <param name="height">height of the current frame.</param>
     void ParseRecognition(
         RecognitionData data,
         uint width,
         uint height
     ){
+        // Could "cheat" and use prior knowledge about "at 1 meter away, the average human face
+        // is x wide, y tall...and since the face points are n wide and m tall, then we know that
+        // the face is approx i meters away."
         InitTags();
 
         int numObjects = data.ClassNames.Count;
@@ -166,7 +185,7 @@ public class RealtimeMarker : DataProcessor
             }
             else
             {
-                if (render2D)
+                if (render2D)  // If we don't want to use depth/raycast, then just use hardcoded depth (base z value)
                 {
                     objectPosition = worldSpaceOrigin + worldSpaceDir * render2DDistance;
                     hitDistance = render2DDistance;
@@ -338,6 +357,7 @@ public class RealtimeMarker : DataProcessor
     }
 }
 
+// TODO for Ben: Figure out if I can use this for face landmark visualization
 class RealtimeYoloObject
 {
     public string className;

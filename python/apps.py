@@ -84,6 +84,40 @@ g_values = {
     'primary_contour_thickness': 3,
     'secondary_contour_thickness': 3,
 }
+g_values = {
+    'faceMesh_tesselation_color': 'gray',
+    'faceMesh_contour_color': 'white',
+    'faceMesh_rightEye_color': 'green',
+    'faceMesh_leftEye_color': 'red',
+    'faceMesh_rightBrow_color': 'green',
+    'faceMesh_leftEye_color': 'red',
+    'faceMesh_rightIris_color': 'green',
+    'faceMesh_leftIris_color': 'red',
+    'faceMesh_tesselation_alpha': 80,
+    'faceMesh_contour_alpha': 80,
+    'faceMesh_rightEye_alpha': 80,
+    'faceMesh_leftEye_alpha': 80,
+    'faceMesh_rightBrow_alpha': 80,
+    'faceMesh_leftEye_alpha': 80,
+    'faceMesh_rightIris_alpha': 80,
+    'faceMesh_leftIris_alpha': 80,
+    'faceMesh_tesselation_design': 'outline',
+    'faceMesh_contour_design': 'outline',
+    'faceMesh_rightEye_design': 'outline',
+    'faceMesh_leftEye_design': 'outline',
+    'faceMesh_rightBrow_design': 'outline',
+    'faceMesh_leftEye_design': 'outline',
+    'faceMesh_rightIris_design': 'outline',
+    'faceMesh_leftIris_design': 'outline',
+    'faceMesh_tesselation_thickness': 3,
+    'faceMesh_contour_thickness': 3,
+    'faceMesh_rightEye_thickness': 3,
+    'faceMesh_leftEye_thickness': 3,
+    'faceMesh_rightBrow_thickness': 3,
+    'faceMesh_leftEye_thickness': 3,
+    'faceMesh_rightIris_thickness': 3,
+    'faceMesh_leftIris_thickness': 3,
+}
 # RGB color mapping
 g_color_mapping = {
     'yellow': (255, 255, 0),
@@ -91,10 +125,12 @@ g_color_mapping = {
     'blue': (0, 0, 255),
     'green': (0, 255, 0),
     'black': (0, 0, 0),
-    'white': (255, 255, 255),
+    'white': (224, 224, 224),
     'cyan': (0, 255, 255),
     'magenta': (255, 0, 255),
     'orange': (255, 165, 0),
+    'gray': (128, 128, 128),
+    'peach': (180, 229, 255),
 }
 g_color_options = list(g_color_mapping.keys())
 g_alpha_options = [5] + list(range(10, 101, 10)) # 10 - 100, step 10
@@ -729,21 +765,16 @@ async def run_recognition(app: VideoProcessApp) -> None:
 
             if g_pause:
                 result = {
-                    "masks": [],
-                    "mask_contours": [],
-                    "boxes": [],
-                    "geometry_center": [],
-                    "scores": [],
-                    "class_names": [],
-                    "labels": [],
+                    "face_landmarks": [],  # list of nested lists of NormalizedLandmarks (2d array)
+                    # "face_blendshapes": [],
                 }
-            else: 
+            else:
                 start_time = time.time()
 
                 # result = get_recognition(frame, score_threshold = 0.45, top_k = 40,
                 #                         filter_objects=included_classes,)
-                result = await app.model_process.get_result(image=frame, score_threshold = 0.45, top_k = 40,
-                                        exclude_objects=exclude_classes)
+                # Should return a dict with different results in it (e.g. {face_landmarks: [List[List[NormalizedLandmarks]]]})
+                result = await app.model_process.get_result(image=frame)
                 end_time = time.time()
 
             global total_time_rec, count_rec, last_print_time_rec
@@ -792,16 +823,10 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
             # get the frame and result
             (frame, result, pose, timestamp) = app.latest_result
 
-            # no labels as they are intermediate data
-            # no masks as they are too large to send
             needed_fields = [
-                "mask_contours",
-                "boxes",
-                "geometry_center",
-                "scores",
-                "class_names",
+                "face_landmarks",
+                # "face_blendshapes"
             ]
-            # needed_fields = []
             result_tosend = {field: result[field] for field in needed_fields}
 
             # add camera position
@@ -814,7 +839,7 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
             # sresult: bytes
             global g_values
             with color_lock:
-                color_to_send = (*g_color_mapping[g_values['primary_color']], g_values['primary_alpha'])
+                color_to_send = (*g_color_mapping[g_values['']], g_values['primary_alpha'])
 
             with design_lock:
                 design_to_send = g_values['primary_design']
@@ -863,7 +888,7 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
                 count_send = 0
                 total_time_send = 0
                 last_print_time_send = time.time()
-        
+
         except Exception as e:
             print(traceback.format_exc())
 
@@ -898,7 +923,7 @@ async def show_recognition(app: VideoProcessApp) -> None:
                                     draw_mask = False, draw_box = False,
                                     draw_text = True, draw_score = False,
                                     draw_center = True, lv_color=(0, 255, 255), contour_thickness=8)
-        
+
         cv2.imshow("Recognition", image)
         cv2.waitKey(1)
 
