@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1brecognition_data_face.proto\"\xb4\x01\n\x0fRecognitionData\x12\x30\n\x05\x66\x61\x63\x65s\x18\x01 \x03(\x0b\x32!.NormalizedLandmarkListCollection\x12\x15\n\raugmentations\x18\x02 \x03(\t\x12\x11\n\ttimestamp\x18\x05 \x01(\x04\x12\x1b\n\x13\x63ontour_thicknesses\x18\x06 \x03(\x05\x12(\n\x0f\x66\x61\x63\x65Mesh_colors\x18\x07 \x03(\x0b\x32\x0f.FaceMeshColors\"\xa2\x01\n\x12NormalizedLandmark\x12\x0e\n\x01x\x18\x01 \x01(\x02H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x02H\x01\x88\x01\x01\x12\x0e\n\x01z\x18\x03 \x01(\x02H\x02\x88\x01\x01\x12\x17\n\nvisibility\x18\x04 \x01(\x02H\x03\x88\x01\x01\x12\x15\n\x08presence\x18\x05 \x01(\x02H\x04\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_yB\x04\n\x02_zB\r\n\x0b_visibilityB\x0b\n\t_presence\"?\n\x16NormalizedLandmarkList\x12%\n\x08landmark\x18\x01 \x03(\x0b\x32\x13.NormalizedLandmark\"R\n NormalizedLandmarkListCollection\x12.\n\rlandmark_list\x18\x01 \x03(\x0b\x32\x17.NormalizedLandmarkList\"\x83\x03\n\x0e\x46\x61\x63\x65MeshColors\x12/\n\x1b\x66\x61\x63\x65Mesh_tesselation_colors\x18\x01 \x03(\x0b\x32\n.EdgeColor\x12+\n\x17\x66\x61\x63\x65Mesh_contour_colors\x18\x02 \x03(\x0b\x32\n.EdgeColor\x12-\n\x19\x66\x61\x63\x65Mesh_rightBrow_colors\x18\x03 \x03(\x0b\x32\n.EdgeColor\x12,\n\x18\x66\x61\x63\x65Mesh_leftBrow_colors\x18\x04 \x03(\x0b\x32\n.EdgeColor\x12,\n\x18\x66\x61\x63\x65Mesh_rightEye_colors\x18\x05 \x03(\x0b\x32\n.EdgeColor\x12+\n\x17\x66\x61\x63\x65Mesh_leftEye_colors\x18\x06 \x03(\x0b\x32\n.EdgeColor\x12-\n\x19\x66\x61\x63\x65Mesh_rightIris_colors\x18\x07 \x03(\x0b\x32\n.EdgeColor\x12,\n\x18\x66\x61\x63\x65Mesh_leftIris_colors\x18\x08 \x03(\x0b\x32\n.EdgeColor\"7\n\tEdgeColor\x12\t\n\x01r\x18\x01 \x01(\x05\x12\t\n\x01g\x18\x02 \x01(\x05\x12\t\n\x01\x62\x18\x03 \x01(\x05\x12\t\n\x01\x61\x18\x04 \x01(\x05\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1brecognition_data_face.proto\"\xc8\x01\n\x0fRecognitionData\x12\x30\n\x05\x66\x61\x63\x65s\x18\x01 \x03(\x0b\x32!.NormalizedLandmarkListCollection\x12)\n\raugmentations\x18\x02 \x03(\x0b\x32\x12.FaceAugmentations\x12\x11\n\ttimestamp\x18\x05 \x01(\x04\x12\x1b\n\x13\x63ontour_thicknesses\x18\x06 \x03(\x05\x12(\n\x0f\x66\x61\x63\x65Mesh_colors\x18\x07 \x03(\x0b\x32\x0f.FaceMeshColors\"\xa2\x01\n\x12NormalizedLandmark\x12\x0e\n\x01x\x18\x01 \x01(\x02H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x02H\x01\x88\x01\x01\x12\x0e\n\x01z\x18\x03 \x01(\x02H\x02\x88\x01\x01\x12\x17\n\nvisibility\x18\x04 \x01(\x02H\x03\x88\x01\x01\x12\x15\n\x08presence\x18\x05 \x01(\x02H\x04\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_yB\x04\n\x02_zB\r\n\x0b_visibilityB\x0b\n\t_presence\"@\n\x16NormalizedLandmarkList\x12&\n\tlandmarks\x18\x01 \x03(\x0b\x32\x13.NormalizedLandmark\"S\n NormalizedLandmarkListCollection\x12/\n\x0elandmark_lists\x18\x01 \x03(\x0b\x32\x17.NormalizedLandmarkList\"\xfb\x02\n\x0e\x46\x61\x63\x65MeshColors\x12.\n\x1a\x66\x61\x63\x65Mesh_tesselation_color\x18\x01 \x01(\x0b\x32\n.EdgeColor\x12*\n\x16\x66\x61\x63\x65Mesh_contour_color\x18\x02 \x01(\x0b\x32\n.EdgeColor\x12,\n\x18\x66\x61\x63\x65Mesh_rightBrow_color\x18\x03 \x01(\x0b\x32\n.EdgeColor\x12+\n\x17\x66\x61\x63\x65Mesh_leftBrow_color\x18\x04 \x01(\x0b\x32\n.EdgeColor\x12+\n\x17\x66\x61\x63\x65Mesh_rightEye_color\x18\x05 \x01(\x0b\x32\n.EdgeColor\x12*\n\x16\x66\x61\x63\x65Mesh_leftEye_color\x18\x06 \x01(\x0b\x32\n.EdgeColor\x12,\n\x18\x66\x61\x63\x65Mesh_rightIris_color\x18\x07 \x01(\x0b\x32\n.EdgeColor\x12+\n\x17\x66\x61\x63\x65Mesh_leftIris_color\x18\x08 \x01(\x0b\x32\n.EdgeColor\"7\n\tEdgeColor\x12\t\n\x01r\x18\x01 \x01(\x05\x12\t\n\x01g\x18\x02 \x01(\x05\x12\t\n\x01\x62\x18\x03 \x01(\x05\x12\t\n\x01\x61\x18\x04 \x01(\x05\"\xa6\x02\n\x11\x46\x61\x63\x65\x41ugmentations\x12#\n\x1b\x66\x61\x63\x65Mesh_tesselation_design\x18\x01 \x01(\t\x12\x1f\n\x17\x66\x61\x63\x65Mesh_contour_design\x18\x02 \x01(\t\x12!\n\x19\x66\x61\x63\x65Mesh_rightBrow_design\x18\x03 \x01(\t\x12 \n\x18\x66\x61\x63\x65Mesh_leftBrow_design\x18\x04 \x01(\t\x12 \n\x18\x66\x61\x63\x65Mesh_rightEye_design\x18\x05 \x01(\t\x12\x1f\n\x17\x66\x61\x63\x65Mesh_leftEye_design\x18\x06 \x01(\t\x12!\n\x19\x66\x61\x63\x65Mesh_rightIris_design\x18\x07 \x01(\t\x12 \n\x18\x66\x61\x63\x65Mesh_leftIris_design\x18\x08 \x01(\tb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,15 +32,17 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'recognition_data_face_pb2',
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_RECOGNITIONDATA']._serialized_start=32
-  _globals['_RECOGNITIONDATA']._serialized_end=212
-  _globals['_NORMALIZEDLANDMARK']._serialized_start=215
-  _globals['_NORMALIZEDLANDMARK']._serialized_end=377
-  _globals['_NORMALIZEDLANDMARKLIST']._serialized_start=379
-  _globals['_NORMALIZEDLANDMARKLIST']._serialized_end=442
-  _globals['_NORMALIZEDLANDMARKLISTCOLLECTION']._serialized_start=444
-  _globals['_NORMALIZEDLANDMARKLISTCOLLECTION']._serialized_end=526
-  _globals['_FACEMESHCOLORS']._serialized_start=529
-  _globals['_FACEMESHCOLORS']._serialized_end=916
-  _globals['_EDGECOLOR']._serialized_start=918
-  _globals['_EDGECOLOR']._serialized_end=973
+  _globals['_RECOGNITIONDATA']._serialized_end=232
+  _globals['_NORMALIZEDLANDMARK']._serialized_start=235
+  _globals['_NORMALIZEDLANDMARK']._serialized_end=397
+  _globals['_NORMALIZEDLANDMARKLIST']._serialized_start=399
+  _globals['_NORMALIZEDLANDMARKLIST']._serialized_end=463
+  _globals['_NORMALIZEDLANDMARKLISTCOLLECTION']._serialized_start=465
+  _globals['_NORMALIZEDLANDMARKLISTCOLLECTION']._serialized_end=548
+  _globals['_FACEMESHCOLORS']._serialized_start=551
+  _globals['_FACEMESHCOLORS']._serialized_end=930
+  _globals['_EDGECOLOR']._serialized_start=932
+  _globals['_EDGECOLOR']._serialized_end=987
+  _globals['_FACEAUGMENTATIONS']._serialized_start=990
+  _globals['_FACEAUGMENTATIONS']._serialized_end=1284
 # @@protoc_insertion_point(module_scope)

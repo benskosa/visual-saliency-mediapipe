@@ -3,12 +3,12 @@ syntax = "proto3";
 // TODO: Maybe add blendshapes later
 message RecognitionData {
     repeated NormalizedLandmarkListCollection faces = 1;
-    repeated string augmentations = 2; // Here for if we have multiple face grid augmentations
-    // Vec3 camera_position = 3;
-    // Vec3 camera_rotation = 4;
-    uint64 timestamp = 5;
-    repeated int32 contour_thicknesses = 6;
-    repeated FaceMeshColors faceMesh_colors = 7;
+    repeated FaceAugmentations augmentations = 2; // Here for if we want different augmentations for diff faces
+    repeated FaceMeshThicknesses contour_thicknesses = 3;
+    repeated FaceMeshColors faceMesh_colors = 4;
+    // Vec3 camera_position = 5;
+    // Vec3 camera_rotation = 6;
+    uint64 timestamp = 7;
 }
 
 // A normalized version of above Landmark proto. All coordinates should be
@@ -23,24 +23,24 @@ message NormalizedLandmark {
 
 // Group of NormalizedLandmark protos.
 message NormalizedLandmarkList {
-  repeated NormalizedLandmark landmark = 1;
+  repeated NormalizedLandmark landmarks = 1;
 }
 
 // Group of NormalizedLandmarkList protos.
 message NormalizedLandmarkListCollection {
-  repeated NormalizedLandmarkList landmark_list = 1;
+  repeated NormalizedLandmarkList landmark_lists = 1;
 }
 
 // Could also add seperate color for lips?
 message FaceMeshColors {
-    repeated EdgeColor faceMesh_tesselation_colors  = 1;
-    repeated EdgeColor faceMesh_contour_colors = 2;
-    repeated EdgeColor faceMesh_rightBrow_colors = 3;
-    repeated EdgeColor faceMesh_leftBrow_colors = 4;
-    repeated EdgeColor faceMesh_rightEye_colors = 5;
-    repeated EdgeColor faceMesh_leftEye_colors = 6;
-    repeated EdgeColor faceMesh_rightIris_colors = 7;
-    repeated EdgeColor faceMesh_leftIris_colors = 8;
+    EdgeColor faceMesh_tesselation_color  = 1;
+    EdgeColor faceMesh_contour_color = 2;
+    EdgeColor faceMesh_rightBrow_color = 3;
+    EdgeColor faceMesh_leftBrow_color = 4;
+    EdgeColor faceMesh_rightEye_color = 5;
+    EdgeColor faceMesh_leftEye_color = 6;
+    EdgeColor faceMesh_rightIris_color = 7;
+    EdgeColor faceMesh_leftIris_color = 8;
 }
 
 // each color is a 4-tuple (r, g, b, a)
@@ -49,4 +49,28 @@ message EdgeColor {
     int32 g = 2;
     int32 b = 3;
     int32 a = 4;
+}
+
+// Here if we want different augmentations for each part of face mesh
+message FaceAugmentations {
+    string faceMesh_tesselation_design  = 1;
+    string faceMesh_contour_design = 2;
+    string faceMesh_rightBrow_design = 3;
+    string faceMesh_leftBrow_design = 4;
+    string faceMesh_rightEye_design = 5;
+    string faceMesh_leftEye_design = 6;
+    string faceMesh_rightIris_design = 7;
+    string faceMesh_leftIris_design = 8;
+}
+
+// Here if we want different thicknesses for each part of face mesh
+message FaceMeshThicknesses {
+    string faceMesh_tesselation_thickness  = 1;
+    string faceMesh_contour_thickness = 2;
+    string faceMesh_rightBrow_thickness = 3;
+    string faceMesh_leftBrow_thickness = 4;
+    string faceMesh_rightEye_thickness = 5;
+    string faceMesh_leftEye_thickness = 6;
+    string faceMesh_rightIris_thickness = 7;
+    string faceMesh_leftIris_thickness = 8;
 }

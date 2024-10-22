@@ -22,37 +22,45 @@ public static partial class RecognitionDataFaceReflection {
   static RecognitionDataFaceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChtyZWNvZ25pdGlvbl9kYXRhX2ZhY2UucHJvdG8itAEKD1JlY29nbml0aW9u",
+          "ChtyZWNvZ25pdGlvbl9kYXRhX2ZhY2UucHJvdG8iyAEKD1JlY29nbml0aW9u",
           "RGF0YRIwCgVmYWNlcxgBIAMoCzIhLk5vcm1hbGl6ZWRMYW5kbWFya0xpc3RD",
-          "b2xsZWN0aW9uEhUKDWF1Z21lbnRhdGlvbnMYAiADKAkSEQoJdGltZXN0YW1w",
-          "GAUgASgEEhsKE2NvbnRvdXJfdGhpY2tuZXNzZXMYBiADKAUSKAoPZmFjZU1l",
-          "c2hfY29sb3JzGAcgAygLMg8uRmFjZU1lc2hDb2xvcnMiogEKEk5vcm1hbGl6",
-          "ZWRMYW5kbWFyaxIOCgF4GAEgASgCSACIAQESDgoBeRgCIAEoAkgBiAEBEg4K",
-          "AXoYAyABKAJIAogBARIXCgp2aXNpYmlsaXR5GAQgASgCSAOIAQESFQoIcHJl",
-          "c2VuY2UYBSABKAJIBIgBAUIECgJfeEIECgJfeUIECgJfekINCgtfdmlzaWJp",
-          "bGl0eUILCglfcHJlc2VuY2UiPwoWTm9ybWFsaXplZExhbmRtYXJrTGlzdBIl",
-          "CghsYW5kbWFyaxgBIAMoCzITLk5vcm1hbGl6ZWRMYW5kbWFyayJSCiBOb3Jt",
-          "YWxpemVkTGFuZG1hcmtMaXN0Q29sbGVjdGlvbhIuCg1sYW5kbWFya19saXN0",
-          "GAEgAygLMhcuTm9ybWFsaXplZExhbmRtYXJrTGlzdCKDAwoORmFjZU1lc2hD",
-          "b2xvcnMSLwobZmFjZU1lc2hfdGVzc2VsYXRpb25fY29sb3JzGAEgAygLMgou",
-          "RWRnZUNvbG9yEisKF2ZhY2VNZXNoX2NvbnRvdXJfY29sb3JzGAIgAygLMgou",
-          "RWRnZUNvbG9yEi0KGWZhY2VNZXNoX3JpZ2h0QnJvd19jb2xvcnMYAyADKAsy",
-          "Ci5FZGdlQ29sb3ISLAoYZmFjZU1lc2hfbGVmdEJyb3dfY29sb3JzGAQgAygL",
-          "MgouRWRnZUNvbG9yEiwKGGZhY2VNZXNoX3JpZ2h0RXllX2NvbG9ycxgFIAMo",
-          "CzIKLkVkZ2VDb2xvchIrChdmYWNlTWVzaF9sZWZ0RXllX2NvbG9ycxgGIAMo",
-          "CzIKLkVkZ2VDb2xvchItChlmYWNlTWVzaF9yaWdodElyaXNfY29sb3JzGAcg",
-          "AygLMgouRWRnZUNvbG9yEiwKGGZhY2VNZXNoX2xlZnRJcmlzX2NvbG9ycxgI",
-          "IAMoCzIKLkVkZ2VDb2xvciI3CglFZGdlQ29sb3ISCQoBchgBIAEoBRIJCgFn",
-          "GAIgASgFEgkKAWIYAyABKAUSCQoBYRgEIAEoBWIGcHJvdG8z"));
+          "b2xsZWN0aW9uEikKDWF1Z21lbnRhdGlvbnMYAiADKAsyEi5GYWNlQXVnbWVu",
+          "dGF0aW9ucxIRCgl0aW1lc3RhbXAYBSABKAQSGwoTY29udG91cl90aGlja25l",
+          "c3NlcxgGIAMoBRIoCg9mYWNlTWVzaF9jb2xvcnMYByADKAsyDy5GYWNlTWVz",
+          "aENvbG9ycyKiAQoSTm9ybWFsaXplZExhbmRtYXJrEg4KAXgYASABKAJIAIgB",
+          "ARIOCgF5GAIgASgCSAGIAQESDgoBehgDIAEoAkgCiAEBEhcKCnZpc2liaWxp",
+          "dHkYBCABKAJIA4gBARIVCghwcmVzZW5jZRgFIAEoAkgEiAEBQgQKAl94QgQK",
+          "Al95QgQKAl96Qg0KC192aXNpYmlsaXR5QgsKCV9wcmVzZW5jZSJAChZOb3Jt",
+          "YWxpemVkTGFuZG1hcmtMaXN0EiYKCWxhbmRtYXJrcxgBIAMoCzITLk5vcm1h",
+          "bGl6ZWRMYW5kbWFyayJTCiBOb3JtYWxpemVkTGFuZG1hcmtMaXN0Q29sbGVj",
+          "dGlvbhIvCg5sYW5kbWFya19saXN0cxgBIAMoCzIXLk5vcm1hbGl6ZWRMYW5k",
+          "bWFya0xpc3Qi+wIKDkZhY2VNZXNoQ29sb3JzEi4KGmZhY2VNZXNoX3Rlc3Nl",
+          "bGF0aW9uX2NvbG9yGAEgASgLMgouRWRnZUNvbG9yEioKFmZhY2VNZXNoX2Nv",
+          "bnRvdXJfY29sb3IYAiABKAsyCi5FZGdlQ29sb3ISLAoYZmFjZU1lc2hfcmln",
+          "aHRCcm93X2NvbG9yGAMgASgLMgouRWRnZUNvbG9yEisKF2ZhY2VNZXNoX2xl",
+          "ZnRCcm93X2NvbG9yGAQgASgLMgouRWRnZUNvbG9yEisKF2ZhY2VNZXNoX3Jp",
+          "Z2h0RXllX2NvbG9yGAUgASgLMgouRWRnZUNvbG9yEioKFmZhY2VNZXNoX2xl",
+          "ZnRFeWVfY29sb3IYBiABKAsyCi5FZGdlQ29sb3ISLAoYZmFjZU1lc2hfcmln",
+          "aHRJcmlzX2NvbG9yGAcgASgLMgouRWRnZUNvbG9yEisKF2ZhY2VNZXNoX2xl",
+          "ZnRJcmlzX2NvbG9yGAggASgLMgouRWRnZUNvbG9yIjcKCUVkZ2VDb2xvchIJ",
+          "CgFyGAEgASgFEgkKAWcYAiABKAUSCQoBYhgDIAEoBRIJCgFhGAQgASgFIqYC",
+          "ChFGYWNlQXVnbWVudGF0aW9ucxIjChtmYWNlTWVzaF90ZXNzZWxhdGlvbl9k",
+          "ZXNpZ24YASABKAkSHwoXZmFjZU1lc2hfY29udG91cl9kZXNpZ24YAiABKAkS",
+          "IQoZZmFjZU1lc2hfcmlnaHRCcm93X2Rlc2lnbhgDIAEoCRIgChhmYWNlTWVz",
+          "aF9sZWZ0QnJvd19kZXNpZ24YBCABKAkSIAoYZmFjZU1lc2hfcmlnaHRFeWVf",
+          "ZGVzaWduGAUgASgJEh8KF2ZhY2VNZXNoX2xlZnRFeWVfZGVzaWduGAYgASgJ",
+          "EiEKGWZhY2VNZXNoX3JpZ2h0SXJpc19kZXNpZ24YByABKAkSIAoYZmFjZU1l",
+          "c2hfbGVmdElyaXNfZGVzaWduGAggASgJYgZwcm90bzM="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::RecognitionData), global::RecognitionData.Parser, new[]{ "Faces", "Augmentations", "Timestamp", "ContourThicknesses", "FaceMeshColors" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmark), global::NormalizedLandmark.Parser, new[]{ "X", "Y", "Z", "Visibility", "Presence" }, new[]{ "X", "Y", "Z", "Visibility", "Presence" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkList), global::NormalizedLandmarkList.Parser, new[]{ "Landmark" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkListCollection), global::NormalizedLandmarkListCollection.Parser, new[]{ "LandmarkList" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::FaceMeshColors), global::FaceMeshColors.Parser, new[]{ "FaceMeshTesselationColors", "FaceMeshContourColors", "FaceMeshRightBrowColors", "FaceMeshLeftBrowColors", "FaceMeshRightEyeColors", "FaceMeshLeftEyeColors", "FaceMeshRightIrisColors", "FaceMeshLeftIrisColors" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::EdgeColor), global::EdgeColor.Parser, new[]{ "R", "G", "B", "A" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkList), global::NormalizedLandmarkList.Parser, new[]{ "Landmarks" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkListCollection), global::NormalizedLandmarkListCollection.Parser, new[]{ "LandmarkLists" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FaceMeshColors), global::FaceMeshColors.Parser, new[]{ "FaceMeshTesselationColor", "FaceMeshContourColor", "FaceMeshRightBrowColor", "FaceMeshLeftBrowColor", "FaceMeshRightEyeColor", "FaceMeshLeftEyeColor", "FaceMeshRightIrisColor", "FaceMeshLeftIrisColor" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::EdgeColor), global::EdgeColor.Parser, new[]{ "R", "G", "B", "A" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::FaceAugmentations), global::FaceAugmentations.Parser, new[]{ "FaceMeshTesselationDesign", "FaceMeshContourDesign", "FaceMeshRightBrowDesign", "FaceMeshLeftBrowDesign", "FaceMeshRightEyeDesign", "FaceMeshLeftEyeDesign", "FaceMeshRightIrisDesign", "FaceMeshLeftIrisDesign" }, null, null, null, null)
         }));
   }
   #endregion
@@ -124,15 +132,15 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
 
   /// <summary>Field number for the "augmentations" field.</summary>
   public const int AugmentationsFieldNumber = 2;
-  private static readonly pb::FieldCodec<string> _repeated_augmentations_codec
-      = pb::FieldCodec.ForString(18);
-  private readonly pbc::RepeatedField<string> augmentations_ = new pbc::RepeatedField<string>();
+  private static readonly pb::FieldCodec<global::FaceAugmentations> _repeated_augmentations_codec
+      = pb::FieldCodec.ForMessage(18, global::FaceAugmentations.Parser);
+  private readonly pbc::RepeatedField<global::FaceAugmentations> augmentations_ = new pbc::RepeatedField<global::FaceAugmentations>();
   /// <summary>
-  /// Here for if we have multiple face grid augmentations
+  /// Here for if we want different augmentations for diff faces
   /// </summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<string> Augmentations {
+  public pbc::RepeatedField<global::FaceAugmentations> Augmentations {
     get { return augmentations_; }
   }
 
@@ -838,7 +846,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public NormalizedLandmarkList(NormalizedLandmarkList other) : this() {
-    landmark_ = other.landmark_.Clone();
+    landmarks_ = other.landmarks_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -848,15 +856,15 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
     return new NormalizedLandmarkList(this);
   }
 
-  /// <summary>Field number for the "landmark" field.</summary>
-  public const int LandmarkFieldNumber = 1;
-  private static readonly pb::FieldCodec<global::NormalizedLandmark> _repeated_landmark_codec
+  /// <summary>Field number for the "landmarks" field.</summary>
+  public const int LandmarksFieldNumber = 1;
+  private static readonly pb::FieldCodec<global::NormalizedLandmark> _repeated_landmarks_codec
       = pb::FieldCodec.ForMessage(10, global::NormalizedLandmark.Parser);
-  private readonly pbc::RepeatedField<global::NormalizedLandmark> landmark_ = new pbc::RepeatedField<global::NormalizedLandmark>();
+  private readonly pbc::RepeatedField<global::NormalizedLandmark> landmarks_ = new pbc::RepeatedField<global::NormalizedLandmark>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::NormalizedLandmark> Landmark {
-    get { return landmark_; }
+  public pbc::RepeatedField<global::NormalizedLandmark> Landmarks {
+    get { return landmarks_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -874,7 +882,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if(!landmark_.Equals(other.landmark_)) return false;
+    if(!landmarks_.Equals(other.landmarks_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -882,7 +890,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    hash ^= landmark_.GetHashCode();
+    hash ^= landmarks_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -901,7 +909,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    landmark_.WriteTo(output, _repeated_landmark_codec);
+    landmarks_.WriteTo(output, _repeated_landmarks_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -912,7 +920,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    landmark_.WriteTo(ref output, _repeated_landmark_codec);
+    landmarks_.WriteTo(ref output, _repeated_landmarks_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -923,7 +931,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    size += landmark_.CalculateSize(_repeated_landmark_codec);
+    size += landmarks_.CalculateSize(_repeated_landmarks_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -936,7 +944,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
     if (other == null) {
       return;
     }
-    landmark_.Add(other.landmark_);
+    landmarks_.Add(other.landmarks_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -957,7 +965,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          landmark_.AddEntriesFrom(input, _repeated_landmark_codec);
+          landmarks_.AddEntriesFrom(input, _repeated_landmarks_codec);
           break;
         }
       }
@@ -980,7 +988,7 @@ public sealed partial class NormalizedLandmarkList : pb::IMessage<NormalizedLand
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          landmark_.AddEntriesFrom(ref input, _repeated_landmark_codec);
+          landmarks_.AddEntriesFrom(ref input, _repeated_landmarks_codec);
           break;
         }
       }
@@ -1028,7 +1036,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public NormalizedLandmarkListCollection(NormalizedLandmarkListCollection other) : this() {
-    landmarkList_ = other.landmarkList_.Clone();
+    landmarkLists_ = other.landmarkLists_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1038,15 +1046,15 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
     return new NormalizedLandmarkListCollection(this);
   }
 
-  /// <summary>Field number for the "landmark_list" field.</summary>
-  public const int LandmarkListFieldNumber = 1;
-  private static readonly pb::FieldCodec<global::NormalizedLandmarkList> _repeated_landmarkList_codec
+  /// <summary>Field number for the "landmark_lists" field.</summary>
+  public const int LandmarkListsFieldNumber = 1;
+  private static readonly pb::FieldCodec<global::NormalizedLandmarkList> _repeated_landmarkLists_codec
       = pb::FieldCodec.ForMessage(10, global::NormalizedLandmarkList.Parser);
-  private readonly pbc::RepeatedField<global::NormalizedLandmarkList> landmarkList_ = new pbc::RepeatedField<global::NormalizedLandmarkList>();
+  private readonly pbc::RepeatedField<global::NormalizedLandmarkList> landmarkLists_ = new pbc::RepeatedField<global::NormalizedLandmarkList>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::NormalizedLandmarkList> LandmarkList {
-    get { return landmarkList_; }
+  public pbc::RepeatedField<global::NormalizedLandmarkList> LandmarkLists {
+    get { return landmarkLists_; }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1064,7 +1072,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if(!landmarkList_.Equals(other.landmarkList_)) return false;
+    if(!landmarkLists_.Equals(other.landmarkLists_)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1072,7 +1080,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    hash ^= landmarkList_.GetHashCode();
+    hash ^= landmarkLists_.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1091,7 +1099,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    landmarkList_.WriteTo(output, _repeated_landmarkList_codec);
+    landmarkLists_.WriteTo(output, _repeated_landmarkLists_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1102,7 +1110,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    landmarkList_.WriteTo(ref output, _repeated_landmarkList_codec);
+    landmarkLists_.WriteTo(ref output, _repeated_landmarkLists_codec);
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1113,7 +1121,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    size += landmarkList_.CalculateSize(_repeated_landmarkList_codec);
+    size += landmarkLists_.CalculateSize(_repeated_landmarkLists_codec);
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1126,7 +1134,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
     if (other == null) {
       return;
     }
-    landmarkList_.Add(other.landmarkList_);
+    landmarkLists_.Add(other.landmarkLists_);
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1147,7 +1155,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          landmarkList_.AddEntriesFrom(input, _repeated_landmarkList_codec);
+          landmarkLists_.AddEntriesFrom(input, _repeated_landmarkLists_codec);
           break;
         }
       }
@@ -1170,7 +1178,7 @@ public sealed partial class NormalizedLandmarkListCollection : pb::IMessage<Norm
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          landmarkList_.AddEntriesFrom(ref input, _repeated_landmarkList_codec);
+          landmarkLists_.AddEntriesFrom(ref input, _repeated_landmarkLists_codec);
           break;
         }
       }
@@ -1218,14 +1226,14 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public FaceMeshColors(FaceMeshColors other) : this() {
-    faceMeshTesselationColors_ = other.faceMeshTesselationColors_.Clone();
-    faceMeshContourColors_ = other.faceMeshContourColors_.Clone();
-    faceMeshRightBrowColors_ = other.faceMeshRightBrowColors_.Clone();
-    faceMeshLeftBrowColors_ = other.faceMeshLeftBrowColors_.Clone();
-    faceMeshRightEyeColors_ = other.faceMeshRightEyeColors_.Clone();
-    faceMeshLeftEyeColors_ = other.faceMeshLeftEyeColors_.Clone();
-    faceMeshRightIrisColors_ = other.faceMeshRightIrisColors_.Clone();
-    faceMeshLeftIrisColors_ = other.faceMeshLeftIrisColors_.Clone();
+    faceMeshTesselationColor_ = other.faceMeshTesselationColor_ != null ? other.faceMeshTesselationColor_.Clone() : null;
+    faceMeshContourColor_ = other.faceMeshContourColor_ != null ? other.faceMeshContourColor_.Clone() : null;
+    faceMeshRightBrowColor_ = other.faceMeshRightBrowColor_ != null ? other.faceMeshRightBrowColor_.Clone() : null;
+    faceMeshLeftBrowColor_ = other.faceMeshLeftBrowColor_ != null ? other.faceMeshLeftBrowColor_.Clone() : null;
+    faceMeshRightEyeColor_ = other.faceMeshRightEyeColor_ != null ? other.faceMeshRightEyeColor_.Clone() : null;
+    faceMeshLeftEyeColor_ = other.faceMeshLeftEyeColor_ != null ? other.faceMeshLeftEyeColor_.Clone() : null;
+    faceMeshRightIrisColor_ = other.faceMeshRightIrisColor_ != null ? other.faceMeshRightIrisColor_.Clone() : null;
+    faceMeshLeftIrisColor_ = other.faceMeshLeftIrisColor_ != null ? other.faceMeshLeftIrisColor_.Clone() : null;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1235,92 +1243,100 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
     return new FaceMeshColors(this);
   }
 
-  /// <summary>Field number for the "faceMesh_tesselation_colors" field.</summary>
-  public const int FaceMeshTesselationColorsFieldNumber = 1;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshTesselationColors_codec
-      = pb::FieldCodec.ForMessage(10, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshTesselationColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_tesselation_color" field.</summary>
+  public const int FaceMeshTesselationColorFieldNumber = 1;
+  private global::EdgeColor faceMeshTesselationColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshTesselationColors {
-    get { return faceMeshTesselationColors_; }
+  public global::EdgeColor FaceMeshTesselationColor {
+    get { return faceMeshTesselationColor_; }
+    set {
+      faceMeshTesselationColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_contour_colors" field.</summary>
-  public const int FaceMeshContourColorsFieldNumber = 2;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshContourColors_codec
-      = pb::FieldCodec.ForMessage(18, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshContourColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_contour_color" field.</summary>
+  public const int FaceMeshContourColorFieldNumber = 2;
+  private global::EdgeColor faceMeshContourColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshContourColors {
-    get { return faceMeshContourColors_; }
+  public global::EdgeColor FaceMeshContourColor {
+    get { return faceMeshContourColor_; }
+    set {
+      faceMeshContourColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_rightBrow_colors" field.</summary>
-  public const int FaceMeshRightBrowColorsFieldNumber = 3;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshRightBrowColors_codec
-      = pb::FieldCodec.ForMessage(26, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshRightBrowColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_rightBrow_color" field.</summary>
+  public const int FaceMeshRightBrowColorFieldNumber = 3;
+  private global::EdgeColor faceMeshRightBrowColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshRightBrowColors {
-    get { return faceMeshRightBrowColors_; }
+  public global::EdgeColor FaceMeshRightBrowColor {
+    get { return faceMeshRightBrowColor_; }
+    set {
+      faceMeshRightBrowColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_leftBrow_colors" field.</summary>
-  public const int FaceMeshLeftBrowColorsFieldNumber = 4;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshLeftBrowColors_codec
-      = pb::FieldCodec.ForMessage(34, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshLeftBrowColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_leftBrow_color" field.</summary>
+  public const int FaceMeshLeftBrowColorFieldNumber = 4;
+  private global::EdgeColor faceMeshLeftBrowColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshLeftBrowColors {
-    get { return faceMeshLeftBrowColors_; }
+  public global::EdgeColor FaceMeshLeftBrowColor {
+    get { return faceMeshLeftBrowColor_; }
+    set {
+      faceMeshLeftBrowColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_rightEye_colors" field.</summary>
-  public const int FaceMeshRightEyeColorsFieldNumber = 5;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshRightEyeColors_codec
-      = pb::FieldCodec.ForMessage(42, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshRightEyeColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_rightEye_color" field.</summary>
+  public const int FaceMeshRightEyeColorFieldNumber = 5;
+  private global::EdgeColor faceMeshRightEyeColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshRightEyeColors {
-    get { return faceMeshRightEyeColors_; }
+  public global::EdgeColor FaceMeshRightEyeColor {
+    get { return faceMeshRightEyeColor_; }
+    set {
+      faceMeshRightEyeColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_leftEye_colors" field.</summary>
-  public const int FaceMeshLeftEyeColorsFieldNumber = 6;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshLeftEyeColors_codec
-      = pb::FieldCodec.ForMessage(50, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshLeftEyeColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_leftEye_color" field.</summary>
+  public const int FaceMeshLeftEyeColorFieldNumber = 6;
+  private global::EdgeColor faceMeshLeftEyeColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshLeftEyeColors {
-    get { return faceMeshLeftEyeColors_; }
+  public global::EdgeColor FaceMeshLeftEyeColor {
+    get { return faceMeshLeftEyeColor_; }
+    set {
+      faceMeshLeftEyeColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_rightIris_colors" field.</summary>
-  public const int FaceMeshRightIrisColorsFieldNumber = 7;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshRightIrisColors_codec
-      = pb::FieldCodec.ForMessage(58, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshRightIrisColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_rightIris_color" field.</summary>
+  public const int FaceMeshRightIrisColorFieldNumber = 7;
+  private global::EdgeColor faceMeshRightIrisColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshRightIrisColors {
-    get { return faceMeshRightIrisColors_; }
+  public global::EdgeColor FaceMeshRightIrisColor {
+    get { return faceMeshRightIrisColor_; }
+    set {
+      faceMeshRightIrisColor_ = value;
+    }
   }
 
-  /// <summary>Field number for the "faceMesh_leftIris_colors" field.</summary>
-  public const int FaceMeshLeftIrisColorsFieldNumber = 8;
-  private static readonly pb::FieldCodec<global::EdgeColor> _repeated_faceMeshLeftIrisColors_codec
-      = pb::FieldCodec.ForMessage(66, global::EdgeColor.Parser);
-  private readonly pbc::RepeatedField<global::EdgeColor> faceMeshLeftIrisColors_ = new pbc::RepeatedField<global::EdgeColor>();
+  /// <summary>Field number for the "faceMesh_leftIris_color" field.</summary>
+  public const int FaceMeshLeftIrisColorFieldNumber = 8;
+  private global::EdgeColor faceMeshLeftIrisColor_;
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-  public pbc::RepeatedField<global::EdgeColor> FaceMeshLeftIrisColors {
-    get { return faceMeshLeftIrisColors_; }
+  public global::EdgeColor FaceMeshLeftIrisColor {
+    get { return faceMeshLeftIrisColor_; }
+    set {
+      faceMeshLeftIrisColor_ = value;
+    }
   }
 
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1338,14 +1354,14 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
     if (ReferenceEquals(other, this)) {
       return true;
     }
-    if(!faceMeshTesselationColors_.Equals(other.faceMeshTesselationColors_)) return false;
-    if(!faceMeshContourColors_.Equals(other.faceMeshContourColors_)) return false;
-    if(!faceMeshRightBrowColors_.Equals(other.faceMeshRightBrowColors_)) return false;
-    if(!faceMeshLeftBrowColors_.Equals(other.faceMeshLeftBrowColors_)) return false;
-    if(!faceMeshRightEyeColors_.Equals(other.faceMeshRightEyeColors_)) return false;
-    if(!faceMeshLeftEyeColors_.Equals(other.faceMeshLeftEyeColors_)) return false;
-    if(!faceMeshRightIrisColors_.Equals(other.faceMeshRightIrisColors_)) return false;
-    if(!faceMeshLeftIrisColors_.Equals(other.faceMeshLeftIrisColors_)) return false;
+    if (!object.Equals(FaceMeshTesselationColor, other.FaceMeshTesselationColor)) return false;
+    if (!object.Equals(FaceMeshContourColor, other.FaceMeshContourColor)) return false;
+    if (!object.Equals(FaceMeshRightBrowColor, other.FaceMeshRightBrowColor)) return false;
+    if (!object.Equals(FaceMeshLeftBrowColor, other.FaceMeshLeftBrowColor)) return false;
+    if (!object.Equals(FaceMeshRightEyeColor, other.FaceMeshRightEyeColor)) return false;
+    if (!object.Equals(FaceMeshLeftEyeColor, other.FaceMeshLeftEyeColor)) return false;
+    if (!object.Equals(FaceMeshRightIrisColor, other.FaceMeshRightIrisColor)) return false;
+    if (!object.Equals(FaceMeshLeftIrisColor, other.FaceMeshLeftIrisColor)) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1353,14 +1369,14 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public override int GetHashCode() {
     int hash = 1;
-    hash ^= faceMeshTesselationColors_.GetHashCode();
-    hash ^= faceMeshContourColors_.GetHashCode();
-    hash ^= faceMeshRightBrowColors_.GetHashCode();
-    hash ^= faceMeshLeftBrowColors_.GetHashCode();
-    hash ^= faceMeshRightEyeColors_.GetHashCode();
-    hash ^= faceMeshLeftEyeColors_.GetHashCode();
-    hash ^= faceMeshRightIrisColors_.GetHashCode();
-    hash ^= faceMeshLeftIrisColors_.GetHashCode();
+    if (faceMeshTesselationColor_ != null) hash ^= FaceMeshTesselationColor.GetHashCode();
+    if (faceMeshContourColor_ != null) hash ^= FaceMeshContourColor.GetHashCode();
+    if (faceMeshRightBrowColor_ != null) hash ^= FaceMeshRightBrowColor.GetHashCode();
+    if (faceMeshLeftBrowColor_ != null) hash ^= FaceMeshLeftBrowColor.GetHashCode();
+    if (faceMeshRightEyeColor_ != null) hash ^= FaceMeshRightEyeColor.GetHashCode();
+    if (faceMeshLeftEyeColor_ != null) hash ^= FaceMeshLeftEyeColor.GetHashCode();
+    if (faceMeshRightIrisColor_ != null) hash ^= FaceMeshRightIrisColor.GetHashCode();
+    if (faceMeshLeftIrisColor_ != null) hash ^= FaceMeshLeftIrisColor.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1379,14 +1395,38 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
     output.WriteRawMessage(this);
   #else
-    faceMeshTesselationColors_.WriteTo(output, _repeated_faceMeshTesselationColors_codec);
-    faceMeshContourColors_.WriteTo(output, _repeated_faceMeshContourColors_codec);
-    faceMeshRightBrowColors_.WriteTo(output, _repeated_faceMeshRightBrowColors_codec);
-    faceMeshLeftBrowColors_.WriteTo(output, _repeated_faceMeshLeftBrowColors_codec);
-    faceMeshRightEyeColors_.WriteTo(output, _repeated_faceMeshRightEyeColors_codec);
-    faceMeshLeftEyeColors_.WriteTo(output, _repeated_faceMeshLeftEyeColors_codec);
-    faceMeshRightIrisColors_.WriteTo(output, _repeated_faceMeshRightIrisColors_codec);
-    faceMeshLeftIrisColors_.WriteTo(output, _repeated_faceMeshLeftIrisColors_codec);
+    if (faceMeshTesselationColor_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(FaceMeshTesselationColor);
+    }
+    if (faceMeshContourColor_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(FaceMeshContourColor);
+    }
+    if (faceMeshRightBrowColor_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(FaceMeshRightBrowColor);
+    }
+    if (faceMeshLeftBrowColor_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(FaceMeshLeftBrowColor);
+    }
+    if (faceMeshRightEyeColor_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(FaceMeshRightEyeColor);
+    }
+    if (faceMeshLeftEyeColor_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(FaceMeshLeftEyeColor);
+    }
+    if (faceMeshRightIrisColor_ != null) {
+      output.WriteRawTag(58);
+      output.WriteMessage(FaceMeshRightIrisColor);
+    }
+    if (faceMeshLeftIrisColor_ != null) {
+      output.WriteRawTag(66);
+      output.WriteMessage(FaceMeshLeftIrisColor);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1397,14 +1437,38 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-    faceMeshTesselationColors_.WriteTo(ref output, _repeated_faceMeshTesselationColors_codec);
-    faceMeshContourColors_.WriteTo(ref output, _repeated_faceMeshContourColors_codec);
-    faceMeshRightBrowColors_.WriteTo(ref output, _repeated_faceMeshRightBrowColors_codec);
-    faceMeshLeftBrowColors_.WriteTo(ref output, _repeated_faceMeshLeftBrowColors_codec);
-    faceMeshRightEyeColors_.WriteTo(ref output, _repeated_faceMeshRightEyeColors_codec);
-    faceMeshLeftEyeColors_.WriteTo(ref output, _repeated_faceMeshLeftEyeColors_codec);
-    faceMeshRightIrisColors_.WriteTo(ref output, _repeated_faceMeshRightIrisColors_codec);
-    faceMeshLeftIrisColors_.WriteTo(ref output, _repeated_faceMeshLeftIrisColors_codec);
+    if (faceMeshTesselationColor_ != null) {
+      output.WriteRawTag(10);
+      output.WriteMessage(FaceMeshTesselationColor);
+    }
+    if (faceMeshContourColor_ != null) {
+      output.WriteRawTag(18);
+      output.WriteMessage(FaceMeshContourColor);
+    }
+    if (faceMeshRightBrowColor_ != null) {
+      output.WriteRawTag(26);
+      output.WriteMessage(FaceMeshRightBrowColor);
+    }
+    if (faceMeshLeftBrowColor_ != null) {
+      output.WriteRawTag(34);
+      output.WriteMessage(FaceMeshLeftBrowColor);
+    }
+    if (faceMeshRightEyeColor_ != null) {
+      output.WriteRawTag(42);
+      output.WriteMessage(FaceMeshRightEyeColor);
+    }
+    if (faceMeshLeftEyeColor_ != null) {
+      output.WriteRawTag(50);
+      output.WriteMessage(FaceMeshLeftEyeColor);
+    }
+    if (faceMeshRightIrisColor_ != null) {
+      output.WriteRawTag(58);
+      output.WriteMessage(FaceMeshRightIrisColor);
+    }
+    if (faceMeshLeftIrisColor_ != null) {
+      output.WriteRawTag(66);
+      output.WriteMessage(FaceMeshLeftIrisColor);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(ref output);
     }
@@ -1415,14 +1479,30 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public int CalculateSize() {
     int size = 0;
-    size += faceMeshTesselationColors_.CalculateSize(_repeated_faceMeshTesselationColors_codec);
-    size += faceMeshContourColors_.CalculateSize(_repeated_faceMeshContourColors_codec);
-    size += faceMeshRightBrowColors_.CalculateSize(_repeated_faceMeshRightBrowColors_codec);
-    size += faceMeshLeftBrowColors_.CalculateSize(_repeated_faceMeshLeftBrowColors_codec);
-    size += faceMeshRightEyeColors_.CalculateSize(_repeated_faceMeshRightEyeColors_codec);
-    size += faceMeshLeftEyeColors_.CalculateSize(_repeated_faceMeshLeftEyeColors_codec);
-    size += faceMeshRightIrisColors_.CalculateSize(_repeated_faceMeshRightIrisColors_codec);
-    size += faceMeshLeftIrisColors_.CalculateSize(_repeated_faceMeshLeftIrisColors_codec);
+    if (faceMeshTesselationColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshTesselationColor);
+    }
+    if (faceMeshContourColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshContourColor);
+    }
+    if (faceMeshRightBrowColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshRightBrowColor);
+    }
+    if (faceMeshLeftBrowColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshLeftBrowColor);
+    }
+    if (faceMeshRightEyeColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshRightEyeColor);
+    }
+    if (faceMeshLeftEyeColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshLeftEyeColor);
+    }
+    if (faceMeshRightIrisColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshRightIrisColor);
+    }
+    if (faceMeshLeftIrisColor_ != null) {
+      size += 1 + pb::CodedOutputStream.ComputeMessageSize(FaceMeshLeftIrisColor);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1435,14 +1515,54 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
     if (other == null) {
       return;
     }
-    faceMeshTesselationColors_.Add(other.faceMeshTesselationColors_);
-    faceMeshContourColors_.Add(other.faceMeshContourColors_);
-    faceMeshRightBrowColors_.Add(other.faceMeshRightBrowColors_);
-    faceMeshLeftBrowColors_.Add(other.faceMeshLeftBrowColors_);
-    faceMeshRightEyeColors_.Add(other.faceMeshRightEyeColors_);
-    faceMeshLeftEyeColors_.Add(other.faceMeshLeftEyeColors_);
-    faceMeshRightIrisColors_.Add(other.faceMeshRightIrisColors_);
-    faceMeshLeftIrisColors_.Add(other.faceMeshLeftIrisColors_);
+    if (other.faceMeshTesselationColor_ != null) {
+      if (faceMeshTesselationColor_ == null) {
+        FaceMeshTesselationColor = new global::EdgeColor();
+      }
+      FaceMeshTesselationColor.MergeFrom(other.FaceMeshTesselationColor);
+    }
+    if (other.faceMeshContourColor_ != null) {
+      if (faceMeshContourColor_ == null) {
+        FaceMeshContourColor = new global::EdgeColor();
+      }
+      FaceMeshContourColor.MergeFrom(other.FaceMeshContourColor);
+    }
+    if (other.faceMeshRightBrowColor_ != null) {
+      if (faceMeshRightBrowColor_ == null) {
+        FaceMeshRightBrowColor = new global::EdgeColor();
+      }
+      FaceMeshRightBrowColor.MergeFrom(other.FaceMeshRightBrowColor);
+    }
+    if (other.faceMeshLeftBrowColor_ != null) {
+      if (faceMeshLeftBrowColor_ == null) {
+        FaceMeshLeftBrowColor = new global::EdgeColor();
+      }
+      FaceMeshLeftBrowColor.MergeFrom(other.FaceMeshLeftBrowColor);
+    }
+    if (other.faceMeshRightEyeColor_ != null) {
+      if (faceMeshRightEyeColor_ == null) {
+        FaceMeshRightEyeColor = new global::EdgeColor();
+      }
+      FaceMeshRightEyeColor.MergeFrom(other.FaceMeshRightEyeColor);
+    }
+    if (other.faceMeshLeftEyeColor_ != null) {
+      if (faceMeshLeftEyeColor_ == null) {
+        FaceMeshLeftEyeColor = new global::EdgeColor();
+      }
+      FaceMeshLeftEyeColor.MergeFrom(other.FaceMeshLeftEyeColor);
+    }
+    if (other.faceMeshRightIrisColor_ != null) {
+      if (faceMeshRightIrisColor_ == null) {
+        FaceMeshRightIrisColor = new global::EdgeColor();
+      }
+      FaceMeshRightIrisColor.MergeFrom(other.FaceMeshRightIrisColor);
+    }
+    if (other.faceMeshLeftIrisColor_ != null) {
+      if (faceMeshLeftIrisColor_ == null) {
+        FaceMeshLeftIrisColor = new global::EdgeColor();
+      }
+      FaceMeshLeftIrisColor.MergeFrom(other.FaceMeshLeftIrisColor);
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1463,35 +1583,59 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
           break;
         case 10: {
-          faceMeshTesselationColors_.AddEntriesFrom(input, _repeated_faceMeshTesselationColors_codec);
+          if (faceMeshTesselationColor_ == null) {
+            FaceMeshTesselationColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshTesselationColor);
           break;
         }
         case 18: {
-          faceMeshContourColors_.AddEntriesFrom(input, _repeated_faceMeshContourColors_codec);
+          if (faceMeshContourColor_ == null) {
+            FaceMeshContourColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshContourColor);
           break;
         }
         case 26: {
-          faceMeshRightBrowColors_.AddEntriesFrom(input, _repeated_faceMeshRightBrowColors_codec);
+          if (faceMeshRightBrowColor_ == null) {
+            FaceMeshRightBrowColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightBrowColor);
           break;
         }
         case 34: {
-          faceMeshLeftBrowColors_.AddEntriesFrom(input, _repeated_faceMeshLeftBrowColors_codec);
+          if (faceMeshLeftBrowColor_ == null) {
+            FaceMeshLeftBrowColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftBrowColor);
           break;
         }
         case 42: {
-          faceMeshRightEyeColors_.AddEntriesFrom(input, _repeated_faceMeshRightEyeColors_codec);
+          if (faceMeshRightEyeColor_ == null) {
+            FaceMeshRightEyeColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightEyeColor);
           break;
         }
         case 50: {
-          faceMeshLeftEyeColors_.AddEntriesFrom(input, _repeated_faceMeshLeftEyeColors_codec);
+          if (faceMeshLeftEyeColor_ == null) {
+            FaceMeshLeftEyeColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftEyeColor);
           break;
         }
         case 58: {
-          faceMeshRightIrisColors_.AddEntriesFrom(input, _repeated_faceMeshRightIrisColors_codec);
+          if (faceMeshRightIrisColor_ == null) {
+            FaceMeshRightIrisColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightIrisColor);
           break;
         }
         case 66: {
-          faceMeshLeftIrisColors_.AddEntriesFrom(input, _repeated_faceMeshLeftIrisColors_codec);
+          if (faceMeshLeftIrisColor_ == null) {
+            FaceMeshLeftIrisColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftIrisColor);
           break;
         }
       }
@@ -1514,35 +1658,59 @@ public sealed partial class FaceMeshColors : pb::IMessage<FaceMeshColors>
           _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
           break;
         case 10: {
-          faceMeshTesselationColors_.AddEntriesFrom(ref input, _repeated_faceMeshTesselationColors_codec);
+          if (faceMeshTesselationColor_ == null) {
+            FaceMeshTesselationColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshTesselationColor);
           break;
         }
         case 18: {
-          faceMeshContourColors_.AddEntriesFrom(ref input, _repeated_faceMeshContourColors_codec);
+          if (faceMeshContourColor_ == null) {
+            FaceMeshContourColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshContourColor);
           break;
         }
         case 26: {
-          faceMeshRightBrowColors_.AddEntriesFrom(ref input, _repeated_faceMeshRightBrowColors_codec);
+          if (faceMeshRightBrowColor_ == null) {
+            FaceMeshRightBrowColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightBrowColor);
           break;
         }
         case 34: {
-          faceMeshLeftBrowColors_.AddEntriesFrom(ref input, _repeated_faceMeshLeftBrowColors_codec);
+          if (faceMeshLeftBrowColor_ == null) {
+            FaceMeshLeftBrowColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftBrowColor);
           break;
         }
         case 42: {
-          faceMeshRightEyeColors_.AddEntriesFrom(ref input, _repeated_faceMeshRightEyeColors_codec);
+          if (faceMeshRightEyeColor_ == null) {
+            FaceMeshRightEyeColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightEyeColor);
           break;
         }
         case 50: {
-          faceMeshLeftEyeColors_.AddEntriesFrom(ref input, _repeated_faceMeshLeftEyeColors_codec);
+          if (faceMeshLeftEyeColor_ == null) {
+            FaceMeshLeftEyeColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftEyeColor);
           break;
         }
         case 58: {
-          faceMeshRightIrisColors_.AddEntriesFrom(ref input, _repeated_faceMeshRightIrisColors_codec);
+          if (faceMeshRightIrisColor_ == null) {
+            FaceMeshRightIrisColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshRightIrisColor);
           break;
         }
         case 66: {
-          faceMeshLeftIrisColors_.AddEntriesFrom(ref input, _repeated_faceMeshLeftIrisColors_codec);
+          if (faceMeshLeftIrisColor_ == null) {
+            FaceMeshLeftIrisColor = new global::EdgeColor();
+          }
+          input.ReadMessage(FaceMeshLeftIrisColor);
           break;
         }
       }
@@ -1855,6 +2023,466 @@ public sealed partial class EdgeColor : pb::IMessage<EdgeColor>
         }
         case 32: {
           A = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+/// <summary>
+/// Here if we want different augmentations for each part of face mesh
+/// </summary>
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class FaceAugmentations : pb::IMessage<FaceAugmentations>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<FaceAugmentations> _parser = new pb::MessageParser<FaceAugmentations>(() => new FaceAugmentations());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<FaceAugmentations> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::RecognitionDataFaceReflection.Descriptor.MessageTypes[6]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FaceAugmentations() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FaceAugmentations(FaceAugmentations other) : this() {
+    faceMeshTesselationDesign_ = other.faceMeshTesselationDesign_;
+    faceMeshContourDesign_ = other.faceMeshContourDesign_;
+    faceMeshRightBrowDesign_ = other.faceMeshRightBrowDesign_;
+    faceMeshLeftBrowDesign_ = other.faceMeshLeftBrowDesign_;
+    faceMeshRightEyeDesign_ = other.faceMeshRightEyeDesign_;
+    faceMeshLeftEyeDesign_ = other.faceMeshLeftEyeDesign_;
+    faceMeshRightIrisDesign_ = other.faceMeshRightIrisDesign_;
+    faceMeshLeftIrisDesign_ = other.faceMeshLeftIrisDesign_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public FaceAugmentations Clone() {
+    return new FaceAugmentations(this);
+  }
+
+  /// <summary>Field number for the "faceMesh_tesselation_design" field.</summary>
+  public const int FaceMeshTesselationDesignFieldNumber = 1;
+  private string faceMeshTesselationDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshTesselationDesign {
+    get { return faceMeshTesselationDesign_; }
+    set {
+      faceMeshTesselationDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_contour_design" field.</summary>
+  public const int FaceMeshContourDesignFieldNumber = 2;
+  private string faceMeshContourDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshContourDesign {
+    get { return faceMeshContourDesign_; }
+    set {
+      faceMeshContourDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_rightBrow_design" field.</summary>
+  public const int FaceMeshRightBrowDesignFieldNumber = 3;
+  private string faceMeshRightBrowDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshRightBrowDesign {
+    get { return faceMeshRightBrowDesign_; }
+    set {
+      faceMeshRightBrowDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_leftBrow_design" field.</summary>
+  public const int FaceMeshLeftBrowDesignFieldNumber = 4;
+  private string faceMeshLeftBrowDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshLeftBrowDesign {
+    get { return faceMeshLeftBrowDesign_; }
+    set {
+      faceMeshLeftBrowDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_rightEye_design" field.</summary>
+  public const int FaceMeshRightEyeDesignFieldNumber = 5;
+  private string faceMeshRightEyeDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshRightEyeDesign {
+    get { return faceMeshRightEyeDesign_; }
+    set {
+      faceMeshRightEyeDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_leftEye_design" field.</summary>
+  public const int FaceMeshLeftEyeDesignFieldNumber = 6;
+  private string faceMeshLeftEyeDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshLeftEyeDesign {
+    get { return faceMeshLeftEyeDesign_; }
+    set {
+      faceMeshLeftEyeDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_rightIris_design" field.</summary>
+  public const int FaceMeshRightIrisDesignFieldNumber = 7;
+  private string faceMeshRightIrisDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshRightIrisDesign {
+    get { return faceMeshRightIrisDesign_; }
+    set {
+      faceMeshRightIrisDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  /// <summary>Field number for the "faceMesh_leftIris_design" field.</summary>
+  public const int FaceMeshLeftIrisDesignFieldNumber = 8;
+  private string faceMeshLeftIrisDesign_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public string FaceMeshLeftIrisDesign {
+    get { return faceMeshLeftIrisDesign_; }
+    set {
+      faceMeshLeftIrisDesign_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as FaceAugmentations);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(FaceAugmentations other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (FaceMeshTesselationDesign != other.FaceMeshTesselationDesign) return false;
+    if (FaceMeshContourDesign != other.FaceMeshContourDesign) return false;
+    if (FaceMeshRightBrowDesign != other.FaceMeshRightBrowDesign) return false;
+    if (FaceMeshLeftBrowDesign != other.FaceMeshLeftBrowDesign) return false;
+    if (FaceMeshRightEyeDesign != other.FaceMeshRightEyeDesign) return false;
+    if (FaceMeshLeftEyeDesign != other.FaceMeshLeftEyeDesign) return false;
+    if (FaceMeshRightIrisDesign != other.FaceMeshRightIrisDesign) return false;
+    if (FaceMeshLeftIrisDesign != other.FaceMeshLeftIrisDesign) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (FaceMeshTesselationDesign.Length != 0) hash ^= FaceMeshTesselationDesign.GetHashCode();
+    if (FaceMeshContourDesign.Length != 0) hash ^= FaceMeshContourDesign.GetHashCode();
+    if (FaceMeshRightBrowDesign.Length != 0) hash ^= FaceMeshRightBrowDesign.GetHashCode();
+    if (FaceMeshLeftBrowDesign.Length != 0) hash ^= FaceMeshLeftBrowDesign.GetHashCode();
+    if (FaceMeshRightEyeDesign.Length != 0) hash ^= FaceMeshRightEyeDesign.GetHashCode();
+    if (FaceMeshLeftEyeDesign.Length != 0) hash ^= FaceMeshLeftEyeDesign.GetHashCode();
+    if (FaceMeshRightIrisDesign.Length != 0) hash ^= FaceMeshRightIrisDesign.GetHashCode();
+    if (FaceMeshLeftIrisDesign.Length != 0) hash ^= FaceMeshLeftIrisDesign.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (FaceMeshTesselationDesign.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(FaceMeshTesselationDesign);
+    }
+    if (FaceMeshContourDesign.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(FaceMeshContourDesign);
+    }
+    if (FaceMeshRightBrowDesign.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(FaceMeshRightBrowDesign);
+    }
+    if (FaceMeshLeftBrowDesign.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(FaceMeshLeftBrowDesign);
+    }
+    if (FaceMeshRightEyeDesign.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(FaceMeshRightEyeDesign);
+    }
+    if (FaceMeshLeftEyeDesign.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(FaceMeshLeftEyeDesign);
+    }
+    if (FaceMeshRightIrisDesign.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(FaceMeshRightIrisDesign);
+    }
+    if (FaceMeshLeftIrisDesign.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(FaceMeshLeftIrisDesign);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (FaceMeshTesselationDesign.Length != 0) {
+      output.WriteRawTag(10);
+      output.WriteString(FaceMeshTesselationDesign);
+    }
+    if (FaceMeshContourDesign.Length != 0) {
+      output.WriteRawTag(18);
+      output.WriteString(FaceMeshContourDesign);
+    }
+    if (FaceMeshRightBrowDesign.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(FaceMeshRightBrowDesign);
+    }
+    if (FaceMeshLeftBrowDesign.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(FaceMeshLeftBrowDesign);
+    }
+    if (FaceMeshRightEyeDesign.Length != 0) {
+      output.WriteRawTag(42);
+      output.WriteString(FaceMeshRightEyeDesign);
+    }
+    if (FaceMeshLeftEyeDesign.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(FaceMeshLeftEyeDesign);
+    }
+    if (FaceMeshRightIrisDesign.Length != 0) {
+      output.WriteRawTag(58);
+      output.WriteString(FaceMeshRightIrisDesign);
+    }
+    if (FaceMeshLeftIrisDesign.Length != 0) {
+      output.WriteRawTag(66);
+      output.WriteString(FaceMeshLeftIrisDesign);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (FaceMeshTesselationDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshTesselationDesign);
+    }
+    if (FaceMeshContourDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshContourDesign);
+    }
+    if (FaceMeshRightBrowDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshRightBrowDesign);
+    }
+    if (FaceMeshLeftBrowDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshLeftBrowDesign);
+    }
+    if (FaceMeshRightEyeDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshRightEyeDesign);
+    }
+    if (FaceMeshLeftEyeDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshLeftEyeDesign);
+    }
+    if (FaceMeshRightIrisDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshRightIrisDesign);
+    }
+    if (FaceMeshLeftIrisDesign.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(FaceMeshLeftIrisDesign);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(FaceAugmentations other) {
+    if (other == null) {
+      return;
+    }
+    if (other.FaceMeshTesselationDesign.Length != 0) {
+      FaceMeshTesselationDesign = other.FaceMeshTesselationDesign;
+    }
+    if (other.FaceMeshContourDesign.Length != 0) {
+      FaceMeshContourDesign = other.FaceMeshContourDesign;
+    }
+    if (other.FaceMeshRightBrowDesign.Length != 0) {
+      FaceMeshRightBrowDesign = other.FaceMeshRightBrowDesign;
+    }
+    if (other.FaceMeshLeftBrowDesign.Length != 0) {
+      FaceMeshLeftBrowDesign = other.FaceMeshLeftBrowDesign;
+    }
+    if (other.FaceMeshRightEyeDesign.Length != 0) {
+      FaceMeshRightEyeDesign = other.FaceMeshRightEyeDesign;
+    }
+    if (other.FaceMeshLeftEyeDesign.Length != 0) {
+      FaceMeshLeftEyeDesign = other.FaceMeshLeftEyeDesign;
+    }
+    if (other.FaceMeshRightIrisDesign.Length != 0) {
+      FaceMeshRightIrisDesign = other.FaceMeshRightIrisDesign;
+    }
+    if (other.FaceMeshLeftIrisDesign.Length != 0) {
+      FaceMeshLeftIrisDesign = other.FaceMeshLeftIrisDesign;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 10: {
+          FaceMeshTesselationDesign = input.ReadString();
+          break;
+        }
+        case 18: {
+          FaceMeshContourDesign = input.ReadString();
+          break;
+        }
+        case 26: {
+          FaceMeshRightBrowDesign = input.ReadString();
+          break;
+        }
+        case 34: {
+          FaceMeshLeftBrowDesign = input.ReadString();
+          break;
+        }
+        case 42: {
+          FaceMeshRightEyeDesign = input.ReadString();
+          break;
+        }
+        case 50: {
+          FaceMeshLeftEyeDesign = input.ReadString();
+          break;
+        }
+        case 58: {
+          FaceMeshRightIrisDesign = input.ReadString();
+          break;
+        }
+        case 66: {
+          FaceMeshLeftIrisDesign = input.ReadString();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 10: {
+          FaceMeshTesselationDesign = input.ReadString();
+          break;
+        }
+        case 18: {
+          FaceMeshContourDesign = input.ReadString();
+          break;
+        }
+        case 26: {
+          FaceMeshRightBrowDesign = input.ReadString();
+          break;
+        }
+        case 34: {
+          FaceMeshLeftBrowDesign = input.ReadString();
+          break;
+        }
+        case 42: {
+          FaceMeshRightEyeDesign = input.ReadString();
+          break;
+        }
+        case 50: {
+          FaceMeshLeftEyeDesign = input.ReadString();
+          break;
+        }
+        case 58: {
+          FaceMeshRightIrisDesign = input.ReadString();
+          break;
+        }
+        case 66: {
+          FaceMeshLeftIrisDesign = input.ReadString();
           break;
         }
       }
