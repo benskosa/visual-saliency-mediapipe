@@ -11,10 +11,6 @@ message RecognitionData {
     repeated FaceMeshColors faceMesh_colors = 7;
 }
 
-message Face {
-    repeated NormalizedFaceLandmark face_landmarks = 1;
-}
-
 // A normalized version of above Landmark proto. All coordinates should be
 // within [0, 1].
 message NormalizedLandmark {
@@ -41,10 +37,10 @@ message FaceMeshColors {
     repeated EdgeColor faceMesh_contour_colors = 2;
     repeated EdgeColor faceMesh_rightBrow_colors = 3;
     repeated EdgeColor faceMesh_leftBrow_colors = 4;
-    repeated EdgeColor faceMesh_rightEye_colors = 3;
-    repeated EdgeColor faceMesh_leftEye_colors = 4;
-    repeated EdgeColor faceMesh_rightIris_colors = 5;
-    repeated EdgeColor faceMesh_leftIris_colors = 6;
+    repeated EdgeColor faceMesh_rightEye_colors = 5;
+    repeated EdgeColor faceMesh_leftEye_colors = 6;
+    repeated EdgeColor faceMesh_rightIris_colors = 7;
+    repeated EdgeColor faceMesh_leftIris_colors = 8;
 }
 
 // each color is a 4-tuple (r, g, b, a)

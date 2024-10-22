@@ -71,26 +71,12 @@ g_on_close = None
 
 # Global variables ------------------------------------------------------------
 g_values = {
-    'primary_color': 'yellow',
-    'secondary_color': 'blue',
-    'primary_alpha': 80,
-    'secondary_alpha': 80,
-    'primary_label_color': 'yellow',
-    'secondary_label_color': 'blue',
-    'primary_label_alpha': 80,
-    'secondary_label_alpha': 80,
-    'primary_design': 'outline',
-    'secondary_design': 'outline',
-    'primary_contour_thickness': 3,
-    'secondary_contour_thickness': 3,
-}
-g_values = {
     'faceMesh_tesselation_color': 'gray',
     'faceMesh_contour_color': 'white',
     'faceMesh_rightEye_color': 'green',
     'faceMesh_leftEye_color': 'red',
     'faceMesh_rightBrow_color': 'green',
-    'faceMesh_leftEye_color': 'red',
+    'faceMesh_leftBrow_color': 'red',
     'faceMesh_rightIris_color': 'green',
     'faceMesh_leftIris_color': 'red',
     'faceMesh_tesselation_alpha': 80,
@@ -98,7 +84,7 @@ g_values = {
     'faceMesh_rightEye_alpha': 80,
     'faceMesh_leftEye_alpha': 80,
     'faceMesh_rightBrow_alpha': 80,
-    'faceMesh_leftEye_alpha': 80,
+    'faceMesh_leftBrow_alpha': 80,
     'faceMesh_rightIris_alpha': 80,
     'faceMesh_leftIris_alpha': 80,
     'faceMesh_tesselation_design': 'outline',
@@ -698,14 +684,14 @@ async def render_video(app: VideoProcessApp) -> None:
 
         if not app.frame_show_event.is_set():
             continue
-        
+
         app.frame_show_event.clear()
 
         frame = app.latest_frame
 
         cv2.imshow("Input", frame)
         cv2.waitKey(1)
-    
+
     cv2.destroyAllWindows()
 
 
@@ -723,7 +709,7 @@ async def save_dummy_pic(app: VideoProcessApp) -> None:
 
         if not app.frame_show_event.is_set():
             continue
-        
+
         app.frame_show_event.clear()
 
         frame = app.latest_frame
@@ -839,7 +825,16 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
             # sresult: bytes
             global g_values
             with color_lock:
-                color_to_send = (*g_color_mapping[g_values['']], g_values['primary_alpha'])
+                # colors for face landmarks
+                tesselation_values = (*g_color_mapping[g_values['faceMesh_tesselation_color']], g_values['faceMesh_tesselation_alpha'])
+                contour_values = (*g_color_mapping[g_values['faceMesh_contour_color']], g_values['faceMesh_contour_alpha'])
+                rightEye_values = (*g_color_mapping[g_values['faceMesh_rightEye_color']], g_values['faceMesh_rightEye_alpha'])
+                leftEye_values = (*g_color_mapping[g_values['faceMesh_leftEye_color']], g_values['faceMesh_leftEye_alpha'])
+                rightBrow_values = (*g_color_mapping[g_values['faceMesh_rightBrow_color']], g_values['faceMesh_rightBrow_alpha'])
+                leftBrow_values = (*g_color_mapping[g_values['faceMesh_leftBrow_color']], g_values['faceMesh_leftBrow_alpha'])
+                rightIris_values = (*g_color_mapping[g_values['faceMesh_rightIris_color']], g_values['faceMesh_rightIris_alpha'])
+                leftIris_values = (*g_color_mapping[g_values['faceMesh_leftIris_color']], g_values['faceMesh_leftIris_alpha'])
+                color_to_send = (tesselation_values)
 
             with design_lock:
                 design_to_send = g_values['primary_design']
