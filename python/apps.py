@@ -19,6 +19,12 @@ from utils.serializer import serialize
 from utils.utils import self_ip
 from modelprocess import ToyProcess
 
+# Mediapipe Libraries for drawing landmarks on screen you're running the backend
+# on (for debugging and validating what the user is seeing on Hololens)
+from mediapipe import solutions
+from mediapipe.framework.formats import landmark_pb2
+# import matplotlib.pyplot as plt
+
 # from yolo.api import draw_recognition, get_recognition
 # included_classes = [
 #     'bowl',
@@ -92,7 +98,7 @@ g_values = {
     'faceMesh_rightEye_design': 'outline',
     'faceMesh_leftEye_design': 'outline',
     'faceMesh_rightBrow_design': 'outline',
-    'faceMesh_leftEye_design': 'outline',
+    'faceMesh_leftBrow_design': 'outline',
     'faceMesh_rightIris_design': 'outline',
     'faceMesh_leftIris_design': 'outline',
     'faceMesh_tesselation_thickness': 3,
@@ -100,7 +106,7 @@ g_values = {
     'faceMesh_rightEye_thickness': 3,
     'faceMesh_leftEye_thickness': 3,
     'faceMesh_rightBrow_thickness': 3,
-    'faceMesh_leftEye_thickness': 3,
+    'faceMesh_leftBrow_thickness': 3,
     'faceMesh_rightIris_thickness': 3,
     'faceMesh_leftIris_thickness': 3,
 }
@@ -834,19 +840,47 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
                 leftBrow_values = (*g_color_mapping[g_values['faceMesh_leftBrow_color']], g_values['faceMesh_leftBrow_alpha'])
                 rightIris_values = (*g_color_mapping[g_values['faceMesh_rightIris_color']], g_values['faceMesh_rightIris_alpha'])
                 leftIris_values = (*g_color_mapping[g_values['faceMesh_leftIris_color']], g_values['faceMesh_leftIris_alpha'])
-                color_to_send = (tesselation_values)
+                color_to_send = {
+                    'tesselation_color' : tesselation_values,
+                    'contour_color' : contour_values,
+                    'leftBrow_color' : leftBrow_values,
+                    'rightBrow_color' : rightBrow_values,
+                    'leftEye_color' : leftEye_values,
+                    'rightEye_color' : rightEye_values,
+                    'leftIris_color' : leftIris_values,
+                    'rightIris_color' : rightIris_values,
+                }
 
             with design_lock:
-                design_to_send = g_values['primary_design']
+                # augmentation designs for face landmarks
+                design_to_send = {
+                    'tesselation_design' : g_values['faceMesh_tesselation_design'],
+                    'contour_design' : g_values['faceMesh_contour_design'],
+                    'leftBrow_design' : g_values['faceMesh_leftBrow_design'],
+                    'rightBrow_design' : g_values['faceMesh_rightBrow_design'],
+                    'leftEye_design' : g_values['faceMesh_leftEye_design'],
+                    'rightEye_design' : g_values['faceMesh_rightEye_design'],
+                    'leftIris_design' : g_values['faceMesh_leftIris_design'],
+                    'rightIris_design' : g_values['faceMesh_rightIris_design'],
+                }
 
             with contour_lock:
-                thickness_to_send = g_values['primary_contour_thickness']
+                thickness_to_send = {
+                    'tesselation_thicknesses' : g_values['faceMesh_tesselation_thickness'],
+                    'contour_thicknesses' : g_values['faceMesh_contour_thickness'],
+                    'leftBrow_thicknesses' : g_values['faceMesh_leftEye_thickness'],
+                    'rightBrow_thicknesses' : g_values['faceMesh_rightBrow_thickness'],
+                    'leftEye_thicknesses' : g_values['faceMesh_leftEye_thickness'],
+                    'rightEye_thicknesses' : g_values['faceMesh_rightEye_thickness'],
+                    'leftIris_thicknesses' : g_values['faceMesh_leftIris_thickness'],
+                    'rightIris_thicknesses' : g_values['faceMesh_rightIris_thickness'],
+                }
 
-            with label_lock:
-                global g_label_size, g_text_size
-                result_tosend["label_size"] = g_label_size
-                result_tosend["text_size"] = g_text_size
-                label_color_to_send = (*g_color_mapping[g_values['primary_label_color']], g_values['primary_label_alpha'])
+            # with label_lock:
+            #     global g_label_size, g_text_size
+            #     result_tosend["label_size"] = g_label_size
+            #     result_tosend["text_size"] = g_text_size
+            #     label_color_to_send = (*g_color_mapping[g_values['primary_label_color']], g_values['primary_label_alpha'])
 
             name_mapping: Dict[str, str] = {}
             with metadata_lock:
@@ -913,13 +947,14 @@ async def show_recognition(app: VideoProcessApp) -> None:
         # get the frame and result
         (frame, result, pose, timestamp) = app.latest_result
 
-        image = await app.plot_process.get_result(image = frame, result = result, alpha = 0.45,
-                                    draw_contour = True, black = False,
-                                    draw_mask = False, draw_box = False,
-                                    draw_text = True, draw_score = False,
-                                    draw_center = True, lv_color=(0, 255, 255), contour_thickness=8)
+        # image = await app.plot_process.get_result(image = frame, result = result, alpha = 0.45,
+        #                             draw_contour = True, black = False,
+        #                             draw_mask = False, draw_box = False,
+        #                             draw_text = True, draw_score = False,
+        #                             draw_center = True, lv_color=(0, 255, 255), contour_thickness=8)
 
-        cv2.imshow("Recognition", image)
+        # cv2.imshow("Recognition", image)
+        draw_landmarks_on_image(frame, result)
         cv2.waitKey(1)
 
         end_time = time.time()
@@ -963,6 +998,51 @@ async def test_pose(app: VideoProcessApp) -> None:
         except Exception as e:
             print(traceback.format_exc())
 
+
+"""Util functions for drawing on backend computer"""
+def draw_landmarks_on_image(rgb_image, detection_result):
+  """
+    Draws the face landmarks on the video output from the Hololens
+    Args:
+        rgb_image: The current video frame we want to draw our landmarks on
+        detection_result: The landmarks for each face recognized to be drawn,
+        in the format of [[[x11, y11, z11], ..., [] ...], ...]
+    Returns:
+        None
+  """
+  annotated_image = np.copy(rgb_image)
+
+  # Loop through the detected faces to visualize.
+  for idx in range(len(detection_result)):
+    face_landmarks = detection_result[idx]
+
+    # Draw the face landmarks.
+    face_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
+    face_landmarks_proto.landmark.extend([
+      landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in face_landmarks
+    ])
+
+    solutions.drawing_utils.draw_landmarks(
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_TESSELATION,
+        landmark_drawing_spec=None,
+        connection_drawing_spec=mp.solutions.drawing_styles
+        .get_default_face_mesh_tesselation_style())
+    solutions.drawing_utils.draw_landmarks(
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_CONTOURS,
+        landmark_drawing_spec=None,
+        connection_drawing_spec=mp.solutions.drawing_styles
+        .get_default_face_mesh_contours_style())
+    solutions.drawing_utils.draw_landmarks(
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_IRISES,
+          landmark_drawing_spec=None,
+          connection_drawing_spec=mp.solutions.drawing_styles
+          .get_default_face_mesh_iris_connections_style())
 
 
 if __name__ == '__main__':

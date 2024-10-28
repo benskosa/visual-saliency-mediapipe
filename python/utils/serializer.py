@@ -124,9 +124,10 @@ from .recognition_data_pb2 import RecognitionData, NormalizedLandmarkListCollect
 #     return rdata.SerializeToString()
 
 
-def serialize_face(
+# def serialize_face(
+def serialize(
         result: List[Any],
-        colors: Union[Dict[str, Tuple[int, int, int, int]], List[Dict[str, Tuple[int, int, int, int]]], None] = None,
+        colors: Union[Tuple[int, int, int, int], Dict[str, Tuple[int, int, int, int]], List[Dict[str, Tuple[int, int, int, int]]], None] = None,
         augmentations: Union[Dict[str, str], List[Dict[str, str]], None] = None,
         thicknesses: Union[Dict[str, int], List[Dict[str, int]], None] = None,
         timestamp: int = 0, # timestamp is uint64, use 0 for invalid,
@@ -143,8 +144,8 @@ def serialize_face(
 
     # the fields are all optional, so we need to check if the field exists before serializing it
     _serilizer = {
-        'face_landmarks': serialize_face,
-        # 'face_blendshapes': serialize_blendshapes,
+        'face_landmarks': _serialize_face_landmarks,
+        # 'face_blendshapes': _serialize_blendshapes,
         # 'position': _serialize_position,
         # 'rotation': _serialize_rotation,
         # colors and augmentations are special cases
@@ -158,10 +159,11 @@ def serialize_face(
     rdata.timestamp = timestamp
 
     # if colors is provided, serialize it
-    # if it's a tuple, then it's a single color for all faces and we
+    # if it's a tuple, then it's a single color for all parts of the mesh for all faces and we
     # just need to convert to the proper format: List[List[Tuple[int, int, int, int]]]
     #   (where each tuple is the rgba for ith face and jth face landmark)
-    # if it's a dict, then pass it directly into our serialize function
+    # if it's a dict, then use this color scheme for all recognized faces.
+    # if it's a list of dicts, then pass it directly into our serialize function
     if colors is not None:
         if isinstance(colors, tuple):
             # Duplicate mesh colors for each face recognized in the results
@@ -176,6 +178,11 @@ def serialize_face(
                 'rightIris_color' : colors,
             }
             colors = [colors_for_each_face for _ in range(len(result['face_landmarks']))]
+        elif isinstance(colors, dict):
+            # If only one color scheme is passed, then use the one color scheme
+            # for all faces seen
+            print("*****************Am processing colors as a dict*******************")
+            colors = [colors for _ in range(len(result['face_landmarks']))]
 
         _serialize_colors(colors, rdata)
 
@@ -183,19 +190,22 @@ def serialize_face(
     # if it's a single dict of augmentations for each part of the face mesh, then its the same for every face.
     # if it's a list of tuples, then different faces will have their own specified augmentations
     if augmentations is not None:
-        if isinstance(augmentations, Dict):
+        if isinstance(augmentations, str):
             # Duplicate mesh augmentations for each face recognized in the results
             augmentations_for_each_face = {
-                'tesselation_color' : colors,
-                'contour_color' : colors,
-                'leftBrow_color' : colors,
-                'rightBrow_color' : colors,
-                'leftEye_color' : colors,
-                'rightEye_color' : colors,
-                'leftIris_color' : colors,
-                'rightIris_color' : colors,
+                'tesselation_design' : augmentations,
+                'contour_design' : augmentations,
+                'leftBrow_design' : augmentations,
+                'rightBrow_design' : augmentations,
+                'leftEye_design' : augmentations,
+                'rightEye_design' : augmentations,
+                'leftIris_design' : augmentations,
+                'rightIris_design' : augmentations,
             }
             augmentations = [augmentations_for_each_face for _ in range(len(result['face_landmarks']))]
+        elif isinstance(augmentations, Dict):
+            print("*****************Am processing augmentations as a dict*******************")
+            augmentations = [augmentations for _ in range(len(result['face_landmarks']))]
 
         _serialize_augmentations(augmentations, rdata)
 
@@ -203,19 +213,22 @@ def serialize_face(
     # if it's a single dict of thicknesses for each part of the face mesh, then its the same for every face.
     # if it's a dict, then it's a thickness for each class
     if thicknesses is not None:
-        if not isinstance(thicknesses, Dict):
+        if isinstance(thicknesses, int):
             # Duplicate mesh augmentations for each face recognized in the results
             thicknesses_for_each_face = {
-                'tesselation_thicknesses' : colors,
-                'contour_thicknesses' : colors,
-                'leftBrow_thicknesses' : colors,
-                'rightBrow_thicknesses' : colors,
-                'leftEye_thicknesses' : colors,
-                'rightEye_thicknesses' : colors,
-                'leftIris_thicknesses' : colors,
-                'rightIris_thicknesses' : colors,
+                'tesselation_thicknesses' : thicknesses,
+                'contour_thicknesses' : thicknesses,
+                'leftBrow_thicknesses' : thicknesses,
+                'rightBrow_thicknesses' : thicknesses,
+                'leftEye_thicknesses' : thicknesses,
+                'rightEye_thicknesses' : thicknesses,
+                'leftIris_thicknesses' : thicknesses,
+                'rightIris_thicknesses' : thicknesses,
             }
             thicknesses = [thicknesses_for_each_face for _ in range(len(result['face_landmarks']))]
+        elif isinstance(thicknesses, dict):
+            print("*****************Am processing thicknesses as a dict*******************")
+            thicknesses = [thicknesses for _ in range(len(result['face_landmarks']))]
 
         _serialize_thicknesses(thicknesses, rdata)
 
@@ -464,14 +477,14 @@ def _serialize_thicknesses(thicknesses: List[float], rdata: RecognitionData, **k
     """
     for face in thicknesses:
         contour_thickness = FaceMeshThicknesses()
-        contour_thickness.faceMesh_tesselation_design = face['tesselation_design']
-        contour_thickness.faceMesh_contour_design = face['contour_design']
-        contour_thickness.faceMesh_leftBrow_design = face['leftBrow_design']
-        contour_thickness.faceMesh_rightBrow_design = face['rightBrow_design']
-        contour_thickness.faceMesh_leftEye_design = face['leftEye_design']
-        contour_thickness.faceMesh_rightEye_design = face['rightEye_design']
-        contour_thickness.faceMesh_leftIris_design = face['leftIris_design']
-        contour_thickness.faceMesh_rightIris_design = face['rightIris_design']
+        contour_thickness.faceMesh_tesselation_thickness = face['tesselation_thickness']
+        contour_thickness.faceMesh_contour_thickness = face['contour_thickness']
+        contour_thickness.faceMesh_leftBrow_thickness = face['leftBrow_thickness']
+        contour_thickness.faceMesh_rightBrow_thickness = face['rightBrow_thickness']
+        contour_thickness.faceMesh_leftEye_thickness = face['leftEye_thickness']
+        contour_thickness.faceMesh_rightEye_thickness = face['rightEye_thickness']
+        contour_thickness.faceMesh_leftIris_thickness = face['leftIris_thickness']
+        contour_thickness.faceMesh_rightIris_thickness = face['rightIris_thickness']
 
         rdata.contour_thickness.append(contour_thickness)
 

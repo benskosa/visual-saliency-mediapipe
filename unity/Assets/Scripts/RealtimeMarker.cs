@@ -9,6 +9,8 @@ using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using Google.Protobuf;
 using MyBox;
 
+using Assets.Scripts.DataTypes;  // For FaceMeshColors
+
 public class RealtimeMarker : DataProcessor
 {
     Camera mainCamera = null;
@@ -109,25 +111,25 @@ public class RealtimeMarker : DataProcessor
         // the face is approx i meters away."
         InitTags();
 
-        int numObjects = data.ClassNames.Count;
+        int numFaces = data.Faces.Count;
+        int numFaceAugmentations = data.FaceMeshColors[0].Count;  // Should be 8
         var augmentations = data.Augmentations;
 
         var (cameraPosition, cameraRotation) = locatableCamera.GetPosRot(data.Timestamp);
 
-        for (int i=0; i<numObjects; i++)
-        {
-            // get the class name
-            var class_name = data.ClassNames[i];
+        for (int i=0; i<numFaces; i++) {
+            // For every face, we want to find the approx distance from the center
             // get the geometry center
             var center = new Vector2(data.GeometryCenters[i].X, data.GeometryCenters[i].Y);
 
-            // get the color
-            Color color = Color.yellow;
-            if (i < data.Colors.Count)
+            // for this face, go through every type of landmark and get it's color
+            FaceMeshColors faceMeshColors = faceMeshColors();
+            if (i < data.FaceMeshColors.Count)
             {
-                var dataColor = data.Colors[i];
-                var alpha = dataColor.A < 5? 1.0f : (float)dataColor.A / 100.0f;
-                color = new Color(dataColor.R / 255.0f, dataColor.G / 255.0f, dataColor.B / 255.0f, alpha);
+                for (int j = 0; j < numFaceAugmentations; j++) {
+                    var alpha = dataColor.A < 5? 1.0f : (float)dataColor.A / 100.0f;
+                    faceMeshColors.FaceMeshTesselationColor = new Color(dataColor.R / 255.0f, dataColor.G / 255.0f, dataColor.B / 255.0f, alpha);
+                }
             }
 
             Vector3 objectPosition = Vector3.zero;
