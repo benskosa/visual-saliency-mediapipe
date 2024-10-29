@@ -108,62 +108,94 @@ def parse_result(result: DetDataSample,
 count = 0
 total_used_time = 0
 
-def process_image(image:np.ndarray,
-                  score_threshold: float = 0.3,
-                  top_k: int = 15) -> Tuple[np.ndarray, List[np.ndarray], np.ndarray, np.ndarray, np.ndarray, List[List[int]]]:
-    global model
-    global count, total_used_time
+# def process_image(image:np.ndarray,
+#                   score_threshold: float = 0.3,
+#                   top_k: int = 15) -> Tuple[np.ndarray, List[np.ndarray], np.ndarray, np.ndarray, np.ndarray, List[List[int]]]:
+#     global model
+#     global count, total_used_time
 
-    start_time = time.time()
-    result = model.detect(image)
-    # result = model.detectFromVideo(image, TODO) # TODO
-    used_time = time.time() - start_time
-    total_used_time += used_time
-    count += 1
+#     start_time = time.time()
+#     result = model.detect(image)
+#     # result = model.detectFromVideo(image, TODO) # TODO
+#     used_time = time.time() - start_time
+#     total_used_time += used_time
+#     count += 1
 
-    masks, boxes, labels, scores, geometry_center = parse_result(result, score_threshold, top_k)
+#     masks, boxes, labels, scores, geometry_center = parse_result(result, score_threshold, top_k)
 
-    # get contours and geometry centers
-    mask_contours = [None for _ in range(len(masks))]
-    for i, mask in enumerate(masks):
-        # crop the mask by box plus padding of 5 pixels
-        x1, y1, x2, y2 = boxes[i]
-        # x1 = max(0, x1 - 5)
-        # y1 = max(0, y1 - 5)
-        # x2 = min(image.shape[1], x2 + 5)
-        # y2 = min(image.shape[0], y2 + 5)
-        mask_crop = mask[y1:y2, x1:x2]
+#     # get contours and geometry centers
+#     mask_contours = [None for _ in range(len(masks))]
+#     for i, mask in enumerate(masks):
+#         # crop the mask by box plus padding of 5 pixels
+#         x1, y1, x2, y2 = boxes[i]
+#         # x1 = max(0, x1 - 5)
+#         # y1 = max(0, y1 - 5)
+#         # x2 = min(image.shape[1], x2 + 5)
+#         # y2 = min(image.shape[0], y2 + 5)
+#         mask_crop = mask[y1:y2, x1:x2]
 
-        if mask_crop.size == 0:
-            print('mask_crop size is 0', i, CLASSES[labels[i]])
-            print('boxes[i]', boxes[i])
-            print('mask.shape', mask.shape)
-            print('mask_crop.shape', mask_crop.shape)
-            cv2.imwrite('bad_image.png', image)
-        if mask_crop.max() == 0:
-            nonzero = np.nonzero(mask)
-            if len(nonzero) == 0:
-                print('no nonzero', i, CLASSES[labels[i]])
-            x1 = min(nonzero[1])
-            x2 = max(nonzero[1])
-            y1 = min(nonzero[0])
-            y2 = max(nonzero[0])
-            mask_crop = mask[y1:y2, x1:x2]
-            boxes[i] = [x1, y1, x2, y2]
+#         if mask_crop.size == 0:
+#             print('mask_crop size is 0', i, CLASSES[labels[i]])
+#             print('boxes[i]', boxes[i])
+#             print('mask.shape', mask.shape)
+#             print('mask_crop.shape', mask_crop.shape)
+#             cv2.imwrite('bad_image.png', image)
+#         if mask_crop.max() == 0:
+#             nonzero = np.nonzero(mask)
+#             if len(nonzero) == 0:
+#                 print('no nonzero', i, CLASSES[labels[i]])
+#             x1 = min(nonzero[1])
+#             x2 = max(nonzero[1])
+#             y1 = min(nonzero[0])
+#             y2 = max(nonzero[0])
+#             mask_crop = mask[y1:y2, x1:x2]
+#             boxes[i] = [x1, y1, x2, y2]
 
-        contours = bitmap_to_polygon(mask_crop)
+#         contours = bitmap_to_polygon(mask_crop)
 
-        # find the largest contour
-        contours.sort(key=lambda x: len(x), reverse=True)
-        largest_contour = max(contours, key = cv2.contourArea)
+#         # find the largest contour
+#         contours.sort(key=lambda x: len(x), reverse=True)
+#         largest_contour = max(contours, key = cv2.contourArea)
 
-        # convert the contour to be relative to the top-left corner of the box
-        # largest_contour = largest_contour + np.array([x1, y1])
-        # largest_contour = largest_contour - np.array([boxes[i][0], boxes[i][1]])
+#         # convert the contour to be relative to the top-left corner of the box
+#         # largest_contour = largest_contour + np.array([x1, y1])
+#         # largest_contour = largest_contour - np.array([boxes[i][0], boxes[i][1]])
 
-        mask_contours[i] = largest_contour
+#         mask_contours[i] = largest_contour
 
-    return masks, mask_contours, boxes, labels, scores, geometry_center
+#     return masks, mask_contours, boxes, labels, scores, geometry_center
+
+def find_bounding_box_from_landmarks(face_landmarks: List[List[Any]]) -> List[Tuple[int, int, int, int]]:
+    """
+    Calculate the bounding box for each detected face.
+    
+    Parameters:
+    faces_landmarks (list of list of NormalizedLandmark): 
+        A nested list where each inner list contains NormalizedLandmark objects with 'x', 'y', 'z' attributes 
+        representing the landmarks for each detected face.
+    
+    Returns:
+    list of dict: A list of dictionaries, each containing the bounding box coordinates for a face.
+                  Each dictionary has keys: 'minX', 'maxX', 'minY', 'maxY'.
+    """
+    bounding_boxes = []
+    for face in face_landmarks:
+        # For every face, loop through its landmarks and create a bounding box from them
+        for landmarks in face:
+            # Extract x and y coordinates for each landmark
+            x_coords = [landmark.x for landmark in landmarks]
+            y_coords = [landmark.y for landmark in landmarks]
+            
+            # Calculate min and max values
+            min_x, max_x = min(x_coords), max(x_coords)
+            min_y, max_y = min(y_coords), max(y_coords)
+            
+            # Create a bounding box dictionary for the current face
+            bounding_box = (min_x, min_y, max_x, max_y)
+            bounding_boxes.append(bounding_box)
+        
+        return bounding_boxes
+
 
 
 def get_recognition(image: np.ndarray) -> List[Any]:
@@ -184,8 +216,16 @@ def get_recognition(image: np.ndarray) -> List[Any]:
     total_used_time += used_time
     count += 1
 
+    # Get the bounding box for each detected face. It seems like the face_landmarks model
+    # has an intermediate model called Face Detector that outputs a bounding box for each face,
+    # but these bounding boxes aren't part of the final output of the FaceLandmarker Mediapipe Model.
+    # My naive solution is to just calculate the bounding box from the left-most, right-most, top-most,
+    # and bottom-most landmarks. TODO for Ben: Look into optimizing this if it causes performance issues.
+    boxes = find_bounding_box_from_landmarks(result.face_landmarks)  # Outputs bounding box for each face: List[(x1, y1, x2, y2), (),...]
+
     result = {
         "face_landmarks": result.face_landmarks,
+        "boxes": boxes,
         # "face_blendshapes": result.face_blendshapes,
         # "masks": masks,
         # "mask_contours": mask_contours,

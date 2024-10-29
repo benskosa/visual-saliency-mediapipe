@@ -127,8 +127,9 @@ public class RealtimeMarker : DataProcessor
             if (i < data.FaceMeshColors.Count)
             {
                 for (int j = 0; j < numFaceAugmentations; j++) {
-                    var alpha = dataColor.A < 5? 1.0f : (float)dataColor.A / 100.0f;
-                    faceMeshColors.FaceMeshTesselationColor = new Color(dataColor.R / 255.0f, dataColor.G / 255.0f, dataColor.B / 255.0f, alpha);
+                    var faceMeshAugColors = data.FaceMeshColors[j];
+                    var alpha = faceMeshAugColors.a < 5? 1.0f : (float)faceMeshAugColors.a / 100.0f;
+                    faceMeshColors.FaceMeshTesselationColor = new Color(faceMeshAugColors.r / 255.0f, faceMeshAugColors.g / 255.0f, faceMeshAugColors.b / 255.0f, alpha);
                 }
             }
 

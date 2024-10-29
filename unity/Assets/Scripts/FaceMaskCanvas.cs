@@ -17,7 +17,7 @@ public enum RenderMode
 ///  Class representing a recognized YOLO (or REMDet) object and its augmentation
 /// </summary>
 
-public class YoloObjectCanvas : RecognitionVisualization
+public class FaceMaskCanvas : RecognitionVisualization
 {
     RectTransform rectTransform;
     RawImage rawImage;
@@ -30,16 +30,10 @@ public class YoloObjectCanvas : RecognitionVisualization
     Texture2D texture = null;
     const int MARGIN = 5; // margin for the contour in case it goes out of the bounding box
 
-    /**
-        YoloObjectCanvas --> FaceMaskCanvas
-        Ben's Thoughts:
-        - use the minX, maxX, minY, and maxY among all landmarks on a face for bounding box?
-    **/
-
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();  // This represents the bounding box, which tells us how big our canvas needs to be
-        rawImage = GetComponentInChildren<RawImage>();  // This is the canvas we draw on?
+        rectTransform = GetComponent<RectTransform>();
+        rawImage = GetComponentInChildren<RawImage>();
         mainCamera = Camera.main;
         // locatable camera is a child of main camera
         locatableCamera = mainCamera.GetComponentInChildren<LocatableCamera>();

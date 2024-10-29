@@ -22,54 +22,57 @@ public static partial class RecognitionDataFaceReflection {
   static RecognitionDataFaceReflection() {
     byte[] descriptorData = global::System.Convert.FromBase64String(
         string.Concat(
-          "ChtyZWNvZ25pdGlvbl9kYXRhX2ZhY2UucHJvdG8i3gEKD1JlY29nbml0aW9u",
+          "ChtyZWNvZ25pdGlvbl9kYXRhX2ZhY2UucHJvdG8i8wEKD1JlY29nbml0aW9u",
           "RGF0YRIwCgVmYWNlcxgBIAMoCzIhLk5vcm1hbGl6ZWRMYW5kbWFya0xpc3RD",
-          "b2xsZWN0aW9uEikKDWF1Z21lbnRhdGlvbnMYAiADKAsyEi5GYWNlQXVnbWVu",
-          "dGF0aW9ucxIxChNjb250b3VyX3RoaWNrbmVzc2VzGAMgAygLMhQuRmFjZU1l",
-          "c2hUaGlja25lc3NlcxIoCg9mYWNlTWVzaF9jb2xvcnMYBCADKAsyDy5GYWNl",
-          "TWVzaENvbG9ycxIRCgl0aW1lc3RhbXAYByABKAQiogEKEk5vcm1hbGl6ZWRM",
-          "YW5kbWFyaxIOCgF4GAEgASgCSACIAQESDgoBeRgCIAEoAkgBiAEBEg4KAXoY",
-          "AyABKAJIAogBARIXCgp2aXNpYmlsaXR5GAQgASgCSAOIAQESFQoIcHJlc2Vu",
-          "Y2UYBSABKAJIBIgBAUIECgJfeEIECgJfeUIECgJfekINCgtfdmlzaWJpbGl0",
-          "eUILCglfcHJlc2VuY2UiQAoWTm9ybWFsaXplZExhbmRtYXJrTGlzdBImCgls",
-          "YW5kbWFya3MYASADKAsyEy5Ob3JtYWxpemVkTGFuZG1hcmsiUwogTm9ybWFs",
-          "aXplZExhbmRtYXJrTGlzdENvbGxlY3Rpb24SLwoObGFuZG1hcmtfbGlzdHMY",
-          "ASADKAsyFy5Ob3JtYWxpemVkTGFuZG1hcmtMaXN0IvsCCg5GYWNlTWVzaENv",
-          "bG9ycxIuChpmYWNlTWVzaF90ZXNzZWxhdGlvbl9jb2xvchgBIAEoCzIKLkVk",
-          "Z2VDb2xvchIqChZmYWNlTWVzaF9jb250b3VyX2NvbG9yGAIgASgLMgouRWRn",
-          "ZUNvbG9yEiwKGGZhY2VNZXNoX3JpZ2h0QnJvd19jb2xvchgDIAEoCzIKLkVk",
-          "Z2VDb2xvchIrChdmYWNlTWVzaF9sZWZ0QnJvd19jb2xvchgEIAEoCzIKLkVk",
-          "Z2VDb2xvchIrChdmYWNlTWVzaF9yaWdodEV5ZV9jb2xvchgFIAEoCzIKLkVk",
-          "Z2VDb2xvchIqChZmYWNlTWVzaF9sZWZ0RXllX2NvbG9yGAYgASgLMgouRWRn",
-          "ZUNvbG9yEiwKGGZhY2VNZXNoX3JpZ2h0SXJpc19jb2xvchgHIAEoCzIKLkVk",
-          "Z2VDb2xvchIrChdmYWNlTWVzaF9sZWZ0SXJpc19jb2xvchgIIAEoCzIKLkVk",
-          "Z2VDb2xvciI3CglFZGdlQ29sb3ISCQoBchgBIAEoBRIJCgFnGAIgASgFEgkK",
-          "AWIYAyABKAUSCQoBYRgEIAEoBSKmAgoRRmFjZUF1Z21lbnRhdGlvbnMSIwob",
-          "ZmFjZU1lc2hfdGVzc2VsYXRpb25fZGVzaWduGAEgASgJEh8KF2ZhY2VNZXNo",
-          "X2NvbnRvdXJfZGVzaWduGAIgASgJEiEKGWZhY2VNZXNoX3JpZ2h0QnJvd19k",
-          "ZXNpZ24YAyABKAkSIAoYZmFjZU1lc2hfbGVmdEJyb3dfZGVzaWduGAQgASgJ",
-          "EiAKGGZhY2VNZXNoX3JpZ2h0RXllX2Rlc2lnbhgFIAEoCRIfChdmYWNlTWVz",
-          "aF9sZWZ0RXllX2Rlc2lnbhgGIAEoCRIhChlmYWNlTWVzaF9yaWdodElyaXNf",
-          "ZGVzaWduGAcgASgJEiAKGGZhY2VNZXNoX2xlZnRJcmlzX2Rlc2lnbhgIIAEo",
-          "CSLAAgoTRmFjZU1lc2hUaGlja25lc3NlcxImCh5mYWNlTWVzaF90ZXNzZWxh",
-          "dGlvbl90aGlja25lc3MYASABKAkSIgoaZmFjZU1lc2hfY29udG91cl90aGlj",
-          "a25lc3MYAiABKAkSJAocZmFjZU1lc2hfcmlnaHRCcm93X3RoaWNrbmVzcxgD",
-          "IAEoCRIjChtmYWNlTWVzaF9sZWZ0QnJvd190aGlja25lc3MYBCABKAkSIwob",
-          "ZmFjZU1lc2hfcmlnaHRFeWVfdGhpY2tuZXNzGAUgASgJEiIKGmZhY2VNZXNo",
-          "X2xlZnRFeWVfdGhpY2tuZXNzGAYgASgJEiQKHGZhY2VNZXNoX3JpZ2h0SXJp",
-          "c190aGlja25lc3MYByABKAkSIwobZmFjZU1lc2hfbGVmdElyaXNfdGhpY2tu",
-          "ZXNzGAggASgJYgZwcm90bzM="));
+          "b2xsZWN0aW9uEhMKBWJveGVzGAIgAygLMgQuQm94EikKDWF1Z21lbnRhdGlv",
+          "bnMYAyADKAsyEi5GYWNlQXVnbWVudGF0aW9ucxIxChNjb250b3VyX3RoaWNr",
+          "bmVzc2VzGAQgAygLMhQuRmFjZU1lc2hUaGlja25lc3NlcxIoCg9mYWNlTWVz",
+          "aF9jb2xvcnMYBSADKAsyDy5GYWNlTWVzaENvbG9ycxIRCgl0aW1lc3RhbXAY",
+          "CCABKAQiogEKEk5vcm1hbGl6ZWRMYW5kbWFyaxIOCgF4GAEgASgCSACIAQES",
+          "DgoBeRgCIAEoAkgBiAEBEg4KAXoYAyABKAJIAogBARIXCgp2aXNpYmlsaXR5",
+          "GAQgASgCSAOIAQESFQoIcHJlc2VuY2UYBSABKAJIBIgBAUIECgJfeEIECgJf",
+          "eUIECgJfekINCgtfdmlzaWJpbGl0eUILCglfcHJlc2VuY2UiQAoWTm9ybWFs",
+          "aXplZExhbmRtYXJrTGlzdBImCglsYW5kbWFya3MYASADKAsyEy5Ob3JtYWxp",
+          "emVkTGFuZG1hcmsiUwogTm9ybWFsaXplZExhbmRtYXJrTGlzdENvbGxlY3Rp",
+          "b24SLwoObGFuZG1hcmtfbGlzdHMYASADKAsyFy5Ob3JtYWxpemVkTGFuZG1h",
+          "cmtMaXN0IvsCCg5GYWNlTWVzaENvbG9ycxIuChpmYWNlTWVzaF90ZXNzZWxh",
+          "dGlvbl9jb2xvchgBIAEoCzIKLkVkZ2VDb2xvchIqChZmYWNlTWVzaF9jb250",
+          "b3VyX2NvbG9yGAIgASgLMgouRWRnZUNvbG9yEiwKGGZhY2VNZXNoX3JpZ2h0",
+          "QnJvd19jb2xvchgDIAEoCzIKLkVkZ2VDb2xvchIrChdmYWNlTWVzaF9sZWZ0",
+          "QnJvd19jb2xvchgEIAEoCzIKLkVkZ2VDb2xvchIrChdmYWNlTWVzaF9yaWdo",
+          "dEV5ZV9jb2xvchgFIAEoCzIKLkVkZ2VDb2xvchIqChZmYWNlTWVzaF9sZWZ0",
+          "RXllX2NvbG9yGAYgASgLMgouRWRnZUNvbG9yEiwKGGZhY2VNZXNoX3JpZ2h0",
+          "SXJpc19jb2xvchgHIAEoCzIKLkVkZ2VDb2xvchIrChdmYWNlTWVzaF9sZWZ0",
+          "SXJpc19jb2xvchgIIAEoCzIKLkVkZ2VDb2xvciI3CglFZGdlQ29sb3ISCQoB",
+          "chgBIAEoBRIJCgFnGAIgASgFEgkKAWIYAyABKAUSCQoBYRgEIAEoBSKmAgoR",
+          "RmFjZUF1Z21lbnRhdGlvbnMSIwobZmFjZU1lc2hfdGVzc2VsYXRpb25fZGVz",
+          "aWduGAEgASgJEh8KF2ZhY2VNZXNoX2NvbnRvdXJfZGVzaWduGAIgASgJEiEK",
+          "GWZhY2VNZXNoX3JpZ2h0QnJvd19kZXNpZ24YAyABKAkSIAoYZmFjZU1lc2hf",
+          "bGVmdEJyb3dfZGVzaWduGAQgASgJEiAKGGZhY2VNZXNoX3JpZ2h0RXllX2Rl",
+          "c2lnbhgFIAEoCRIfChdmYWNlTWVzaF9sZWZ0RXllX2Rlc2lnbhgGIAEoCRIh",
+          "ChlmYWNlTWVzaF9yaWdodElyaXNfZGVzaWduGAcgASgJEiAKGGZhY2VNZXNo",
+          "X2xlZnRJcmlzX2Rlc2lnbhgIIAEoCSLAAgoTRmFjZU1lc2hUaGlja25lc3Nl",
+          "cxImCh5mYWNlTWVzaF90ZXNzZWxhdGlvbl90aGlja25lc3MYASABKAkSIgoa",
+          "ZmFjZU1lc2hfY29udG91cl90aGlja25lc3MYAiABKAkSJAocZmFjZU1lc2hf",
+          "cmlnaHRCcm93X3RoaWNrbmVzcxgDIAEoCRIjChtmYWNlTWVzaF9sZWZ0QnJv",
+          "d190aGlja25lc3MYBCABKAkSIwobZmFjZU1lc2hfcmlnaHRFeWVfdGhpY2tu",
+          "ZXNzGAUgASgJEiIKGmZhY2VNZXNoX2xlZnRFeWVfdGhpY2tuZXNzGAYgASgJ",
+          "EiQKHGZhY2VNZXNoX3JpZ2h0SXJpc190aGlja25lc3MYByABKAkSIwobZmFj",
+          "ZU1lc2hfbGVmdElyaXNfdGhpY2tuZXNzGAggASgJIjUKA0JveBIKCgJ4MRgB",
+          "IAEoBRIKCgJ5MRgCIAEoBRIKCgJ4MhgDIAEoBRIKCgJ5MhgEIAEoBWIGcHJv",
+          "dG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-          new pbr::GeneratedClrTypeInfo(typeof(global::RecognitionData), global::RecognitionData.Parser, new[]{ "Faces", "Augmentations", "ContourThicknesses", "FaceMeshColors", "Timestamp" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::RecognitionData), global::RecognitionData.Parser, new[]{ "Faces", "Boxes", "Augmentations", "ContourThicknesses", "FaceMeshColors", "Timestamp" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmark), global::NormalizedLandmark.Parser, new[]{ "X", "Y", "Z", "Visibility", "Presence" }, new[]{ "X", "Y", "Z", "Visibility", "Presence" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkList), global::NormalizedLandmarkList.Parser, new[]{ "Landmarks" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::NormalizedLandmarkListCollection), global::NormalizedLandmarkListCollection.Parser, new[]{ "LandmarkLists" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FaceMeshColors), global::FaceMeshColors.Parser, new[]{ "FaceMeshTesselationColor", "FaceMeshContourColor", "FaceMeshRightBrowColor", "FaceMeshLeftBrowColor", "FaceMeshRightEyeColor", "FaceMeshLeftEyeColor", "FaceMeshRightIrisColor", "FaceMeshLeftIrisColor" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::EdgeColor), global::EdgeColor.Parser, new[]{ "R", "G", "B", "A" }, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::FaceAugmentations), global::FaceAugmentations.Parser, new[]{ "FaceMeshTesselationDesign", "FaceMeshContourDesign", "FaceMeshRightBrowDesign", "FaceMeshLeftBrowDesign", "FaceMeshRightEyeDesign", "FaceMeshLeftEyeDesign", "FaceMeshRightIrisDesign", "FaceMeshLeftIrisDesign" }, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::FaceMeshThicknesses), global::FaceMeshThicknesses.Parser, new[]{ "FaceMeshTesselationThickness", "FaceMeshContourThickness", "FaceMeshRightBrowThickness", "FaceMeshLeftBrowThickness", "FaceMeshRightEyeThickness", "FaceMeshLeftEyeThickness", "FaceMeshRightIrisThickness", "FaceMeshLeftIrisThickness" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(typeof(global::FaceMeshThicknesses), global::FaceMeshThicknesses.Parser, new[]{ "FaceMeshTesselationThickness", "FaceMeshContourThickness", "FaceMeshRightBrowThickness", "FaceMeshLeftBrowThickness", "FaceMeshRightEyeThickness", "FaceMeshLeftEyeThickness", "FaceMeshRightIrisThickness", "FaceMeshLeftIrisThickness" }, null, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Box), global::Box.Parser, new[]{ "X1", "Y1", "X2", "Y2" }, null, null, null, null)
         }));
   }
   #endregion
@@ -115,6 +118,7 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   public RecognitionData(RecognitionData other) : this() {
     faces_ = other.faces_.Clone();
+    boxes_ = other.boxes_.Clone();
     augmentations_ = other.augmentations_.Clone();
     contourThicknesses_ = other.contourThicknesses_.Clone();
     faceMeshColors_ = other.faceMeshColors_.Clone();
@@ -139,10 +143,21 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
     get { return faces_; }
   }
 
+  /// <summary>Field number for the "boxes" field.</summary>
+  public const int BoxesFieldNumber = 2;
+  private static readonly pb::FieldCodec<global::Box> _repeated_boxes_codec
+      = pb::FieldCodec.ForMessage(18, global::Box.Parser);
+  private readonly pbc::RepeatedField<global::Box> boxes_ = new pbc::RepeatedField<global::Box>();
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public pbc::RepeatedField<global::Box> Boxes {
+    get { return boxes_; }
+  }
+
   /// <summary>Field number for the "augmentations" field.</summary>
-  public const int AugmentationsFieldNumber = 2;
+  public const int AugmentationsFieldNumber = 3;
   private static readonly pb::FieldCodec<global::FaceAugmentations> _repeated_augmentations_codec
-      = pb::FieldCodec.ForMessage(18, global::FaceAugmentations.Parser);
+      = pb::FieldCodec.ForMessage(26, global::FaceAugmentations.Parser);
   private readonly pbc::RepeatedField<global::FaceAugmentations> augmentations_ = new pbc::RepeatedField<global::FaceAugmentations>();
   /// <summary>
   /// Here for if we want different augmentations for diff faces
@@ -154,9 +169,9 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   }
 
   /// <summary>Field number for the "contour_thicknesses" field.</summary>
-  public const int ContourThicknessesFieldNumber = 3;
+  public const int ContourThicknessesFieldNumber = 4;
   private static readonly pb::FieldCodec<global::FaceMeshThicknesses> _repeated_contourThicknesses_codec
-      = pb::FieldCodec.ForMessage(26, global::FaceMeshThicknesses.Parser);
+      = pb::FieldCodec.ForMessage(34, global::FaceMeshThicknesses.Parser);
   private readonly pbc::RepeatedField<global::FaceMeshThicknesses> contourThicknesses_ = new pbc::RepeatedField<global::FaceMeshThicknesses>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -165,9 +180,9 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   }
 
   /// <summary>Field number for the "faceMesh_colors" field.</summary>
-  public const int FaceMeshColorsFieldNumber = 4;
+  public const int FaceMeshColorsFieldNumber = 5;
   private static readonly pb::FieldCodec<global::FaceMeshColors> _repeated_faceMeshColors_codec
-      = pb::FieldCodec.ForMessage(34, global::FaceMeshColors.Parser);
+      = pb::FieldCodec.ForMessage(42, global::FaceMeshColors.Parser);
   private readonly pbc::RepeatedField<global::FaceMeshColors> faceMeshColors_ = new pbc::RepeatedField<global::FaceMeshColors>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -176,11 +191,11 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   }
 
   /// <summary>Field number for the "timestamp" field.</summary>
-  public const int TimestampFieldNumber = 7;
+  public const int TimestampFieldNumber = 8;
   private ulong timestamp_;
   /// <summary>
-  /// Vec3 camera_position = 5;
-  /// Vec3 camera_rotation = 6;
+  /// Vec3 camera_position = 6;
+  /// Vec3 camera_rotation = 7;
   /// </summary>
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -207,6 +222,7 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
       return true;
     }
     if(!faces_.Equals(other.faces_)) return false;
+    if(!boxes_.Equals(other.boxes_)) return false;
     if(!augmentations_.Equals(other.augmentations_)) return false;
     if(!contourThicknesses_.Equals(other.contourThicknesses_)) return false;
     if(!faceMeshColors_.Equals(other.faceMeshColors_)) return false;
@@ -219,6 +235,7 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   public override int GetHashCode() {
     int hash = 1;
     hash ^= faces_.GetHashCode();
+    hash ^= boxes_.GetHashCode();
     hash ^= augmentations_.GetHashCode();
     hash ^= contourThicknesses_.GetHashCode();
     hash ^= faceMeshColors_.GetHashCode();
@@ -242,11 +259,12 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
     output.WriteRawMessage(this);
   #else
     faces_.WriteTo(output, _repeated_faces_codec);
+    boxes_.WriteTo(output, _repeated_boxes_codec);
     augmentations_.WriteTo(output, _repeated_augmentations_codec);
     contourThicknesses_.WriteTo(output, _repeated_contourThicknesses_codec);
     faceMeshColors_.WriteTo(output, _repeated_faceMeshColors_codec);
     if (Timestamp != 0UL) {
-      output.WriteRawTag(56);
+      output.WriteRawTag(64);
       output.WriteUInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -260,11 +278,12 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
   void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
     faces_.WriteTo(ref output, _repeated_faces_codec);
+    boxes_.WriteTo(ref output, _repeated_boxes_codec);
     augmentations_.WriteTo(ref output, _repeated_augmentations_codec);
     contourThicknesses_.WriteTo(ref output, _repeated_contourThicknesses_codec);
     faceMeshColors_.WriteTo(ref output, _repeated_faceMeshColors_codec);
     if (Timestamp != 0UL) {
-      output.WriteRawTag(56);
+      output.WriteRawTag(64);
       output.WriteUInt64(Timestamp);
     }
     if (_unknownFields != null) {
@@ -278,6 +297,7 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
   public int CalculateSize() {
     int size = 0;
     size += faces_.CalculateSize(_repeated_faces_codec);
+    size += boxes_.CalculateSize(_repeated_boxes_codec);
     size += augmentations_.CalculateSize(_repeated_augmentations_codec);
     size += contourThicknesses_.CalculateSize(_repeated_contourThicknesses_codec);
     size += faceMeshColors_.CalculateSize(_repeated_faceMeshColors_codec);
@@ -297,6 +317,7 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
       return;
     }
     faces_.Add(other.faces_);
+    boxes_.Add(other.boxes_);
     augmentations_.Add(other.augmentations_);
     contourThicknesses_.Add(other.contourThicknesses_);
     faceMeshColors_.Add(other.faceMeshColors_);
@@ -327,18 +348,22 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
           break;
         }
         case 18: {
-          augmentations_.AddEntriesFrom(input, _repeated_augmentations_codec);
+          boxes_.AddEntriesFrom(input, _repeated_boxes_codec);
           break;
         }
         case 26: {
-          contourThicknesses_.AddEntriesFrom(input, _repeated_contourThicknesses_codec);
+          augmentations_.AddEntriesFrom(input, _repeated_augmentations_codec);
           break;
         }
         case 34: {
+          contourThicknesses_.AddEntriesFrom(input, _repeated_contourThicknesses_codec);
+          break;
+        }
+        case 42: {
           faceMeshColors_.AddEntriesFrom(input, _repeated_faceMeshColors_codec);
           break;
         }
-        case 56: {
+        case 64: {
           Timestamp = input.ReadUInt64();
           break;
         }
@@ -366,18 +391,22 @@ public sealed partial class RecognitionData : pb::IMessage<RecognitionData>
           break;
         }
         case 18: {
-          augmentations_.AddEntriesFrom(ref input, _repeated_augmentations_codec);
+          boxes_.AddEntriesFrom(ref input, _repeated_boxes_codec);
           break;
         }
         case 26: {
-          contourThicknesses_.AddEntriesFrom(ref input, _repeated_contourThicknesses_codec);
+          augmentations_.AddEntriesFrom(ref input, _repeated_augmentations_codec);
           break;
         }
         case 34: {
+          contourThicknesses_.AddEntriesFrom(ref input, _repeated_contourThicknesses_codec);
+          break;
+        }
+        case 42: {
           faceMeshColors_.AddEntriesFrom(ref input, _repeated_faceMeshColors_codec);
           break;
         }
-        case 56: {
+        case 64: {
           Timestamp = input.ReadUInt64();
           break;
         }
@@ -2950,6 +2979,318 @@ public sealed partial class FaceMeshThicknesses : pb::IMessage<FaceMeshThickness
         }
         case 66: {
           FaceMeshLeftIrisThickness = input.ReadString();
+          break;
+        }
+      }
+    }
+  }
+  #endif
+
+}
+
+/// <summary>
+/// For Bounding boxes
+/// </summary>
+[global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+public sealed partial class Box : pb::IMessage<Box>
+#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    , pb::IBufferMessage
+#endif
+{
+  private static readonly pb::MessageParser<Box> _parser = new pb::MessageParser<Box>(() => new Box());
+  private pb::UnknownFieldSet _unknownFields;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pb::MessageParser<Box> Parser { get { return _parser; } }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public static pbr::MessageDescriptor Descriptor {
+    get { return global::RecognitionDataFaceReflection.Descriptor.MessageTypes[8]; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  pbr::MessageDescriptor pb::IMessage.Descriptor {
+    get { return Descriptor; }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Box() {
+    OnConstruction();
+  }
+
+  partial void OnConstruction();
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Box(Box other) : this() {
+    x1_ = other.x1_;
+    y1_ = other.y1_;
+    x2_ = other.x2_;
+    y2_ = other.y2_;
+    _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public Box Clone() {
+    return new Box(this);
+  }
+
+  /// <summary>Field number for the "x1" field.</summary>
+  public const int X1FieldNumber = 1;
+  private int x1_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int X1 {
+    get { return x1_; }
+    set {
+      x1_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "y1" field.</summary>
+  public const int Y1FieldNumber = 2;
+  private int y1_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int Y1 {
+    get { return y1_; }
+    set {
+      y1_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "x2" field.</summary>
+  public const int X2FieldNumber = 3;
+  private int x2_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int X2 {
+    get { return x2_; }
+    set {
+      x2_ = value;
+    }
+  }
+
+  /// <summary>Field number for the "y2" field.</summary>
+  public const int Y2FieldNumber = 4;
+  private int y2_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int Y2 {
+    get { return y2_; }
+    set {
+      y2_ = value;
+    }
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override bool Equals(object other) {
+    return Equals(other as Box);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public bool Equals(Box other) {
+    if (ReferenceEquals(other, null)) {
+      return false;
+    }
+    if (ReferenceEquals(other, this)) {
+      return true;
+    }
+    if (X1 != other.X1) return false;
+    if (Y1 != other.Y1) return false;
+    if (X2 != other.X2) return false;
+    if (Y2 != other.Y2) return false;
+    return Equals(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override int GetHashCode() {
+    int hash = 1;
+    if (X1 != 0) hash ^= X1.GetHashCode();
+    if (Y1 != 0) hash ^= Y1.GetHashCode();
+    if (X2 != 0) hash ^= X2.GetHashCode();
+    if (Y2 != 0) hash ^= Y2.GetHashCode();
+    if (_unknownFields != null) {
+      hash ^= _unknownFields.GetHashCode();
+    }
+    return hash;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public override string ToString() {
+    return pb::JsonFormatter.ToDiagnosticString(this);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void WriteTo(pb::CodedOutputStream output) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    output.WriteRawMessage(this);
+  #else
+    if (X1 != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(X1);
+    }
+    if (Y1 != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(Y1);
+    }
+    if (X2 != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(X2);
+    }
+    if (Y2 != 0) {
+      output.WriteRawTag(32);
+      output.WriteInt32(Y2);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(output);
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+    if (X1 != 0) {
+      output.WriteRawTag(8);
+      output.WriteInt32(X1);
+    }
+    if (Y1 != 0) {
+      output.WriteRawTag(16);
+      output.WriteInt32(Y1);
+    }
+    if (X2 != 0) {
+      output.WriteRawTag(24);
+      output.WriteInt32(X2);
+    }
+    if (Y2 != 0) {
+      output.WriteRawTag(32);
+      output.WriteInt32(Y2);
+    }
+    if (_unknownFields != null) {
+      _unknownFields.WriteTo(ref output);
+    }
+  }
+  #endif
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public int CalculateSize() {
+    int size = 0;
+    if (X1 != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(X1);
+    }
+    if (Y1 != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Y1);
+    }
+    if (X2 != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(X2);
+    }
+    if (Y2 != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeInt32Size(Y2);
+    }
+    if (_unknownFields != null) {
+      size += _unknownFields.CalculateSize();
+    }
+    return size;
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(Box other) {
+    if (other == null) {
+      return;
+    }
+    if (other.X1 != 0) {
+      X1 = other.X1;
+    }
+    if (other.Y1 != 0) {
+      Y1 = other.Y1;
+    }
+    if (other.X2 != 0) {
+      X2 = other.X2;
+    }
+    if (other.Y2 != 0) {
+      Y2 = other.Y2;
+    }
+    _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+  }
+
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  public void MergeFrom(pb::CodedInputStream input) {
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    input.ReadRawMessage(this);
+  #else
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+          break;
+        case 8: {
+          X1 = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          Y1 = input.ReadInt32();
+          break;
+        }
+        case 24: {
+          X2 = input.ReadInt32();
+          break;
+        }
+        case 32: {
+          Y2 = input.ReadInt32();
+          break;
+        }
+      }
+    }
+  #endif
+  }
+
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+  void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+    uint tag;
+    while ((tag = input.ReadTag()) != 0) {
+    if ((tag & 7) == 4) {
+      // Abort on any end group tag.
+      return;
+    }
+    switch(tag) {
+        default:
+          _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+          break;
+        case 8: {
+          X1 = input.ReadInt32();
+          break;
+        }
+        case 16: {
+          Y1 = input.ReadInt32();
+          break;
+        }
+        case 24: {
+          X2 = input.ReadInt32();
+          break;
+        }
+        case 32: {
+          Y2 = input.ReadInt32();
           break;
         }
       }
