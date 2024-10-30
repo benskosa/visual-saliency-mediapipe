@@ -3,7 +3,7 @@ Serializer for the recognition result using protobuf
 """
 
 from typing import List, Tuple, Dict, Any, Union
-from .recognition_data_pb2 import RecognitionData, NormalizedLandmarkListCollection, NormalizedLandmarkList, NormalizedLandmark, FaceMeshColors, EdgeColor, FaceAugmentation, FaceMeshThicknesses
+from .recognition_data_pb2 import RecognitionData, NormalizedLandmarkList, NormalizedLandmark, FaceMeshColors, EdgeColor, FaceAugmentation, FaceMeshThicknesses, Box
 
 # def serialize(
 #         result: Dict[str, Any],
@@ -145,6 +145,7 @@ def serialize(
     # the fields are all optional, so we need to check if the field exists before serializing it
     _serilizer = {
         'face_landmarks': _serialize_face_landmarks,
+        'face_bounding_boxes' : _serialize_face_bounding_boxes,
         # 'face_blendshapes': _serialize_blendshapes,
         # 'position': _serialize_position,
         # 'rotation': _serialize_rotation,
@@ -245,7 +246,6 @@ def _serialize_face_landmarks(faces: List[List[Any]], rdata: RecognitionData, **
     Returns:
         None
     """
-    faces_landmarks = NormalizedLandmarkListCollection()
     for face in faces:
         face_landmarks = NormalizedLandmarkList()
         for landmark in face:
@@ -257,9 +257,27 @@ def _serialize_face_landmarks(faces: List[List[Any]], rdata: RecognitionData, **
             norm_landmark.visibility = landmark.visibility
             norm_landmark.presence = landmark.presence
             face_landmarks.landmarks.append(landmark)
-        faces_landmarks.landmark_lists.append(face_landmarks)
+        rdata.faces.append(face_landmarks)
 
-    rdata.faces.append(faces_landmarks)
+
+def _serialize_face_bounding_boxes(boxes: List[Tuple[int, int, int, int]], rdata: RecognitionData, **kwargs) -> None:
+    """
+    Serialize face bounding boxes to protobuf message, and add it to the recognition data
+    Args:
+        boxes: The bounding boxes for each face, in the format [(x1, y1, x2, y2), (x1, y1, x2, y2),...]
+        rdata: The protobuf message to be serialized to
+    Returns:
+        None
+    """
+    for box in boxes:
+        # for every NormalizedLandmark (3d point) in face, serialize
+        pbox = Box()
+        pbox.x1 = box[0]
+        pbox.y1 = box[1]
+        pbox.x2 = box[2]
+        pbox.y2 = box[3]
+
+        rdata.boxes.append(pbox)
 
 
 def _serialize_colors(colors: List[Dict[str, Tuple[int, int, int, int]]], rdata: RecognitionData, **kwargs) -> None:

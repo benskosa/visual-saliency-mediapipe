@@ -199,7 +199,7 @@ public class YoloObjectCanvas : RecognitionVisualization
         // prevent yStart from exceeding the height of the texture
         int yStart = Mathf.FloorToInt(edges[0].yMin);
         yStart = Mathf.Max(yStart, 0);
-        
+
         // prevent yEnd from exceeding the height of the texture
         int yEnd = Mathf.CeilToInt(edges[edges.Count - 1].yMax);
         yEnd = Mathf.Min(yEnd, canvasHeight-1);

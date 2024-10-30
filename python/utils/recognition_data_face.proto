@@ -2,7 +2,7 @@ syntax = "proto3";
 
 // TODO: Maybe add blendshapes later
 message RecognitionData {
-    repeated NormalizedLandmarkListCollection faces = 1;
+    repeated NormalizedLandmarkList faces = 1;
     repeated Box boxes = 2;
     repeated FaceAugmentations augmentations = 3; // Here for if we want different augmentations for diff faces
     repeated FaceMeshThicknesses contour_thicknesses = 4;
@@ -25,11 +25,6 @@ message NormalizedLandmark {
 // Group of NormalizedLandmark protos.
 message NormalizedLandmarkList {
   repeated NormalizedLandmark landmarks = 1;
-}
-
-// Group of NormalizedLandmarkList protos.
-message NormalizedLandmarkListCollection {
-  repeated NormalizedLandmarkList landmark_lists = 1;
 }
 
 // Could also add seperate color for lips?
