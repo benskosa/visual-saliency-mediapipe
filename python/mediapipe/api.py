@@ -223,6 +223,8 @@ def get_recognition(image: np.ndarray) -> List[Any]:
     # and bottom-most landmarks. TODO for Ben: Look into optimizing this if it causes performance issues.
     boxes = find_bounding_box_from_landmarks(result.face_landmarks)  # Outputs bounding box for each face: List[(x1, y1, x2, y2), (),...]
 
+    # Ben: I'm going to assume that I can use one of the landmarks in the middle of the face as a "geometric_center"
+    # to shoot a ray from to find approximate distance/z-value
     result = {
         "face_landmarks": result.face_landmarks,
         "boxes": boxes,

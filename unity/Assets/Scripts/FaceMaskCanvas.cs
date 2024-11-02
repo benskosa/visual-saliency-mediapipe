@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using MyBox;
 using System;
 
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections
+
 public enum RenderMode
 {
     Solid,
@@ -17,7 +19,7 @@ public enum RenderMode
 ///  Class representing a recognized YOLO (or REMDet) object and its augmentation
 /// </summary>
 
-public class FaceMaskCanvas : RecognitionVisualization
+public class FaceMaskCanvas : MediapipeVisualization
 {
     RectTransform rectTransform;
     RawImage rawImage;
@@ -39,10 +41,23 @@ public class FaceMaskCanvas : RecognitionVisualization
         locatableCamera = mainCamera.GetComponentInChildren<LocatableCamera>();
     }
 
+    // Renders the recognized object, which in this case is the mesh for the 
+    // recognized face.
+    //
+    // - position: the position of the object, in Unity world space
+    // - distance: the distance of the object from the camera
+    // - center: the geometry center of the object
+    // - width: the width of the image
+    // - height: the height of the image
+    // - color: the color of the object
+    // - data: the recognition data
+    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
+    //      The other passed fields are either computed by caller or used by caller anyways
+    // - index: the index of the object in the recognition result
     public override void ProcessRecognitionResult(
         Vector3 position,
         float distance,
-        string class_name,
+        // string class_name,
         Vector2 center,
         uint width,
         uint height,
@@ -74,13 +89,26 @@ public class FaceMaskCanvas : RecognitionVisualization
         bounding_box[3] = box.Y2;
 
         // render the recognition result
-        RenderRecognitionResult(position, distance, class_name, bounding_box, center, width, height, color, data, index);
+        RenderRecognitionResult(position, distance, bounding_box, center, width, height, color, data, index);
     }
 
+    // Renders the recognized object, which in this case is the mesh for the 
+    // recognized face.
+    // - position: the position of the object, in Unity world space
+    // - distance: the distance of the object from the camera
+    // - bounding_box: the bounding box corresponding to the recognized face,
+    //                 which is in the format [x1, y1, x2, y2].
+    // - center: the geometry center of the object
+    // - width: the width of the image
+    // - height: the height of the image
+    // - color: the color of the object
+    // - data: the recognition data
+    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
+    //      The other passed fields are either computed by caller or used by caller anyways
+    // - index: the index of the object in the recognition result
     void RenderRecognitionResult(
         Vector3 position,
         float distance,
-        string class_name,
         int[] bounding_box,
         Vector2 center,
         uint width,

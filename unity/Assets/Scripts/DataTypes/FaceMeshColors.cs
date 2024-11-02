@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.DataTypes {
+namespace Assets.Scripts.DataTypes.FaceMesh {
     public struct FaceMeshColors {
         public Color FaceMeshTesselationColor  { get; set; }
         public Color FaceMeshContourColor { get; set; }

@@ -9,7 +9,7 @@ using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using Google.Protobuf;
 using MyBox;
 
-using Assets.Scripts.DataTypes;  // For FaceMeshColors
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshColors
 
 public class RealtimeMarker : DataProcessor
 {
@@ -18,7 +18,9 @@ public class RealtimeMarker : DataProcessor
     [SerializeField] RecognitionVisualization visualizationPrefab = null;
     [SerializeField] float sameLabelDistance = 0.30f;
     [SerializeField] float sameLabelAngle = 30.0f;
-    List<RealtimeYoloObject> yoloObjects = new List<RealtimeYoloObject>();
+    // List<RealtimeYoloObject> yoloObjects = new List<RealtimeYoloObject>();
+    List<RealtimeFaceMaskObject> faceMeshObjects = new List<RealtimeFaceMaskObject>();
+
     private IMixedRealitySpatialAwarenessMeshObserver observer = null;
     [SerializeField] bool renderUncollided = false;
     // if true, specify the distance
@@ -32,7 +34,8 @@ public class RealtimeMarker : DataProcessor
         public string tag;
         public RecognitionVisualization visualization;
     }
-    [SerializeField] List<AugmentationTag> augmentationTags = new List<AugmentationTag>();
+    // AugmentationTags
+    // [SerializeField] List<AugmentationTag> augmentationTags = new List<AugmentationTag>();
     Dictionary<string, RecognitionVisualization> augmentationTagDict = new Dictionary<string, RecognitionVisualization>();
     ulong lastTimestamp = 0;
 
@@ -54,10 +57,11 @@ public class RealtimeMarker : DataProcessor
         mainCamera = Camera.main;
 
         // convert the list to a dictionary
-        foreach (var tag in augmentationTags)
-        {
-            augmentationTagDict[tag.tag] = tag.visualization;
-        }
+        // AugmentationTags
+        // foreach (var tag in augmentationTags)
+        // {
+        //     augmentationTagDict[tag.tag] = tag.visualization;
+        // }
     }
 
     public override void ProcessData(RecognitionData data, uint width, uint height)
@@ -85,8 +89,6 @@ public class RealtimeMarker : DataProcessor
         });
     }
 
-    // TODO FOR BEN on SUNDAY: Start here and figure out if I need to make a new class
-    //  that is of type RecognitionVisualization for the face landmarks
 
     /// <summary>
     /// Iterates through each object detected in the data we recieved and processes
@@ -113,7 +115,6 @@ public class RealtimeMarker : DataProcessor
 
         int numFaces = data.Faces.Count;
         int numFaceAugmentations = data.FaceMeshColors[0].Count;  // Should be 8
-        var augmentations = data.Augmentations;
 
         var (cameraPosition, cameraRotation) = locatableCamera.GetPosRot(data.Timestamp);
 
@@ -156,51 +157,54 @@ public class RealtimeMarker : DataProcessor
             // }
 
             RecognitionVisualization toInstantiate = visualizationPrefab;
-            string augmentationTag = "outline"; // hardcoded default
+            // AugmentationTags
+            // string augmentationTag = "outline"; // hardcoded default
             // if there is a corresponding augmentation tag
             // the augmentation field is optional, so we need to check if it exists
-            if (augmentations.Count > i)
-            {
-                string augmentation = augmentations[i]; // fallback option
-                if (augmentationTagDict.ContainsKey(augmentation))
-                {
-                    toInstantiate = augmentationTagDict[augmentation];
-                    augmentationTag = augmentation;
-                }
-                else
-                {
-                    DebugServer.SendDebugMessage("Augmentation tag not found: " + augmentation);
-                }
-            }
+            // if (augmentations.Count > i) {
+            //     string augmentation = augmentations[i]; // fallback option
+            //     if (augmentationTagDict.ContainsKey(augmentation))
+            //     {
+            //         toInstantiate = augmentationTagDict[augmentation];
+            //         augmentationTag = augmentation;
+            //     }
+            //     else
+            //     {
+            //         DebugServer.SendDebugMessage("Augmentation tag not found: " + augmentation);
+            //     }
+            // }
 
             worldSpaceOrigin = cameraPosition;
             (worldSpaceDir, worldCameraPosition) = locatableCamera.PixelCoordToWorldCoord(center, cameraPosition, cameraRotation);
 
             // cast a ray from the camera to the pixel
             RaycastHit hit;
-            RealtimeYoloObject RealtimeYoloObject;
+            RealtimeFaceMaskObject realtimeFaceMaskObject;
             if ((!render2D) && observer != null && Physics.Raycast(worldSpaceOrigin, worldSpaceDir, out hit, Mathf.Infinity, observer.MeshPhysicsLayerMask))
             {
                 // if the ray hits a surface, use the hit point as the position
                 objectPosition = hit.point;
                 hitDistance = hit.distance;
-                RealtimeYoloObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
-            }
-            else
-            {
+                realtimeFaceMaskObject = new RealtimeFaceMaskObject(objectPosition);
+                // realtimeFaceMaskObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
+
+            } else {
                 if (render2D)  // If we don't want to use depth/raycast, then just use hardcoded depth (base z value)
                 {
                     objectPosition = worldSpaceOrigin + worldSpaceDir * render2DDistance;
                     hitDistance = render2DDistance;
                     // (objectPosition, worldCameraPosition) = locatableCamera.PixelCoordToWorldCoord2D(center, cameraPosition, cameraRotation);
                     // hitDistance = Vector3.Distance(objectPosition, worldCameraPosition);
-                    RealtimeYoloObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
+                    // realtimeFaceMaskObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
+                    realtimeFaceMaskObject = new RealtimeFaceMaskObject(objectPosition);
                 }
                 else if (renderUncollided)
                 {
                     objectPosition = worldSpaceOrigin + worldSpaceDir * uncollidedDistance;
                     hitDistance = uncollidedDistance;
-                    RealtimeYoloObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
+                    // realtimeFaceMaskObject = new RealtimeYoloObject(class_name, objectPosition, augmentationTag);
+                    realtimeFaceMaskObject = new RealtimeFaceMaskObject(objectPosition);
+
                 }
                 else
                 {
@@ -209,13 +213,13 @@ public class RealtimeMarker : DataProcessor
             }
 
             // check if the object has been seen before
-            if (SeenBefore(RealtimeYoloObject, worldSpaceOrigin, out int index))
+            if (SeenBefore(realtimeFaceMaskObject, worldSpaceOrigin, out int index))
             {
-                yoloObjects[index].position = objectPosition;
-                yoloObjects[index].visualization.ProcessRecognitionResult(
+                faceMeshObjects[index].position = objectPosition;
+                faceMeshObjects[index].visualization.ProcessRecognitionResult(
                     objectPosition,
                     hitDistance,
-                    class_name,
+                    // class_name,
                     center,
                     width,
                     height,
@@ -241,9 +245,9 @@ public class RealtimeMarker : DataProcessor
                     i
                 );
                 // visObj.TestProcessRecognitionResult(objectPosition, class_name, score, mask_contour, box, width, height, color);
-                RealtimeYoloObject.visualization = visObj;
+                global::RealtimeFaceMaskObject.visualization = visObj;
                 // add the yolo object to the list
-                yoloObjects.Add(RealtimeYoloObject);
+                faceMeshObjects.Add(realtimeFaceMaskObject);
             }
         }
 
@@ -254,67 +258,68 @@ public class RealtimeMarker : DataProcessor
     // initialize all tags to be not seen and possibly disappear
     void InitTags()
     {
-        for (int i = 0; i < yoloObjects.Count; i++)
+        for (int i = 0; i < faceMeshObjects.Count; i++)
         {
-            yoloObjects[i].lastSeen = false;
+            faceMeshObjects[i].lastSeen = false;
         }
 
         // update the visibility of the objects
-        for (int i = 0; i < yoloObjects.Count; i++)
+        for (int i = 0; i < faceMeshObjects.Count; i++)
         {
-            bool lastCanBeSeen = yoloObjects[i].canBeSeen;
-            yoloObjects[i].canBeSeen = CanBeSeen(yoloObjects[i].position);
+            bool lastCanBeSeen = faceMeshObjects[i].canBeSeen;
+            faceMeshObjects[i].canBeSeen = CanBeSeen(faceMeshObjects[i].position);
             // if the object can be seen now, and it was not seen before
-            if (yoloObjects[i].canBeSeen && !lastCanBeSeen)
+            if (faceMeshObjects[i].canBeSeen && !lastCanBeSeen)
             {
-                yoloObjects[i].lastSeen = true;
+                faceMeshObjects[i].lastSeen = true;
             }
         }
     }
 
     void ClearTags(bool clearAll = false)
     {
-        for (int i = 0; i < yoloObjects.Count; i++)
+        for (int i = 0; i < faceMeshObjects.Count; i++)
         {
             // if (clearAll || (yoloObjects[i].canBeSeen && !yoloObjects[i].lastSeen))
-            if (clearAll || !yoloObjects[i].lastSeen)
+            if (clearAll || !faceMeshObjects[i].lastSeen)
             {
-                Destroy(yoloObjects[i].visualization.gameObject);
-                yoloObjects.RemoveAt(i);
+                Destroy(faceMeshObjects[i].visualization.gameObject);
+                faceMeshObjects.RemoveAt(i);
                 i--;
             }
         }
     }
 
-    bool SeenBefore(RealtimeYoloObject RealtimeYoloObject, Vector3 cameraPosition, out int index)
+    bool SeenBefore(RealtimeFaceMaskObject RealtimeFaceMaskObject, Vector3 cameraPosition, out int index)
     {
         bool seenBefore = false;
         index = -1;
-        for (int i = 0; i < yoloObjects.Count; i++)
+        for (int i = 0; i < faceMeshObjects.Count; i++)
         {
+            // Ben: class names and visualization tags don't apply here
             // not the same class
-            if (yoloObjects[i].className != RealtimeYoloObject.className)
-            {
-                continue;
-            }
+            // if (faceMeshObjects[i].className != RealtimeFaceMaskObject.className)
+            // {
+            //     continue;
+            // }
             // already seen
-            if (yoloObjects[i].lastSeen)
+            if (faceMeshObjects[i].lastSeen)
             {
                 continue;
             }
-            // different visualization tag
-            if (yoloObjects[i].visualizationTag != RealtimeYoloObject.visualizationTag)
-            {
-                continue;
-            }
+            // // different visualization tag
+            // if (faceMeshObjects[i].visualizationTag != RealtimeFaceMaskObject.visualizationTag)
+            // {
+            //     continue;
+            // }
 
             // close enough
-            if (CloseEnough(RealtimeYoloObject, yoloObjects[i], cameraPosition, sameLabelDistance, sameLabelAngle))
+            if (CloseEnough(RealtimeFaceMaskObject, faceMeshObjects[i], cameraPosition, sameLabelDistance, sameLabelAngle))
             {
                 // update last seen time
-                yoloObjects[i].lastSeen = true;
+                faceMeshObjects[i].lastSeen = true;
                 // set the reference to the visualization object
-                RealtimeYoloObject.visualization = yoloObjects[i].visualization;
+                RealtimeFaceMaskObject.visualization = faceMeshObjects[i].visualization;
                 seenBefore = true;
                 index = i;
                 break;
@@ -324,7 +329,7 @@ public class RealtimeMarker : DataProcessor
         return seenBefore;
     }
 
-    bool CloseEnough(RealtimeYoloObject newObject, RealtimeYoloObject oldObject, Vector3 cameraPosition, float distanceThreshold = 0.1f, float angleThreshold = 10.0f)
+    bool CloseEnough(RealtimeFaceMaskObject newObject, RealtimeFaceMaskObject oldObject, Vector3 cameraPosition, float distanceThreshold = 0.1f, float angleThreshold = 10.0f)
     {
         // first case: the distance is close enough
         if (Vector3.Distance(newObject.position, oldObject.position) <= distanceThreshold)
@@ -361,24 +366,47 @@ public class RealtimeMarker : DataProcessor
 }
 
 // TODO for Ben: Figure out if I can use this for face landmark visualization
-class RealtimeYoloObject
+class RealtimeFaceMaskObject
 {
-    public string className;
+    // public string className;
     public Vector3 position;
     public bool lastSeen;
     public RecognitionVisualization visualization = null;
-    public string visualizationTag = "";
+    // public string visualizationTag = "";
     public bool canBeSeen;
     public Transform transform
     {
         get {return visualization.transform;}
     }
-    public RealtimeYoloObject(string className, Vector3 position, string visualizationTag = "")
+    // public RealtimeFaceMaskObject(string className, Vector3 position, string visualizationTag = "")
+    public RealtimeFaceMaskObject(Vector3 position)
     {
-        this.className = className;
+        // this.className = className;
         this.position = position;
         this.lastSeen = true;
         this.canBeSeen = true;
-        this.visualizationTag = visualizationTag;
+        // this.visualizationTag = visualizationTag;
     }
 }
+
+// class RealtimeYoloObject
+// {
+//     public string className;
+//     public Vector3 position;
+//     public bool lastSeen;
+//     public RecognitionVisualization visualization = null;
+//     public string visualizationTag = "";
+//     public bool canBeSeen;
+//     public Transform transform
+//     {
+//         get {return visualization.transform;}
+//     }
+//     public RealtimeYoloObject(string className, Vector3 position, string visualizationTag = "")
+//     {
+//         this.className = className;
+//         this.position = position;
+//         this.lastSeen = true;
+//         this.canBeSeen = true;
+//         this.visualizationTag = visualizationTag;
+//     }
+// }
