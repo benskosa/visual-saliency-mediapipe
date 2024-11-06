@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using MyBox;
 using System;
 
-using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceMeshColors
 
 public enum RenderMode
 {
@@ -61,7 +61,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         Vector2 center,
         uint width,
         uint height,
-        Color color,
+        FaceMeshColors colors,
         RecognitionData data,
         int index
     )
@@ -89,7 +89,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         bounding_box[3] = box.Y2;
 
         // render the recognition result
-        RenderRecognitionResult(position, distance, bounding_box, center, width, height, color, data, index);
+        RenderRecognitionResult(position, distance, bounding_box, center, width, height, colors, data, index);
     }
 
     // Renders the recognized object, which in this case is the mesh for the 
@@ -118,9 +118,20 @@ public class FaceMaskCanvas : MediapipeVisualization
         int index
     )
     {
+        // Ben's Game Plan (Nov 5, 2024):
+        //  - Create a function that just draws edges that you define (pass in a list of edges)
+        //    in the color, thickness, etc that you pass in.
+        //  - Use the edge mappings for the different parts of the face mask that Mediapipe Library
+        //    already has and call function for each one of those lists.
+
+        int x1 = bounding_box[0];
+        int y1 = bounding_box[1];
+        int x2 = bounding_box[2];
+        int y2 = bounding_box[3];
+
         // create a texture for the bounding box
-        int boxWidth = bounding_box[2] - bounding_box[0];
-        int boxHeight = bounding_box[3] - bounding_box[1];
+        int boxWidth = x2 - x1;
+        int boxHeight = y2 - y1;
         int canvasWidth = boxWidth + MARGIN * 2;
         int canvasHeight = boxHeight + MARGIN * 2;
 
@@ -134,25 +145,27 @@ public class FaceMaskCanvas : MediapipeVisualization
         // set wrap mode to clamp
         texture.wrapMode = TextureWrapMode.Clamp;
 
-        var contour = data.MaskContours[index];
-        var innerContours = contour.InnerContours;
-        Vector2[] mask_contour = new Vector2[innerContours.Count];
-        // the contour points are relative to the bounding box, which is nice
-        // but we need to flip the y-axis
-        for (int i = 0; i < innerContours.Count; i++)
+        var face = data.Faces[index];
+        // Vector2[] face_landmarks = new Vector2[face.Count];
+        Vector3[] face_landmarks = new Vector3[face.Count];
+        // the landmark points are relative to the entire camera view. Need to convert each
+        // to be in the reference frame of our bounding box
+        for (int i = 0; i < face.Count; i++)
         {
-            mask_contour[i] = new Vector2(innerContours[i].X + MARGIN, canvasHeight - (innerContours[i].Y + MARGIN));
+            // face_landmarks[i] = new Vector2(face[i].X + (x1 + MARGIN), canvasHeight - (face[i].Y + (y1 + MARGIN)));
+            face_landmarks[i] = new Vector3(face[i].X + (x1 + MARGIN), canvasHeight - (face[i].Y + (y1 + MARGIN)));
         }
 
+        // TODO for Ben: Look into this but I don't think this is a problem in my case
         // the canvas is located at `center`, but the mask is located at the center of the bounding box
         // so need to adjust the anchor
         // set the pivot point of the canvas so that it rotates around the given center
-        var pivot = new Vector2(
-            (float)(center.x - bounding_box[0] + MARGIN) / canvasWidth,
-            1 - (float)(center.y - bounding_box[1] + MARGIN) / canvasHeight
-        );
-        rawImage.rectTransform.pivot = pivot;
-        rawImage.rectTransform.anchoredPosition = Vector2.zero;
+        // var pivot = new Vector2(
+        //     (float)(center.x - bounding_box[0] + MARGIN) / canvasWidth,
+        //     1 - (float)(center.y - bounding_box[1] + MARGIN) / canvasHeight
+        // );
+        // rawImage.rectTransform.pivot = pivot;
+        // rawImage.rectTransform.anchoredPosition = Vector2.zero;
 
         // set the scale ratio of the mask
         float scaleX = (float)boxWidth / height;
@@ -163,24 +176,78 @@ public class FaceMaskCanvas : MediapipeVisualization
         float magicNumber = 0.75f;
         rawImage.transform.localScale *= distance * magicNumber;
 
-        if (renderMode == RenderMode.Solid || renderMode == RenderMode.FlashSolid)
-        {
+        // We will pass in the specific edge list for each part of the face mask:
+            //    1. Face Tesselation Mask (the main face mask mesh across the face)
+            //    2. Face Contour Mask (the edges that go around the edge of the face)
+            //    3. Right Brow
+            //    4. Left Brow
+            //    5. Right Eye
+            //    6. Left Eye
+            //    7. Right Iris
+            //    8. Left Iris
+
+        // var tesselation_cwidth = contourWidth;
+        // var contour_cwidth = contourWidth;
+        // var irises_cwidth = contourWidth;
+        // var nose_cwidth = contourWidth;
+
+        // string faceMesh_tesselation_thickness  = 1;
+        // string faceMesh_contour_thickness = 2;
+        // string faceMesh_rightBrow_thickness = 3;
+        // string faceMesh_leftBrow_thickness = 4;
+        // string faceMesh_rightEye_thickness = 5;
+        // string faceMesh_leftEye_thickness = 6;
+        // string faceMesh_rightIris_thickness = 7;
+        // string faceMesh_leftIris_thickness = 8;
+        var tesselation_cwidth = data.ContourThicknesses[index].FaceMeshTesselationThickness;
+        var contour_cwidth = data.ContourThicknesses[index].FaceMeshContourThickness;
+        var irises_cwidth = data.ContourThicknesses[index].FaceMeshLeftEyeThickness;  // TODO for Ben: Seperate out CONTOUR if want more customization
+
+        // This is for if defining contour thicknesses is optional, but I've made it required
+        // in the pipeline for face mesh
+        // var thicknesses = data.ContourThicknesses;
+        // if (thicknesses.Count > index) {
+        //     // If we specified a specific countour thickness for this face, then use that instead
+        //     var remoteWidth = thicknesses[index];
+        //     if (remoteWidth > 0) {
+        //         cwidth = remoteWidth;
+        //     }
+        // }
+
+        // DrawLines takes a list of 3D points. We have each connection/edge mapping for each part of
+        // our face mask stored as a list of indices (see FaceMeshConnections.cs). We need to convert
+        // from List[Tuple[index, index]] List[Tuple[3dPoint, 3dPoint]]
+
+        // Will define the pixels based on our landmarks (i.e. landmarks --> specific pixels --> draw them)
+
+        // 1. Draw the edges of the mask
+        DrawConnections(pixels, face_landmarks, FACEMESH_TESSELATION, center, color, color, canvasWidth, canvasHeight);
+        DrawConnections(pixels, face_landmarks, FACEMESH_CONTOURS, center, color, color, canvasWidth, canvasHeight);
+        DrawConnections(pixels, face_landmarks, FACEMESH_IRISES, center, color, color, canvasWidth, canvasHeight);
+
+        // 2. Draw the points themselves
+
+
+        // TODO for Ben: Save Options for later
+        // if (renderMode == RenderMode.Solid || renderMode == RenderMode.FlashSolid)
+        // {
             // fill the mask
-            ScanLineFill(pixels, BuildEdgeList(mask_contour), color, canvasWidth, canvasHeight);
-        }
-        else if (renderMode == RenderMode.Outline || renderMode == RenderMode.FlashOutline)
-        {
-            var cwidth = contourWidth;
-            var thicknesses = data.ContourThicknesses;
-            if (thicknesses.Count > index) {
-                var remoteWidth = thicknesses[index];
-                if (remoteWidth > 0) {
-                    cwidth = remoteWidth;
-                }
-            }
-            // draw the contour
-            DrawContour(pixels, mask_contour, center, cwidth, color, canvasWidth, canvasHeight);
-        }
+            // ScanLineFill(pixels, BuildEdgeList(face_landmarks), color, canvasWidth, canvasHeight);
+            // ScanLineFill(pixels, FACEMESH_TESSELATION, color, canvasWidth, canvasHeight);
+        // }
+        // else if (renderMode == RenderMode.Outline || renderMode == RenderMode.FlashOutline)
+        // {
+        //     var cwidth = contourWidth;
+        //     var thicknesses = data.ContourThicknesses;
+        //     if (thicknesses.Count > index) {
+        //         var remoteWidth = thicknesses[index];
+        //         if (remoteWidth > 0) {
+        //             cwidth = remoteWidth;
+        //         }
+        //     }
+        //     // draw the contour
+        //     DrawContour(pixels, mask_contour, center, cwidth, color, canvasWidth, canvasHeight);
+        // }
         else
         {
             throw new System.ArgumentException("Invalid render mode: " + renderMode);
@@ -280,7 +347,8 @@ public class FaceMaskCanvas : MediapipeVisualization
         }
     }
 
-    void DrawLine(byte[] pixels, Vector2 start, Vector2 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    // void DrawLine(byte[] pixels, Vector2 start, Vector2 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    void DrawLine(byte[] pixels, Vector3 start, Vector3 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     {
         int x0 = (int)start.x;
         int y0 = (int)start.y;
@@ -296,25 +364,21 @@ public class FaceMaskCanvas : MediapipeVisualization
         int err = dx - dy;
         int err2;
 
-        while (true)
-        {
+        while (true) {
             DrawThickPoint(pixels, x0, y0, center, width, color, canvasWidth, canvasHeight);
 
-            if (x0 == x1 && y0 == y1)
-            {
+            if (x0 == x1 && y0 == y1) {
                 break;
             }
 
             err2 = 2 * err;
 
-            if (err2 > -dy)
-            {
+            if (err2 > -dy) {
                 err -= dy;
                 x0 += sx;
             }
 
-            if (err2 < dx)
-            {
+            if (err2 < dx) {
                 err += dx;
                 y0 += sy;
             }
@@ -351,12 +415,54 @@ public class FaceMaskCanvas : MediapipeVisualization
         }
     }
 
-    void DrawContour(byte[] pixels, Vector2[] points, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    void DrawLines(byte[] pixels, Vector2[] points, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     {
         for (int i = 0; i < points.Length; i++)
         {
             Vector2 start = points[i];
             Vector2 end = points[(i + 1) % points.Length];
+            DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
+        }
+    }
+
+
+    // Take in a list of edges (a tuple of 3d points) and draw a line between each edge
+    // in the specified style (color, thickness, pattern, etc)
+    //
+    // including:
+    // - pixels: the position of the object, in Unity world space
+    // - points: the distance of the object from the camera
+    // - : the class name of the object
+    // - center: the geometry center of the object
+    // - width: the width of the image
+    // - height: the height of the image
+    // - color: the color of the object
+    // - data: the recognition data
+    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
+    //      The other passed fields are either computed by caller or used by caller anyways
+    // - index: the index of the object in the recognition result
+    void DrawConnections(byte[] pixels, Vector3[] points, HashSet<(int, int)> connectionsMapping, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    {
+        // for (int i = 0; i < points.Length; i++)
+        // {
+        //     Vector3 start = points[i];
+        //     Vector3 end = points[(i + 1) % points.Length];
+            // DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
+        // }
+
+        // Iterate through each connection
+        foreach (var connection in connections) {
+            int index1 = connection.Item1;
+            int index2 = connection.Item2;
+
+            // Access the points using the indices
+            Vector3 start = points[index1];
+            Vector3 end = points[index2];
+
+            // For each connection, make sure that both of the landmarks
+            // are visible and present (presence) enough to be drawn. If they aren't,
+            // Then don't draw the connection 
+
             DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
         }
     }

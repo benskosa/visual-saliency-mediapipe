@@ -120,11 +120,13 @@ public class RealtimeMarker : DataProcessor
 
         for (int i=0; i<numFaces; i++) {
             // For every face, we want to find the approx distance from the center
-            // get the geometry center
-            var center = new Vector2(data.GeometryCenters[i].X, data.GeometryCenters[i].Y);
+            // get the geometry center. We are treating a point on the nose as a Geometry center for now,
+            // specifically index 4 as shown on https://storage.googleapis.com/mediapipe-assets/documentation/mediapipe_face_landmark_fullsize.png
+            // var center = new Vector2(data.GeometryCenters[i].X, data.GeometryCenters[i].Y);
+            var center = new Vector2(data.Faces[i][4].X, data.Faces[i][4].Y);
 
             // for this face, go through every type of landmark and get it's color
-            FaceMeshColors faceMeshColors = faceMeshColors();
+            FaceMeshColors faceMeshColors = FaceMeshColors();
             if (i < data.FaceMeshColors.Count)
             {
                 for (int j = 0; j < numFaceAugmentations; j++) {
@@ -223,7 +225,7 @@ public class RealtimeMarker : DataProcessor
                     center,
                     width,
                     height,
-                    color,
+                    faceMeshColors,
                     data,
                     i
                 );
@@ -240,7 +242,7 @@ public class RealtimeMarker : DataProcessor
                     center,
                     width,
                     height,
-                    color,
+                    faceMeshColors,
                     data,
                     i
                 );
