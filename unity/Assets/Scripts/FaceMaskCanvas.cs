@@ -113,7 +113,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         Vector2 center,
         uint width,
         uint height,
-        Color color,
+        FaceMeshColors colors,
         RecognitionData data,
         int index
     )
@@ -145,7 +145,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         // set wrap mode to clamp
         texture.wrapMode = TextureWrapMode.Clamp;
 
-        var face = data.Faces[index];
+        var face = data.Faces[index].Landmarks;
         // Vector2[] face_landmarks = new Vector2[face.Count];
         Vector3[] face_landmarks = new Vector3[face.Count];
         // the landmark points are relative to the entire camera view. Need to convert each
@@ -191,17 +191,16 @@ public class FaceMaskCanvas : MediapipeVisualization
         // var irises_cwidth = contourWidth;
         // var nose_cwidth = contourWidth;
 
-        // string faceMesh_tesselation_thickness  = 1;
-        // string faceMesh_contour_thickness = 2;
-        // string faceMesh_rightBrow_thickness = 3;
-        // string faceMesh_leftBrow_thickness = 4;
-        // string faceMesh_rightEye_thickness = 5;
-        // string faceMesh_leftEye_thickness = 6;
-        // string faceMesh_rightIris_thickness = 7;
-        // string faceMesh_leftIris_thickness = 8;
+        // Get the edge thicknesses for each part of the face mask
         var tesselation_cwidth = data.ContourThicknesses[index].FaceMeshTesselationThickness;
         var contour_cwidth = data.ContourThicknesses[index].FaceMeshContourThickness;
         var irises_cwidth = data.ContourThicknesses[index].FaceMeshLeftEyeThickness;  // TODO for Ben: Seperate out CONTOUR if want more customization
+
+        // Get the color for each part of the face mask
+        var tesselation_color = data.FaceMeshColors[index].FaceMeshTesselationColor;
+        var contour_color = data.FaceMeshColors[index].FaceMeshContourColor;
+        var irises_color = data.FaceMeshColors[index].FaceMeshLeftEyeColor;  // TODO for Ben: Se   erate out CONTOUR if want more customization
+
 
         // This is for if defining contour thicknesses is optional, but I've made it required
         // in the pipeline for face mesh
@@ -221,9 +220,9 @@ public class FaceMaskCanvas : MediapipeVisualization
         // Will define the pixels based on our landmarks (i.e. landmarks --> specific pixels --> draw them)
 
         // 1. Draw the edges of the mask
-        DrawConnections(pixels, face_landmarks, FACEMESH_TESSELATION, center, color, color, canvasWidth, canvasHeight);
-        DrawConnections(pixels, face_landmarks, FACEMESH_CONTOURS, center, color, color, canvasWidth, canvasHeight);
-        DrawConnections(pixels, face_landmarks, FACEMESH_IRISES, center, color, color, canvasWidth, canvasHeight);
+        DrawConnections(pixels, face_landmarks, FaceMeshConnections.FACEMESH_TESSELATION, center, tesselation_cwidth, tesselation_color, canvasWidth, canvasHeight);
+        DrawConnections(pixels, face_landmarks, FaceMeshConnections.FACEMESH_CONTOURS, center, contour_cwidth, contour_color, canvasWidth, canvasHeight);
+        DrawConnections(pixels, face_landmarks, FaceMeshConnections.FACEMESH_IRISES, center, irises_cwidth, irises_color, canvasWidth, canvasHeight);
 
         // 2. Draw the points themselves
 
@@ -248,10 +247,10 @@ public class FaceMaskCanvas : MediapipeVisualization
         //     // draw the contour
         //     DrawContour(pixels, mask_contour, center, cwidth, color, canvasWidth, canvasHeight);
         // }
-        else
-        {
-            throw new System.ArgumentException("Invalid render mode: " + renderMode);
-        }
+        // else
+        // {
+        //     throw new System.ArgumentException("Invalid render mode: " + renderMode);
+        // }
 
         texture.LoadRawTextureData(pixels);
         texture.Apply();
@@ -347,6 +346,58 @@ public class FaceMaskCanvas : MediapipeVisualization
         }
     }
 
+    // Take in a list of edges (a tuple of 3d points) and draw a line between each edge
+    // in the specified style (color, thickness, pattern, etc)
+    //
+    // including:
+    // - pixels: the position of the object, in Unity world space
+    // - points: the distance of the object from the camera
+    // - : the class name of the object
+    // - center: the geometry center of the object
+    // - width: the width of the image
+    // - height: the height of the image
+    // - color: the color of the object
+    // - data: the recognition data
+    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
+    //      The other passed fields are either computed by caller or used by caller anyways
+    // - index: the index of the object in the recognition result
+    void DrawConnections(byte[] pixels, Vector3[] points, HashSet<(int, int)> connectionsMapping, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    {
+        // for (int i = 0; i < points.Length; i++)
+        // {
+        //     Vector3 start = points[i];
+        //     Vector3 end = points[(i + 1) % points.Length];
+            // DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
+        // }
+
+        // Iterate through each connection
+        foreach (var connection in connections) {
+            int index1 = connection.Item1;
+            int index2 = connection.Item2;
+
+            // Access the points using the indices
+            Vector3 start = points[index1];
+            Vector3 end = points[index2];
+
+            // For each connection, make sure that both of the landmarks
+            // are visible and present (presence) enough to be drawn. If they aren't,
+            // Then don't draw the connection 
+
+            DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
+        }
+    }
+
+    void DrawLines(byte[] pixels, Vector2[] points, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
+    {
+        for (int i = 0; i < points.Length; i++)
+        {
+            Vector2 start = points[i];
+            Vector2 end = points[(i + 1) % points.Length];
+            DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
+        }
+    }
+
+
     // void DrawLine(byte[] pixels, Vector2 start, Vector2 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     void DrawLine(byte[] pixels, Vector3 start, Vector3 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     {
@@ -415,57 +466,6 @@ public class FaceMaskCanvas : MediapipeVisualization
         }
     }
 
-    void DrawLines(byte[] pixels, Vector2[] points, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
-    {
-        for (int i = 0; i < points.Length; i++)
-        {
-            Vector2 start = points[i];
-            Vector2 end = points[(i + 1) % points.Length];
-            DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
-        }
-    }
-
-
-    // Take in a list of edges (a tuple of 3d points) and draw a line between each edge
-    // in the specified style (color, thickness, pattern, etc)
-    //
-    // including:
-    // - pixels: the position of the object, in Unity world space
-    // - points: the distance of the object from the camera
-    // - : the class name of the object
-    // - center: the geometry center of the object
-    // - width: the width of the image
-    // - height: the height of the image
-    // - color: the color of the object
-    // - data: the recognition data
-    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
-    //      The other passed fields are either computed by caller or used by caller anyways
-    // - index: the index of the object in the recognition result
-    void DrawConnections(byte[] pixels, Vector3[] points, HashSet<(int, int)> connectionsMapping, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
-    {
-        // for (int i = 0; i < points.Length; i++)
-        // {
-        //     Vector3 start = points[i];
-        //     Vector3 end = points[(i + 1) % points.Length];
-            // DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
-        // }
-
-        // Iterate through each connection
-        foreach (var connection in connections) {
-            int index1 = connection.Item1;
-            int index2 = connection.Item2;
-
-            // Access the points using the indices
-            Vector3 start = points[index1];
-            Vector3 end = points[index2];
-
-            // For each connection, make sure that both of the landmarks
-            // are visible and present (presence) enough to be drawn. If they aren't,
-            // Then don't draw the connection 
-
-            DrawLine(pixels, start, end, center, width, color, canvasWidth, canvasHeight);
-        }
-    }
 
     void SetPixelColor(byte[] pixels, int x, int y, Color color, int width, int height)
     {
@@ -476,8 +476,7 @@ public class FaceMaskCanvas : MediapipeVisualization
             pixels[index + 1] = (byte)(color.g * 255);
             pixels[index + 2] = (byte)(color.b * 255);
             pixels[index + 3] = (byte)(color.a * 255);
-        }
-        else {
+        } else {
             throw new System.ArgumentException("Invalid pixel coordinate: (" + x + ", " + y + ")" + " for texture size: " + width + "x" + height);
         }
     }

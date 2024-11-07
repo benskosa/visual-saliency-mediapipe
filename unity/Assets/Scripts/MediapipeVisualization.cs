@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceMeshColors
+
 // base class for recognition visualization prefab
 // every recognition visualization should inherit from this class
 public abstract class MediapipeVisualization : MonoBehaviour
@@ -13,7 +15,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
     // - center: the geometry center of the object
     // - width: the width of the image
     // - height: the height of the image
-    // - color: the color of the object
+    // - colors: the color of the object
     // - data: the recognition data
     //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
     //      The other passed fields are either computed by caller or used by caller anyways
@@ -24,7 +26,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        Color color,
+        FaceMeshColors colors,
         RecognitionData data,
         int index
     );
@@ -36,7 +38,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        Color color,
+        FaceMeshColors colors,
         RecognitionData data,
         int index
     ) {
@@ -49,11 +51,11 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        Color color,
+        FaceMeshColors colors,
         RecognitionData data,
         int index
     ) {
         // by default: process the 2D result as 3D result
-        ProcessRecognitionResult(position, distance, center, width, height, color, data, index);
+        ProcessRecognitionResult(position, distance, center, width, height, colors, data, index);
     }
 }

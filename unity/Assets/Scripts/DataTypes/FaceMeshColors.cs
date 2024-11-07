@@ -1,7 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.DataTypes.FaceMesh {
-    public struct FaceMeshColors {
+    public class FaceMeshColors {
         public Color FaceMeshTesselationColor  { get; set; }
         public Color FaceMeshContourColor { get; set; }
         public Color FaceMeshRightBrowColor { get; set; }
@@ -13,14 +14,16 @@ namespace Assets.Scripts.DataTypes.FaceMesh {
 
 
         // Default constructor
-        public FaceMeshColors() : this(Color.yellow,
-                                       Color.yellow
-                                       Color.yellow
-                                       Color.yellow
-                                       Color.yellow
-                                       Color.yellow
-                                       Color.yellow
-                                       Color.yellow) { }
+        public FaceMeshColors() { 
+            FaceMeshTesselationColor = Color.yellow;
+            FaceMeshContourColor = Color.yellow;
+            FaceMeshRightBrowColor = Color.yellow;
+            FaceMeshLeftBrowColor = Color.yellow;
+            FaceMeshRightEyeColor = Color.yellow;
+            FaceMeshLeftEyeColor = Color.yellow;
+            FaceMeshRightIrisColor = Color.yellow;
+            FaceMeshLeftIrisColor = Color.yellow;
+        }
 
         public FaceMeshColors(Color faceMeshTesselationColor,
                               Color faceMeshContourColor,

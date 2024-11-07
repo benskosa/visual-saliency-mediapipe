@@ -61,14 +61,14 @@ message FaceAugmentations {
 
 // Here if we want different thicknesses for each part of face mesh
 message FaceMeshThicknesses {
-    string faceMesh_tesselation_thickness  = 1;
-    string faceMesh_contour_thickness = 2;
-    string faceMesh_rightBrow_thickness = 3;
-    string faceMesh_leftBrow_thickness = 4;
-    string faceMesh_rightEye_thickness = 5;
-    string faceMesh_leftEye_thickness = 6;
-    string faceMesh_rightIris_thickness = 7;
-    string faceMesh_leftIris_thickness = 8;
+    int32 faceMesh_tesselation_thickness  = 1;
+    int32 faceMesh_contour_thickness = 2;
+    int32 faceMesh_rightBrow_thickness = 3;
+    int32 faceMesh_leftBrow_thickness = 4;
+    int32 faceMesh_rightEye_thickness = 5;
+    int32 faceMesh_leftEye_thickness = 6;
+    int32 faceMesh_rightIris_thickness = 7;
+    int32 faceMesh_leftIris_thickness = 8;
 }
 
 // For Bounding boxes
