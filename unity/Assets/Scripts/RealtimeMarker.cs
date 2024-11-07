@@ -35,8 +35,8 @@ public class RealtimeMarker : DataProcessor
         public RecognitionVisualization visualization;
     }
     // AugmentationTags
-    // [SerializeField] List<AugmentationTag> augmentationTags = new List<AugmentationTag>();
-    Dictionary<string, RecognitionVisualization> augmentationTagDict = new Dictionary<string, RecognitionVisualization>();
+    // [SerializeField] List<AugmentationTag> augmentationTags = new List<AugmentationTag>();  // Ben Removed
+    // Dictionary<string, RecognitionVisualization> augmentationTagDict = new Dictionary<string, RecognitionVisualization>();  // Ben Removed
     ulong lastTimestamp = 0;
 
     void Start()
@@ -238,7 +238,7 @@ public class RealtimeMarker : DataProcessor
                 visObj.ProcessRecognitionResult(
                     objectPosition,
                     hitDistance,
-                    class_name,
+                    // class_name,
                     center,
                     width,
                     height,
@@ -248,7 +248,7 @@ public class RealtimeMarker : DataProcessor
                 );
                 // visObj.TestProcessRecognitionResult(objectPosition, class_name, score, mask_contour, box, width, height, color);
                 global::RealtimeFaceMaskObject.visualization = visObj;
-                // add the yolo object to the list
+                // add the face mesh object to the list
                 faceMeshObjects.Add(realtimeFaceMaskObject);
             }
         }
@@ -373,7 +373,8 @@ class RealtimeFaceMaskObject
     // public string className;
     public Vector3 position;
     public bool lastSeen;
-    public RecognitionVisualization visualization = null;
+    // public RecognitionVisualization visualization = null;
+    public MediapipeVisualization visualization = null;
     // public string visualizationTag = "";
     public bool canBeSeen;
     public Transform transform
