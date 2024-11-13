@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.DataTypes.FaceMesh {
-    public class FaceMeshColors {
+    public class FaceColors {
         public Color FaceMeshTesselationColor  { get; set; }
         public Color FaceMeshContourColor { get; set; }
         public Color FaceMeshRightBrowColor { get; set; }
@@ -14,7 +14,7 @@ namespace Assets.Scripts.DataTypes.FaceMesh {
 
 
         // Default constructor
-        public FaceMeshColors() { 
+        public FaceColors() { 
             FaceMeshTesselationColor = Color.yellow;
             FaceMeshContourColor = Color.yellow;
             FaceMeshRightBrowColor = Color.yellow;
@@ -25,7 +25,7 @@ namespace Assets.Scripts.DataTypes.FaceMesh {
             FaceMeshLeftIrisColor = Color.yellow;
         }
 
-        public FaceMeshColors(Color faceMeshTesselationColor,
+        public FaceColors(Color faceMeshTesselationColor,
                               Color faceMeshContourColor,
                               Color faceMeshRightBrowColor,
                               Color faceMeshLeftBrowColor,

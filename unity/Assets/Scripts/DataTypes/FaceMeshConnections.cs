@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Scripts.DataTypes.FaceMesh
 {
@@ -93,13 +94,13 @@ namespace Assets.Scripts.DataTypes.FaceMesh
             (220, 115), (115, 48), (48, 64), (64, 98)
         };
 
-        public static readonly HashSet<(int, int)> FACEMESH_CONTOURS = new HashSet<(int, int)>(
-            FACEMESH_LIPS.Union(FACEMESH_LEFT_EYE)
+        public static readonly HashSet<(int, int)> FACEMESH_CONTOURS = FACEMESH_LIPS
+                         .Union(FACEMESH_LEFT_EYE)
                          .Union(FACEMESH_LEFT_EYEBROW)
                          .Union(FACEMESH_RIGHT_EYE)
                          .Union(FACEMESH_RIGHT_EYEBROW)
                          .Union(FACEMESH_FACE_OVAL)
-        );
+                         .ToHashSet();  // LINQ method
 
         public static readonly HashSet<(int, int)> FACEMESH_IRISES = new HashSet<(int, int)>(
             FACEMESH_LEFT_IRIS.Union(FACEMESH_RIGHT_IRIS)

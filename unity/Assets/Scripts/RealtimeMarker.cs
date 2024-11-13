@@ -9,19 +9,20 @@ using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using Google.Protobuf;
 using MyBox;
 
-using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshColors
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceColors
 
 public class RealtimeMarker : DataProcessor
 {
     Camera mainCamera = null;
     [SerializeField] LocatableCamera locatableCamera = null;
-    [SerializeField] RecognitionVisualization visualizationPrefab = null;
+    [SerializeField] MediapipeVisualization visualizationPrefab = null;
     [SerializeField] float sameLabelDistance = 0.30f;
     [SerializeField] float sameLabelAngle = 30.0f;
     // List<RealtimeYoloObject> yoloObjects = new List<RealtimeYoloObject>();
     List<RealtimeFaceMaskObject> faceMeshObjects = new List<RealtimeFaceMaskObject>();
 
     private IMixedRealitySpatialAwarenessMeshObserver observer = null;
+    private int NUM_FACEMASK_COMPONENTS = 8;
     [SerializeField] bool renderUncollided = false;
     // if true, specify the distance
     [ConditionalField(nameof(renderUncollided))] [SerializeField] float uncollidedDistance = 5.0f;
@@ -114,7 +115,7 @@ public class RealtimeMarker : DataProcessor
         InitTags();
 
         int numFaces = data.Faces.Count;
-        int numFaceAugmentations = data.FaceMeshColors[0].Count;  // Should be 8
+        int numFaceAugmentations = NUM_FACEMASK_COMPONENTS;  // Should be 8
 
         var (cameraPosition, cameraRotation) = locatableCamera.GetPosRot(data.Timestamp);
 
@@ -123,18 +124,43 @@ public class RealtimeMarker : DataProcessor
             // get the geometry center. We are treating a point on the nose as a Geometry center for now,
             // specifically index 4 as shown on https://storage.googleapis.com/mediapipe-assets/documentation/mediapipe_face_landmark_fullsize.png
             // var center = new Vector2(data.GeometryCenters[i].X, data.GeometryCenters[i].Y);
-            var center = new Vector2(data.Faces[i][4].X, data.Faces[i][4].Y);
+            var center = new Vector2(data.Faces[i].Landmarks[4].X, data.Faces[i].Landmarks[4].Y);
 
             // for this face, go through every type of landmark and get it's color
-            FaceMeshColors faceMeshColors = FaceMeshColors();
-            if (i < data.FaceMeshColors.Count)
-            {
-                for (int j = 0; j < numFaceAugmentations; j++) {
-                    var faceMeshAugColors = data.FaceMeshColors[j];
-                    var alpha = faceMeshAugColors.a < 5? 1.0f : (float)faceMeshAugColors.a / 100.0f;
-                    faceMeshColors.FaceMeshTesselationColor = new Color(faceMeshAugColors.r / 255.0f, faceMeshAugColors.g / 255.0f, faceMeshAugColors.b / 255.0f, alpha);
-                }
-            }
+            // If you add more components to the face mesh, you'll need to reflect those changes here
+            FaceColors faceMeshColors = new FaceColors();
+            var faceMeshTesselationColor = data.FaceMeshColors[i].FaceMeshTesselationColor;
+            var faceMeshContourColor = data.FaceMeshColors[i].FaceMeshContourColor;
+            var faceMeshRightBrowColor = data.FaceMeshColors[i].FaceMeshRightBrowColor;
+            var faceMeshLeftBrowColor = data.FaceMeshColors[i].FaceMeshLeftBrowColor;
+            var faceMeshRightEyeColor = data.FaceMeshColors[i].FaceMeshRightEyeColor;
+            var faceMeshLeftEyeColor = data.FaceMeshColors[i].FaceMeshLeftEyeColor;
+            var faceMeshRightIrisColor = data.FaceMeshColors[i].FaceMeshRightIrisColor;
+            var faceMeshLeftIrisColor = data.FaceMeshColors[i].FaceMeshLeftIrisColor;
+
+            var alpha = faceMeshTesselationColor.A < 5? 1.0f : (float)faceMeshTesselationColor.A / 100.0f;
+            faceMeshColors.FaceMeshTesselationColor = new Color(faceMeshTesselationColor.R / 255.0f, faceMeshTesselationColor.G / 255.0f, faceMeshTesselationColor.B / 255.0f, alpha);
+
+            alpha = faceMeshContourColor.A < 5? 1.0f : (float)faceMeshContourColor.A / 100.0f;
+            faceMeshColors.FaceMeshContourColor = new Color(faceMeshContourColor.R / 255.0f, faceMeshContourColor.G / 255.0f, faceMeshContourColor.B / 255.0f, alpha);
+
+            alpha = faceMeshRightBrowColor.A < 5? 1.0f : (float)faceMeshRightBrowColor.A / 100.0f;
+            faceMeshColors.FaceMeshRightBrowColor = new Color(faceMeshRightBrowColor.R / 255.0f, faceMeshRightBrowColor.G / 255.0f, faceMeshRightBrowColor.B / 255.0f, alpha);
+
+            alpha = faceMeshLeftBrowColor.A < 5? 1.0f : (float)faceMeshLeftBrowColor.A / 100.0f;
+            faceMeshColors.FaceMeshLeftBrowColor = new Color(faceMeshLeftBrowColor.R / 255.0f, faceMeshLeftBrowColor.G / 255.0f, faceMeshLeftBrowColor.B / 255.0f, alpha);
+
+            alpha = faceMeshRightEyeColor.A < 5? 1.0f : (float)faceMeshRightEyeColor.A / 100.0f;
+            faceMeshColors.FaceMeshRightEyeColor = new Color(faceMeshRightEyeColor.R / 255.0f, faceMeshRightEyeColor.G / 255.0f, faceMeshRightEyeColor.B / 255.0f, alpha);
+
+            alpha = faceMeshLeftEyeColor.A < 5? 1.0f : (float)faceMeshLeftEyeColor.A / 100.0f;
+            faceMeshColors.FaceMeshLeftEyeColor = new Color(faceMeshLeftEyeColor.R / 255.0f, faceMeshLeftEyeColor.G / 255.0f, faceMeshLeftEyeColor.B / 255.0f, alpha);
+
+            alpha = faceMeshRightIrisColor.A < 5? 1.0f : (float)faceMeshRightIrisColor.A / 100.0f;
+            faceMeshColors.FaceMeshRightIrisColor = new Color(faceMeshRightIrisColor.R / 255.0f, faceMeshRightIrisColor.G / 255.0f, faceMeshRightIrisColor.B / 255.0f, alpha);
+
+            alpha = faceMeshLeftIrisColor.A < 5? 1.0f : (float)faceMeshLeftIrisColor.A / 100.0f;
+            faceMeshColors.FaceMeshLeftIrisColor = new Color(faceMeshLeftIrisColor.R / 255.0f, faceMeshLeftIrisColor.G / 255.0f, faceMeshLeftIrisColor.B / 255.0f, alpha);
 
             Vector3 objectPosition = Vector3.zero;
             float hitDistance = 0.0f;
@@ -158,7 +184,7 @@ public class RealtimeMarker : DataProcessor
             //     worldSpaceDir = locatableCamera.PixelCoordToWorldCoord(center);
             // }
 
-            RecognitionVisualization toInstantiate = visualizationPrefab;
+            MediapipeVisualization toInstantiate = visualizationPrefab;
             // AugmentationTags
             // string augmentationTag = "outline"; // hardcoded default
             // if there is a corresponding augmentation tag
@@ -221,7 +247,6 @@ public class RealtimeMarker : DataProcessor
                 faceMeshObjects[index].visualization.ProcessRecognitionResult(
                     objectPosition,
                     hitDistance,
-                    // class_name,
                     center,
                     width,
                     height,
@@ -229,16 +254,12 @@ public class RealtimeMarker : DataProcessor
                     data,
                     i
                 );
-            }
-            // else, if there is a collision point
-            else
-            {
-                // instantiate a new yolo object label
-                RecognitionVisualization visObj = Instantiate(toInstantiate, transform);
+            } else { // else, if there is a collision point
+                // instantiate a new face mesh object
+                MediapipeVisualization visObj = Instantiate(toInstantiate, transform);
                 visObj.ProcessRecognitionResult(
                     objectPosition,
                     hitDistance,
-                    // class_name,
                     center,
                     width,
                     height,
@@ -247,7 +268,8 @@ public class RealtimeMarker : DataProcessor
                     i
                 );
                 // visObj.TestProcessRecognitionResult(objectPosition, class_name, score, mask_contour, box, width, height, color);
-                global::RealtimeFaceMaskObject.visualization = visObj;
+                // global::RealtimeFaceMaskObject.visualization = visObj;
+                realtimeFaceMaskObject.visualization = visObj;
                 // add the face mesh object to the list
                 faceMeshObjects.Add(realtimeFaceMaskObject);
             }

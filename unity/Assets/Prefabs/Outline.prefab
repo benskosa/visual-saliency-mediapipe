@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 6832552839626982500}
   - component: {fileID: 669638610094130082}
   - component: {fileID: 6108240824652612850}
-  - component: {fileID: 1921199071385807236}
+  - component: {fileID: 5665235061848584615}
   m_Layer: 5
   m_Name: Outline
   m_TagString: Untagged
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4e3b9019304b5aaec5664de0778d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1921199071385807236
+--- !u!114 &5665235061848584615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6296944675801253537}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b95200923d21e8439ea2258ed6665a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 66e9db396d104e1409e5202da87d5654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   renderMode: 1

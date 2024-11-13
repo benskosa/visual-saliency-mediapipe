@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using MyBox;
 using System;
 
-using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceMeshColors
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceColors
 
 public enum RenderMode
 {
@@ -61,7 +61,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         Vector2 center,
         uint width,
         uint height,
-        FaceMeshColors colors,
+        FaceColors colors,
         RecognitionData data,
         int index
     )
@@ -113,7 +113,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         Vector2 center,
         uint width,
         uint height,
-        FaceMeshColors colors,
+        FaceColors colors,
         RecognitionData data,
         int index
     )
@@ -197,9 +197,13 @@ public class FaceMaskCanvas : MediapipeVisualization
         var irises_cwidth = data.ContourThicknesses[index].FaceMeshLeftEyeThickness;  // TODO for Ben: Seperate out CONTOUR if want more customization
 
         // Get the color for each part of the face mask
-        var tesselation_color = data.FaceMeshColors[index].FaceMeshTesselationColor;
-        var contour_color = data.FaceMeshColors[index].FaceMeshContourColor;
-        var irises_color = data.FaceMeshColors[index].FaceMeshLeftEyeColor;  // TODO for Ben: Se   erate out CONTOUR if want more customization
+        var tesselation_color_values = data.FaceMeshColors[index].FaceMeshTesselationColor;
+        var contour_color_values = data.FaceMeshColors[index].FaceMeshContourColor;
+        var irises_color_values = data.FaceMeshColors[index].FaceMeshLeftEyeColor;  // TODO for Ben: Se   erate out CONTOUR if want more customization
+
+        Color  tesselation_color = new Color(tesselation_color_values.R, tesselation_color_values.G, tesselation_color_values.B, tesselation_color_values.A);
+        Color contour_color = new Color(contour_color_values.R, contour_color_values.G, contour_color_values.B, contour_color_values.A);
+        Color irises_color = new Color(irises_color_values.R, irises_color_values.G, irises_color_values.B, irises_color_values.A);
 
 
         // This is for if defining contour thicknesses is optional, but I've made it required
@@ -347,22 +351,20 @@ public class FaceMaskCanvas : MediapipeVisualization
     }
 
     // Take in a list of edges (a tuple of 3d points) and draw a line between each edge
-    // in the specified style (color, thickness, pattern, etc)
+    // in the specified style (color, thickness, pattern, etc). Update our pixel map
+    // so that these drawn edges show on the canvas.
     //
     // including:
-    // - pixels: the position of the object, in Unity world space
-    // - points: the distance of the object from the camera
-    // - : the class name of the object
-    // - center: the geometry center of the object
-    // - width: the width of the image
-    // - height: the height of the image
+    // - pixels: the value of each pixel in our canvas.
+    // - points: the (x,y,z) coordinates of each point in our graph
+    // - connectionsMapping: a list of tuples, where each tuple represents a connection between two points.
+    //                       Each point is represented by its index in the points list.
+    // - center: The geometry center of the canvas
+    // - width: the width of the line
     // - color: the color of the object
-    // - data: the recognition data
-    //      Sidenote: this isn't the best way to pass data, but no need to parse the contour if not needed
-    //      The other passed fields are either computed by caller or used by caller anyways
-    // - index: the index of the object in the recognition result
-    void DrawConnections(byte[] pixels, Vector3[] points, HashSet<(int, int)> connectionsMapping, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
-    {
+    // - canvasWidth: the width of the canvas that we're drawing on
+    // - canvasHeight: the height of the canvas that we're drawing on
+    void DrawConnections(byte[] pixels, Vector3[] points, HashSet<(int, int)> connectionsMapping, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight) {
         // for (int i = 0; i < points.Length; i++)
         // {
         //     Vector3 start = points[i];
@@ -371,7 +373,7 @@ public class FaceMaskCanvas : MediapipeVisualization
         // }
 
         // Iterate through each connection
-        foreach (var connection in connections) {
+        foreach (var connection in connectionsMapping) {
             int index1 = connection.Item1;
             int index2 = connection.Item2;
 
@@ -397,7 +399,19 @@ public class FaceMaskCanvas : MediapipeVisualization
         }
     }
 
-
+    // Draw a line between the start and end point
+    // in the specified style (color, thickness, pattern, etc). Update our pixel map
+    // so that this drawn line shows on the canvas.
+    //
+    // including:
+    // - pixels: the value of each pixel in our canvas.
+    // - start: the (x,y,z) coordinates of the start point of the line
+    // - end: the (x,y,z) coordinates of the end point of the line
+    // - center: The geometry center of the canvas
+    // - width: the width of the line
+    // - color: the color of the object
+    // - canvasWidth: the width of the canvas that we're drawing on
+    // - canvasHeight: the height of the canvas that we're drawing on
     // void DrawLine(byte[] pixels, Vector2 start, Vector2 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     void DrawLine(byte[] pixels, Vector3 start, Vector3 end, Vector2 center, int width, Color color, int canvasWidth, int canvasHeight)
     {

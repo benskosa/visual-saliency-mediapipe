@@ -3,7 +3,7 @@ Serializer for the recognition result using protobuf
 """
 
 from typing import List, Tuple, Dict, Any, Union
-from .recognition_data_pb2 import RecognitionData, NormalizedLandmarkList, NormalizedLandmark, FaceMeshColors, EdgeColor, FaceAugmentation, FaceMeshThicknesses, Box
+from .recognition_data_face_pb2 import RecognitionData, NormalizedLandmarkList, NormalizedLandmark, FaceMeshColors, EdgeColor, FaceAugmentations, FaceMeshThicknesses, Box
 
 # def serialize(
 #         result: Dict[str, Any],
@@ -471,7 +471,7 @@ def _serialize_augmentations(augmentations: List[Dict[str, str]], rdata: Recogni
         None
     """
     for face in augmentations:
-        face_augmentation = FaceAugmentation()
+        face_augmentation = FaceAugmentations()
         face_augmentation.faceMesh_tesselation_design = face['tesselation_design']
         face_augmentation.faceMesh_contour_design = face['contour_design']
         face_augmentation.faceMesh_leftBrow_design = face['leftBrow_design']

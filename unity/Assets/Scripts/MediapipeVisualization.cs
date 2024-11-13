@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceMeshColors
+using Assets.Scripts.DataTypes.FaceMesh;  // For FaceMeshConnections AND FaceColors
 
 // base class for recognition visualization prefab
 // every recognition visualization should inherit from this class
@@ -26,7 +26,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        FaceMeshColors colors,
+        FaceColors colors,
         RecognitionData data,
         int index
     );
@@ -38,7 +38,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        FaceMeshColors colors,
+        FaceColors colors,
         RecognitionData data,
         int index
     ) {
@@ -51,7 +51,7 @@ public abstract class MediapipeVisualization : MonoBehaviour
         Vector2 center,
         uint width,
         uint height,
-        FaceMeshColors colors,
+        FaceColors colors,
         RecognitionData data,
         int index
     ) {

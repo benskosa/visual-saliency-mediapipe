@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: MadAbility
-  productName: S-Outdoor
+  productName: S-Mediapipe
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -140,7 +140,10 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.3
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 4851145868134582471, guid: 9633a6ff9100f084185e89df4242f298, type: 2}
+  - {fileID: 11400000, guid: a722c5574c1b1854597cddc1b737e6ee, type: 2}
+  - {fileID: 8852142593417987539, guid: 626eeec404872c94a80cab2ad05a5897, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -868,7 +871,7 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Visual-Saliency-hl2ss-outdoor
+  metroPackageName: Visual-Saliency-hl2ss-mediapipe
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 

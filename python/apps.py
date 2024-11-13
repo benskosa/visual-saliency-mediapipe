@@ -40,7 +40,7 @@ from mediapipe.framework.formats import landmark_pb2
 # ]
 
 # from mmdetection.api import get_recognition, draw_recognition, load_model, get_classes
-from mediapipe.api import get_recognition, draw_recognition, load_model, get_classes
+from mediapipe_cv.api import get_recognition, draw_recognition, load_model, get_classes
 # scenario = 'kitchen'
 # scenario = 'vistas'
 scenario = 'face'
@@ -207,8 +207,10 @@ def update_diffs():
             for class_name, prop in g_metadata.items()
         }
 
+# Ben: Commented out for now as I need to refactor this to use for Mediapipe.
+# TODO: Refactor this for mediapipe if this actually gets used for user testing.
 get_metadata(g_current_metadata)
-update_diffs()
+# update_diffs()
 
 # Settings --------------------------------------------------------------------
 VIDEO_PORT = hl2ss.StreamPort.PERSONAL_VIDEO
@@ -1053,10 +1055,12 @@ if __name__ == '__main__':
 
     app = VideoProcessApp()
 
+    # Ben: Commented out for now as I need to refactor this to use for Mediapipe.
+    # TODO: Refactor this for mediapipe if this actually gets used for user testing.
     # run UI
-    ui_thread = threading.Thread(target=run_ui)
-    ui_thread.daemon = True
-    ui_thread.start()
+    # ui_thread = threading.Thread(target=run_ui)
+    # ui_thread.daemon = True
+    # ui_thread.start()
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(app.run(host, handlers=[
@@ -1070,5 +1074,7 @@ if __name__ == '__main__':
     loop.run_until_complete(app.close())
     loop.close()
 
-    if ui_thread.is_alive():
-        ui_thread.join()
+    # Ben: Commented out for now as I need to refactor this to use for Mediapipe.
+    # TODO: Refactor this for mediapipe if this actually gets used for user testing.
+    # if ui_thread.is_alive():
+    #     ui_thread.join()
