@@ -50,7 +50,7 @@ def load_model(model_name: str):
 
     # Create a FaceLandmarker Object
     base_options = python.BaseOptions(model_asset_path=config_path)
-    options = vision.FaceLandmakrerOptions(base_options=base_options,
+    options = vision.FaceLandmarkerOptions(base_options=base_options,
                                            output_face_blendshapes=True,
                                            output_facial_transformation_matrixes=True,
                                            num_faces=1)
@@ -168,6 +168,8 @@ total_used_time = 0
 def find_bounding_box_from_landmarks(face_landmarks: List[List[Any]]) -> List[Tuple[int, int, int, int]]:
     """
     Calculate the bounding box for each detected face.
+    The boudning box is represented as the NORMALIZED (i.e. between 0 and 1) 2d coordinate for
+    the vertex (the top-left most corner) and it's opposite vertex (the bottom-right most corner).
     
     Parameters:
     faces_landmarks (list of list of NormalizedLandmark): 
@@ -178,23 +180,30 @@ def find_bounding_box_from_landmarks(face_landmarks: List[List[Any]]) -> List[Tu
     list of dict: A list of dictionaries, each containing the bounding box coordinates for a face.
                   Each dictionary has keys: 'minX', 'maxX', 'minY', 'maxY'.
     """
+    # print("***************** PRINT face_landmarks RESULT *****************")
+    # print(face_landmarks)
     bounding_boxes = []
     for face in face_landmarks:
         # For every face, loop through its landmarks and create a bounding box from them
-        for landmarks in face:
-            # Extract x and y coordinates for each landmark
-            x_coords = [landmark.x for landmark in landmarks]
-            y_coords = [landmark.y for landmark in landmarks]
-            
-            # Calculate min and max values
-            min_x, max_x = min(x_coords), max(x_coords)
-            min_y, max_y = min(y_coords), max(y_coords)
-            
-            # Create a bounding box dictionary for the current face
-            bounding_box = (min_x, min_y, max_x, max_y)
-            bounding_boxes.append(bounding_box)
+        # print("***************** PRINT face *****************")
+        # print(face)
+        # Extract x and y coordinates for each landmark
+        x_coords = [landmark.x for landmark in face]
+        y_coords = [landmark.y for landmark in face]
+        # print("********************************")
+        # print("x_coords: ", x_coords)
+        # print("y_coords: ", x_coords)
         
-        return bounding_boxes
+        # Calculate min and max values
+        min_x, max_x = min(x_coords), max(x_coords)
+        min_y, max_y = min(y_coords), max(y_coords)
+        
+        # Create a bounding box dictionary for the current face
+        bounding_box = (min_x, min_y, max_x, max_y)
+        print(f"bounding_box: {bounding_box}")
+        bounding_boxes.append(bounding_box)
+        
+    return bounding_boxes
 
 
 
@@ -209,12 +218,26 @@ def get_recognition(image: np.ndarray) -> List[Any]:
     global model
     global count, total_used_time
 
+    # Need to first convert the image to RGB  (hl2ss decodes into BGR format)
+    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
     start_time = time.time()
-    result = model.detect(image)
+    result = model.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_image))
     # result = model.detectFromVideo(image, TODO) # TODO
     used_time = time.time() - start_time
     total_used_time += used_time
     count += 1
+
+    # print("***************** PRINT RESULT *****************")
+    # print(type(result))
+    # print("***************** PRINT face_landmarks RESULT *****************")
+    # print(result.face_landmarks)
+
+    # cv2.imshow("main", cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+    # cv2.imshow("main", image)
+
+    # print("Got a result from our model!")
+    # print(result)
 
     # Get the bounding box for each detected face. It seems like the face_landmarks model
     # has an intermediate model called Face Detector that outputs a bounding box for each face,
@@ -222,6 +245,18 @@ def get_recognition(image: np.ndarray) -> List[Any]:
     # My naive solution is to just calculate the bounding box from the left-most, right-most, top-most,
     # and bottom-most landmarks. TODO for Ben: Look into optimizing this if it causes performance issues.
     boxes = find_bounding_box_from_landmarks(result.face_landmarks)  # Outputs bounding box for each face: List[(x1, y1, x2, y2), (),...]
+    print("Bounding boxes: ", boxes)
+
+    # TODO for 8/5/2025: Try to make sure that the bounding boxes come out right. Draw them!
+    annotated_image = draw_face_landmarks_with_boundingBox(rgb_image, result, boxes)
+    # print(f"Type of annotated image: {type(annotated_image)}")
+    cv2.imshow("main", cv2.cvtColor(annotated_image, cv2.COLOR_RGB2BGR))
+    key = cv2.waitKey(1)
+
+    # TODO: Once I come back from coffee shop, check to make sure that the bounding boxes are converted into pixel/world space properly on unity side.
+    # Also make sure that the bounding boxes are handled properly (min_x, max_y) and (max_x, min_y). I might not doing this properly right now?
+    # TODO: Also make sure that I can even just create objects (e.g. a white cube) in the position that the RawImage is "supposed to be". At the very least,
+    # a dummy position that should absolutely be in front of the camera (and probably try making it a child of the camera so it's always in front).
 
     # Ben: I'm going to assume that I can use one of the landmarks in the middle of the face as a "geometric_center"
     # to shoot a ray from to find approximate distance/z-value
@@ -235,7 +270,7 @@ def get_recognition(image: np.ndarray) -> List[Any]:
         # "scores": scores,
         # "labels": labels, # "labels" is the original label, "class_names" is the class name
         # "class_names": class_names,
-        # "geometry_center": geometry_center,
+        # "geometry_center
     }
 
     return result
@@ -311,6 +346,56 @@ def draw_face_landmarks(rgb_image, detection_result):
           landmark_drawing_spec=None,
           connection_drawing_spec=mp.solutions.drawing_styles
           .get_default_face_mesh_iris_connections_style())
+
+  return annotated_image
+
+
+def draw_face_landmarks_with_boundingBox(rgb_image, detection_result, bounding_boxes):
+  face_landmarks_list = detection_result.face_landmarks
+  annotated_image = np.copy(rgb_image)
+
+  # Loop through the detected faces to visualize.
+  for idx in range(len(face_landmarks_list)):
+    face_landmarks = face_landmarks_list[idx]
+    bounding_box = bounding_boxes[idx]
+
+    # Draw the face landmarks.
+    face_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
+    face_landmarks_proto.landmark.extend([
+      landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in face_landmarks
+    ])
+
+    solutions.drawing_utils.draw_landmarks(  # solutions is a mediapipe lib imported in
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_TESSELATION,
+        landmark_drawing_spec=None,
+        connection_drawing_spec=mp.solutions.drawing_styles
+        .get_default_face_mesh_tesselation_style())
+    solutions.drawing_utils.draw_landmarks(
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_CONTOURS,
+        landmark_drawing_spec=None,
+        connection_drawing_spec=mp.solutions.drawing_styles
+        .get_default_face_mesh_contours_style())
+    solutions.drawing_utils.draw_landmarks(
+        image=annotated_image,
+        landmark_list=face_landmarks_proto,
+        connections=mp.solutions.face_mesh.FACEMESH_IRISES,
+          landmark_drawing_spec=None,
+          connection_drawing_spec=mp.solutions.drawing_styles
+          .get_default_face_mesh_iris_connections_style())
+    
+
+    #Draw the bounding box around each detected face
+    # print(f"(bounding_box[0], bounding_box[2]): ({bounding_box[0], bounding_box[2]})")
+    print(f"^^^^^^^^ shape of rgb_image: {rgb_image.shape}")
+    image_rows, image_cols, _ = rgb_image.shape
+    pt1 = solutions.drawing_utils._normalized_to_pixel_coordinates(bounding_box[0], bounding_box[3], image_cols, image_rows)  # (max_x, min_y)
+    pt2 = solutions.drawing_utils._normalized_to_pixel_coordinates(bounding_box[2], bounding_box[1], image_cols, image_rows)  # (min_x, max_y)
+    print(f"&&&&&& pt1: {pt1} | pt2: {pt2}")
+    cv2.rectangle(annotated_image, pt1, pt2, color=(255, 0, 0), thickness=10)
 
   return annotated_image
 

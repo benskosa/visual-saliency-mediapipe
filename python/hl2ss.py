@@ -2723,9 +2723,11 @@ class ipc_umq(_context_manager):
             self.connect()
 
     def push_udp(self, buffer: umq_command_buffer):
-        if not self.connected:
-            # drop the buffer
-            return
+        # BUG FIX: self.connected will stay false even
+        # after the connection is re-established.
+        # if not self.connected:
+        #     # drop the buffer
+        #     return
         
         # simply send the buffer via UDP
         self.generic_udp_client.sendto(buffer.get_data(), (self.host, self.stream_port))

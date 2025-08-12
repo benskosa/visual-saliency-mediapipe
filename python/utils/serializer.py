@@ -135,7 +135,7 @@ def serialize(
     """
     Serialize the recognition result FOR face_landmarks to a protobuf message
     Args:
-        result: The recognition result to be serialized
+        result: The recognition result to be serialized 
     Returns:
         The serialized recognition result
     """
@@ -145,7 +145,7 @@ def serialize(
     # the fields are all optional, so we need to check if the field exists before serializing it
     _serilizer = {
         'face_landmarks': _serialize_face_landmarks,
-        'face_bounding_boxes' : _serialize_face_bounding_boxes,
+        'boxes' : _serialize_face_bounding_boxes,
         # 'face_blendshapes': _serialize_blendshapes,
         # 'position': _serialize_position,
         # 'rotation': _serialize_rotation,
@@ -158,6 +158,18 @@ def serialize(
 
     # set the timestamp
     rdata.timestamp = timestamp
+
+    # print(f"**************************** result:*******************")
+    # print(result)
+    # print(f"**************************** colors:*******************")
+    # print(colors)
+    # print(f"**************************** augmentations:*******************")
+    # print(augmentations)
+    # print(f"**************************** thicknesses:*******************")
+    # print(thicknesses)
+    # print(f"**************************** timestamp:*******************")
+    # print(timestamp)
+    
 
     # if colors is provided, serialize it
     # if it's a tuple, then it's a single color for all parts of the mesh for all faces and we
@@ -182,7 +194,7 @@ def serialize(
         elif isinstance(colors, dict):
             # If only one color scheme is passed, then use the one color scheme
             # for all faces seen
-            print("*****************Am processing colors as a dict*******************")
+            # print("*****************Am processing colors as a dict*******************")
             colors = [colors for _ in range(len(result['face_landmarks']))]
 
         _serialize_colors(colors, rdata)
@@ -205,7 +217,7 @@ def serialize(
             }
             augmentations = [augmentations_for_each_face for _ in range(len(result['face_landmarks']))]
         elif isinstance(augmentations, Dict):
-            print("*****************Am processing augmentations as a dict*******************")
+            # print("*****************Am processing augmentations as a dict*******************")
             augmentations = [augmentations for _ in range(len(result['face_landmarks']))]
 
         _serialize_augmentations(augmentations, rdata)
@@ -228,17 +240,20 @@ def serialize(
             }
             thicknesses = [thicknesses_for_each_face for _ in range(len(result['face_landmarks']))]
         elif isinstance(thicknesses, dict):
-            print("*****************Am processing thicknesses as a dict*******************")
+            # print("*****************Am processing thicknesses as a dict*******************")
             thicknesses = [thicknesses for _ in range(len(result['face_landmarks']))]
 
         _serialize_thicknesses(thicknesses, rdata)
 
+    # print("rdata before we serialize:")
+    # print(rdata)
     return rdata.SerializeToString()
 
 
 def _serialize_face_landmarks(faces: List[List[Any]], rdata: RecognitionData, **kwargs) -> None:
     """
     Serialize face landmarks to protobuf message, and add it to the recognition data
+    If faces is empty, rdata.faces will remain an empty list
     Args:
         landmarks: The landmarks for each face recognized to be serialized, in the
                    format of [[[x11, y11, z11], ..., [] ...], ...]
@@ -256,7 +271,7 @@ def _serialize_face_landmarks(faces: List[List[Any]], rdata: RecognitionData, **
             norm_landmark.z = landmark.z
             norm_landmark.visibility = landmark.visibility
             norm_landmark.presence = landmark.presence
-            face_landmarks.landmarks.append(landmark)
+            face_landmarks.landmarks.append(norm_landmark)
         rdata.faces.append(face_landmarks)
 
 
@@ -302,62 +317,62 @@ def _serialize_colors(colors: List[Dict[str, Tuple[int, int, int, int]]], rdata:
 
         # Initialize tesselation colors for this face
         tesselation_color = EdgeColor()
-        tesselation_color.r = facemesh_colors['tesselation_color'][0]
-        tesselation_color.g = facemesh_colors['tesselation_color'][1]
-        tesselation_color.b = facemesh_colors['tesselation_color'][2]
-        tesselation_color.a = facemesh_colors['tesselation_color'][3]
-        facemesh_colors.faceMesh_tesselation_colors = tesselation_color
+        tesselation_color.r = face['tesselation_color'][0]
+        tesselation_color.g = face['tesselation_color'][1]
+        tesselation_color.b = face['tesselation_color'][2]
+        tesselation_color.a = face['tesselation_color'][3]
+        facemesh_colors.faceMesh_tesselation_color.CopyFrom(tesselation_color)
 
         contour_color = EdgeColor()
-        contour_color.r = facemesh_colors['contour_color'][0]
-        contour_color.g = facemesh_colors['contour_color'][1]
-        contour_color.b = facemesh_colors['contour_color'][2]
-        contour_color.a = facemesh_colors['contour_color'][3]
-        facemesh_colors.faceMesh_contour_colors = contour_color
+        contour_color.r = face['contour_color'][0]
+        contour_color.g = face['contour_color'][1]
+        contour_color.b = face['contour_color'][2]
+        contour_color.a = face['contour_color'][3]
+        facemesh_colors.faceMesh_contour_color.CopyFrom(contour_color)
 
         rightBrow_color = EdgeColor()
-        rightBrow_color.r = facemesh_colors['rightBrow_color'][0]
-        rightBrow_color.g = facemesh_colors['rightBrow_color'][1]
-        rightBrow_color.b = facemesh_colors['rightBrow_color'][2]
-        rightBrow_color.a = facemesh_colors['rightBrow_color'][3]
-        facemesh_colors.faceMesh_rightBrow_colors = rightBrow_color
+        rightBrow_color.r = face['rightBrow_color'][0]
+        rightBrow_color.g = face['rightBrow_color'][1]
+        rightBrow_color.b = face['rightBrow_color'][2]
+        rightBrow_color.a = face['rightBrow_color'][3]
+        facemesh_colors.faceMesh_rightBrow_color.CopyFrom(rightBrow_color) 
 
         leftBrow_color = EdgeColor()
-        leftBrow_color.r = facemesh_colors['leftBrow_color'][0]
-        leftBrow_color.g = facemesh_colors['leftBrow_color'][1]
-        leftBrow_color.b = facemesh_colors['leftBrow_color'][2]
-        leftBrow_color.a = facemesh_colors['leftBrow_color'][3]
-        facemesh_colors.faceMesh_leftBrow_colors = leftBrow_color
+        leftBrow_color.r = face['leftBrow_color'][0]
+        leftBrow_color.g = face['leftBrow_color'][1]
+        leftBrow_color.b = face['leftBrow_color'][2]
+        leftBrow_color.a = face['leftBrow_color'][3]
+        facemesh_colors.faceMesh_leftBrow_color.CopyFrom(leftBrow_color) 
 
         rightEye_color = EdgeColor()
-        rightEye_color.r = facemesh_colors['rightEye_color'][0]
-        rightEye_color.g = facemesh_colors['rightEye_color'][1]
-        rightEye_color.b = facemesh_colors['rightEye_color'][2]
-        rightEye_color.a = facemesh_colors['rightEye_color'][3]
-        facemesh_colors.faceMesh_rightEye_colors = rightEye_color
+        rightEye_color.r = face['rightEye_color'][0]
+        rightEye_color.g = face['rightEye_color'][1]
+        rightEye_color.b = face['rightEye_color'][2]
+        rightEye_color.a = face['rightEye_color'][3]
+        facemesh_colors.faceMesh_rightEye_color.CopyFrom(rightEye_color)
 
         leftEye_color = EdgeColor()
-        leftEye_color.r = facemesh_colors['leftEye_color'][0]
-        leftEye_color.g = facemesh_colors['leftEye_color'][1]
-        leftEye_color.b = facemesh_colors['leftEye_color'][2]
-        leftEye_color.a = facemesh_colors['leftEye_color'][3]
-        facemesh_colors.faceMesh_leftEye_colors = leftEye_color
+        leftEye_color.r = face['leftEye_color'][0]
+        leftEye_color.g = face['leftEye_color'][1]
+        leftEye_color.b = face['leftEye_color'][2]
+        leftEye_color.a = face['leftEye_color'][3]
+        facemesh_colors.faceMesh_leftEye_color.CopyFrom(leftEye_color)
 
         rightIris_color = EdgeColor()
-        rightIris_color.r = facemesh_colors['rightIris_color'][0]
-        rightIris_color.g = facemesh_colors['rightIris_color'][1]
-        rightIris_color.b = facemesh_colors['rightIris_color'][2]
-        rightIris_color.a = facemesh_colors['rightIris_color'][3]
-        facemesh_colors.faceMesh_rightIris_colors = rightIris_color
+        rightIris_color.r = face['rightIris_color'][0]
+        rightIris_color.g = face['rightIris_color'][1]
+        rightIris_color.b = face['rightIris_color'][2]
+        rightIris_color.a = face['rightIris_color'][3]
+        facemesh_colors.faceMesh_rightIris_color.CopyFrom(rightIris_color)
 
         leftIris_color = EdgeColor()
-        leftIris_color.r = facemesh_colors['leftIris_color'][0]
-        leftIris_color.g = facemesh_colors['leftIris_color'][1]
-        leftIris_color.b = facemesh_colors['leftIris_color'][2]
-        leftIris_color.a = facemesh_colors['leftIris_color'][3]
-        facemesh_colors.faceMesh_leftIris_colors = leftIris_color
+        leftIris_color.r = face['leftIris_color'][0]
+        leftIris_color.g = face['leftIris_color'][1]
+        leftIris_color.b = face['leftIris_color'][2]
+        leftIris_color.a = face['leftIris_color'][3]
+        facemesh_colors.faceMesh_leftIris_color.CopyFrom(leftIris_color)
 
-        rdata.faces.append(facemesh_colors)
+        rdata.faceMesh_colors.append(facemesh_colors)
 
 
 # def _serialize_mask(masks: List[List[List[int]]], rdata: RecognitionData, **kwargs) -> None:
@@ -504,7 +519,7 @@ def _serialize_thicknesses(thicknesses: List[float], rdata: RecognitionData, **k
         contour_thickness.faceMesh_leftIris_thickness = face['leftIris_thickness']
         contour_thickness.faceMesh_rightIris_thickness = face['rightIris_thickness']
 
-        rdata.contour_thickness.append(contour_thickness)
+        rdata.contour_thicknesses.append(contour_thickness)
 
 
 # def _serialize_colors(colors: List[List[int]], rdata: RecognitionData, **kwargs) -> None:

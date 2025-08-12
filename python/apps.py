@@ -768,8 +768,11 @@ async def run_recognition(app: VideoProcessApp) -> None:
                 # result = get_recognition(frame, score_threshold = 0.45, top_k = 40,
                 #                         filter_objects=included_classes,)
                 # Should return a dict with different results in it (e.g. {face_landmarks: [List[List[NormalizedLandmarks]]]})
-                result = await app.model_process.get_result(image=frame)
+                result = await app.model_process.get_result(image=frame)  # get_result() for the first ToyProcess I believe will continously run get_recognition
                 end_time = time.time()
+
+            # print("***************** PRINT RESULT *****************")
+            # print(result)
 
             global total_time_rec, count_rec, last_print_time_rec
             total_time_rec += end_time - start_time
@@ -815,13 +818,22 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
         try:
             start_time = time.time()
             # get the frame and result
-            (frame, result, pose, timestamp) = app.latest_result
+            (frame, result, pose, timestamp) = app.latest_result  # app.latest_result gets updated via 
 
+            # NOT sure why previous way of instantiating result_tosend was like this. Either use this way
+            # to have gloabal "needed_fields" var or just delete this commented out part and keep the manual
+            # instantiation of result_tosend below.
             needed_fields = [
                 "face_landmarks",
+                "boxes"
                 # "face_blendshapes"
             ]
             result_tosend = {field: result[field] for field in needed_fields}
+            # result_tosend = {  TODO: DELETEcls
+            #     "face_landmarks": [],
+            #     "boxes": []
+            # }
+            # print("result_tosend:", result_tosend)
 
             # add camera position
             # if pose is not None:
@@ -868,14 +880,14 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
 
             with contour_lock:
                 thickness_to_send = {
-                    'tesselation_thicknesses' : g_values['faceMesh_tesselation_thickness'],
-                    'contour_thicknesses' : g_values['faceMesh_contour_thickness'],
-                    'leftBrow_thicknesses' : g_values['faceMesh_leftEye_thickness'],
-                    'rightBrow_thicknesses' : g_values['faceMesh_rightBrow_thickness'],
-                    'leftEye_thicknesses' : g_values['faceMesh_leftEye_thickness'],
-                    'rightEye_thicknesses' : g_values['faceMesh_rightEye_thickness'],
-                    'leftIris_thicknesses' : g_values['faceMesh_leftIris_thickness'],
-                    'rightIris_thicknesses' : g_values['faceMesh_rightIris_thickness'],
+                    'tesselation_thickness' : g_values['faceMesh_tesselation_thickness'],
+                    'contour_thickness' : g_values['faceMesh_contour_thickness'],
+                    'leftBrow_thickness' : g_values['faceMesh_leftEye_thickness'],
+                    'rightBrow_thickness' : g_values['faceMesh_rightBrow_thickness'],
+                    'leftEye_thickness' : g_values['faceMesh_leftEye_thickness'],
+                    'rightEye_thickness' : g_values['faceMesh_rightEye_thickness'],
+                    'leftIris_thickness' : g_values['faceMesh_leftIris_thickness'],
+                    'rightIris_thickness' : g_values['faceMesh_rightIris_thickness'],
                 }
 
             # with label_lock:
@@ -893,17 +905,21 @@ async def send_recognition(app: VideoProcessApp, lookback: bool = False) -> None
                     color_to_send = g_diff_colors
                     design_to_send = g_diff_designs
                     thickness_to_send = g_diff_thicknesses
-                    label_color_to_send = g_diff_label_colors
+                    # label_color_to_send = g_diff_label_colors
 
             sresult = serialize(
                 result_tosend,
                 colors = color_to_send,
                 augmentations = design_to_send,
                 thicknesses = thickness_to_send,
-                label_colors = label_color_to_send,
+                # label_colors = label_color_to_send,
                 timestamp = timestamp,
-                name_mapping = name_mapping,
+                # name_mapping = name_mapping,
             )
+
+            # print("Is send_recognition working?")
+            # print(f"About to send data to hololens: {sresult}")
+
 
             # send the message
             app.send_data(sresult)
